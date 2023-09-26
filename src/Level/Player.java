@@ -13,12 +13,13 @@ import java.util.ArrayList;
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
-    protected float walkSpeed = 0;
+    protected float walkSpeed = 1;
     protected float gravity = 0;
     protected float jumpHeight = 0;
     protected float jumpDegrade = 0;
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
+    protected float normalWalkSpeed;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -43,6 +44,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.LEFT;
     protected Key MOVE_RIGHT_KEY = Key.RIGHT;
     protected Key CROUCH_KEY = Key.DOWN;
+    protected Key SPEED_UP_KEY = Key.SHIFT;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -55,6 +57,7 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+        normalWalkSpeed = walkSpeed;
     }
 
     public void update() {
@@ -163,6 +166,13 @@ public abstract class Player extends GameObject {
         // if crouch key is pressed,
         else if (Keyboard.isKeyDown(CROUCH_KEY)) {
             playerState = PlayerState.CROUCHING;
+        }
+
+        // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
+        if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
+            walkSpeed = normalWalkSpeed * 4;
+        } else {
+            walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
     }
 
