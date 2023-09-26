@@ -8,20 +8,28 @@ import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Player;
 
+import java.awt.Color;
 import java.util.HashMap;
 
-// This is the class for the Cat player character
+// This is the class for the Greg player character
 // basically just sets some values for physics and then defines animations
-public class Cat extends Player {
+public class Greg extends Player {
 
-    public Cat(float x, float y) {
-        super(new SpriteSheet(ImageLoader.load("Cat.png"), 24, 24), x, y, "STAND_RIGHT");
+        public Greg(float x, float y) {
+   
+        //No outline, but large, will need to adjust collision
+        //super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y, "STAND_RIGHT");
+        
+        //Standard Size, pink outline 
+        super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y, "STAND_RIGHT");
+        
         gravity = .5f;
         terminalVelocityY = 6f;
         jumpHeight = 14.5f;
         jumpDegrade = .5f;
         walkSpeed = 2.3f;
         momentumYIncrease = .5f;
+        
     }
 
     public void update() {

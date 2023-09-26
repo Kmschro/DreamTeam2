@@ -4,10 +4,12 @@ import Engine.Key;
 import Engine.KeyLocker;
 import Engine.Keyboard;
 import GameObject.GameObject;
+import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Utils.AirGroundState;
 import Utils.Direction;
 
+import java.awt.Color;
 import java.util.ArrayList;
 
 public abstract class Player extends GameObject {
@@ -55,6 +57,7 @@ public abstract class Player extends GameObject {
         playerState = PlayerState.STANDING;
         previousPlayerState = playerState;
         levelState = LevelState.RUNNING;
+        
     }
 
     public void update() {
