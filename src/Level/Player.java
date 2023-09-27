@@ -45,7 +45,7 @@ public abstract class Player extends GameObject {
     protected Key JUMP_KEY = Key.W;
     protected Key MOVE_LEFT_KEY = Key.A;
     protected Key MOVE_RIGHT_KEY = Key.D;
-    protected Key CROUCH_KEY = Key.S;
+
     protected Key SPEED_UP_KEY = Key.SHIFT;
     protected Key SHOOT_KEY = Key.F; // Add this line to define the key for shooting
 
@@ -116,9 +116,6 @@ public abstract class Player extends GameObject {
             case WALKING:
                 playerWalking();
                 break;
-            case CROUCHING:
-                playerCrouching();
-                break;
             case JUMPING:
                 playerJumping();
                 break;
@@ -145,10 +142,6 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
-        // if crouch key is pressed, player enters CROUCHING state
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
-            playerState = PlayerState.CROUCHING;
-        }
     }
 
     // player WALKING state logic
@@ -173,10 +166,6 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
-        // if crouch key is pressed,
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
-            playerState = PlayerState.CROUCHING;
-        }
 
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
         if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
@@ -184,14 +173,9 @@ public abstract class Player extends GameObject {
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
-    }
+    
 
-    // player CROUCHING state logic
-    protected void playerCrouching() {
-        // if crouch key is released, player enters STANDING state
-        if (Keyboard.isKeyUp(CROUCH_KEY)) {
-            playerState = PlayerState.STANDING;
-        }
+
 
         // if jump key is pressed, player enters JUMPING state
         if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
