@@ -47,6 +47,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_RIGHT_KEY = Key.D;
     protected Key CROUCH_KEY = Key.S;
     protected Key SPEED_UP_KEY = Key.SHIFT;
+    protected Key SHOOT_KEY = Key.F; // Add this line to define the key for shooting
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -123,7 +124,14 @@ public abstract class Player extends GameObject {
                 break;
         }
     }
-
+    
+    protected void playerShooting() {
+        // Check if the SHOOT_KEY (Spacebar) is pressed
+        if (Keyboard.isKeyDown(SHOOT_KEY)) {
+            // Implement code to shoot a fireball here
+            playerState = PlayerState.SHOOTING;
+        }
+    }
     // player STANDING state logic
     protected void playerStanding() {
         // if walk left or walk right key is pressed, player enters WALKING state
