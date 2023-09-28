@@ -9,7 +9,7 @@ import java.util.HashMap;
 // This class represents a map entity, which is any "entity" on a map besides the player
 // it is basically a game object with a few extra features for handling things like respawning
 public class MapEntity extends GameObject {
-    protected MapEntityStatus mapEntityStatus = MapEntityStatus.ACTIVE;
+    public MapEntityStatus mapEntityStatus = MapEntityStatus.ACTIVE;
 
     // if true, entity will continue to be updated even if off camera
     protected boolean isUpdateOffScreen = false;

@@ -231,10 +231,10 @@ public class Greg extends Player {
                 int fireballX;
                 float movementSpeed;
                 if (playerFacingDirection == Direction.RIGHT) {
-                        fireballX = Math.round(playerX) + getWidth();
+                        fireballX = Math.round(playerX) + getWidth() -10;
                         movementSpeed = 1.5f; // Adjust as needed
                 } else {
-                        fireballX = Math.round(playerX - 21); // Adjust as needed
+                        fireballX = (Math.round(playerX - 21))-15; // Adjust as needed
                         movementSpeed = -1.5f; // Adjust as needed
                 }
 
