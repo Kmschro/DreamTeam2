@@ -6,6 +6,7 @@ import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.Sprite;
 import GameObject.SpriteSheet;
+import Players.Greg;
 import Utils.AirGroundState;
 import Utils.Direction;
 
@@ -47,6 +48,7 @@ public abstract class Player extends GameObject {
     protected Key MOVE_RIGHT_KEY = Key.D;
     protected Key CROUCH_KEY = Key.S;
     protected Key SPEED_UP_KEY = Key.SHIFT;
+    protected Key SUICIDE = Key.L;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -66,7 +68,7 @@ public abstract class Player extends GameObject {
         moveAmountX = 0;
         moveAmountY = 0;
 
-        // if player is currently playing through level (has not won or lost)
+        // if player is currently playing through level (has not won or lost) NOTE FROM THOMAS: THIS IF STATEMENT THAT CALLS THE applyGravity(): FUNCTION MAY CAUSE FUTURE PROBLEMS WHEN WE INSTIUTE OUR GRAVITY FLIP
         if (levelState == LevelState.RUNNING) {
             applyGravity();
 
@@ -98,6 +100,10 @@ public abstract class Player extends GameObject {
         // if player has lost level
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
+        }
+        //Suicide Button for testing purposes, no im not a sadist; SHOUTOUT TO RILEY FOR HELPING GREG END HIS SUFFERING
+        if (Keyboard.isKeyDown(SUICIDE)) {
+            levelState = LevelState.PLAYER_DEAD;
         }
     }
 
