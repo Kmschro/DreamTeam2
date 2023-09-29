@@ -16,14 +16,15 @@ public class ScreenCoordinator extends Screen {
 	protected Screen currentScreen = new DefaultScreen();
 
 	// keep track of gameState so ScreenCoordinator knows which Screen to show
-	protected GameState gameState;
+	protected static GameState gameState;
 	protected GameState previousGameState;
 
-	public GameState getGameState() {
+	public static GameState getGameState() {
 		return gameState;
 	}
 
-	// Other Screens can set the gameState of this class to force it to change the currentScreen
+	// Other Screens can set the gameState of this class to force it to change the
+	// currentScreen
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
 	}
@@ -37,10 +38,12 @@ public class ScreenCoordinator extends Screen {
 	@Override
 	public void update() {
 		do {
-			// if previousGameState does not equal gameState, it means there was a change in gameState
-			// this triggers ScreenCoordinator to bring up a new Screen based on what the gameState is
+			// if previousGameState does not equal gameState, it means there was a change in
+			// gameState
+			// this triggers ScreenCoordinator to bring up a new Screen based on what the
+			// gameState is
 			if (previousGameState != gameState) {
-				switch(gameState) {
+				switch (gameState) {
 					case MENU:
 						currentScreen = new MenuScreen(this);
 						break;
