@@ -48,11 +48,8 @@ public abstract class Player extends GameObject {
     protected Key MOVE_RIGHT_KEY = Key.D;
 
     protected Key SPEED_UP_KEY = Key.SHIFT;
-<<<<<<< HEAD
+    protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
-=======
-    protected Key SHOOT_KEY = Key.F; // Add this line to define the key for shooting
->>>>>>> 8eb65d7e732194eec16f40b08e8d52a4cb746228
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)

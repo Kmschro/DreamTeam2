@@ -27,7 +27,6 @@ public class Greg extends Player {
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
 
         public Greg(float x, float y) {
-<<<<<<< HEAD
    
         //No outline, but large, will need to adjust collision
         //super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y, "STAND_RIGHT");
@@ -44,25 +43,6 @@ public class Greg extends Player {
         jumpDegrade = .5f;
         walkSpeed = 2.3f;
         momentumYIncrease = .5f;
-        
-    }
-=======
->>>>>>> 8eb65d7e732194eec16f40b08e8d52a4cb746228
-
-                // No outline, but large, will need to adjust collision
-                // super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y,
-                // "STAND_RIGHT");
-
-                // Standard Size, pink outline
-                super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y, "STAND_RIGHT");
-
-                gravity = .5f;
-                terminalVelocityY = 6f;
-                jumpHeight = 14.5f;
-                jumpDegrade = .5f;
-                walkSpeed = 4.6f;
-                momentumYIncrease = .5f;
-
         }
 
         public void update() {
