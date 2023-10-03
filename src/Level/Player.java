@@ -6,6 +6,7 @@ import Engine.Keyboard;
 import GameObject.GameObject;
 import GameObject.Sprite;
 import GameObject.SpriteSheet;
+import Players.Greg;
 import Utils.AirGroundState;
 import Utils.Direction;
 
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
-    protected float walkSpeed = 2;
+    protected float walkSpeed = 1;
     protected float gravity = 0;
     protected float jumpHeight = 0;
     protected float jumpDegrade = 0;
@@ -45,8 +46,10 @@ public abstract class Player extends GameObject {
     protected Key JUMP_KEY = Key.W;
     protected Key MOVE_LEFT_KEY = Key.A;
     protected Key MOVE_RIGHT_KEY = Key.D;
-    protected Key CROUCH_KEY = Key.S;
+
     protected Key SPEED_UP_KEY = Key.SHIFT;
+    protected Key SHOOT_KEY = Key.F;
+    protected Key SUICIDE = Key.L;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -66,11 +69,12 @@ public abstract class Player extends GameObject {
         moveAmountX = 0;
         moveAmountY = 0;
 
-        // if player is currently playing through level (has not won or lost)
+        // if player is currently playing through level (has not won or lost) NOTE FROM THOMAS: THIS IF STATEMENT THAT CALLS THE applyGravity(): FUNCTION MAY CAUSE FUTURE PROBLEMS WHEN WE INSTIUTE OUR GRAVITY FLIP
         if (levelState == LevelState.RUNNING) {
             applyGravity();
 
-            // update player's state and current actions, which includes things like determining how much it should move each frame and if its walking or jumping
+            // update player's state and current actions, which includes things like
+            // determining how much it should move each frame and if its walking or jumping
             do {
                 previousPlayerState = playerState;
                 handlePlayerState();
@@ -78,7 +82,8 @@ public abstract class Player extends GameObject {
 
             previousAirGroundState = airGroundState;
 
-            // move player with respect to map collisions based on how much player needs to move this frame
+            // move player with respect to map collisions based on how much player needs to
+            // move this frame
             lastAmountMovedX = super.moveXHandleCollision(moveAmountX);
             lastAmountMovedY = super.moveYHandleCollision(moveAmountY);
 
@@ -99,6 +104,10 @@ public abstract class Player extends GameObject {
         else if (levelState == LevelState.PLAYER_DEAD) {
             updatePlayerDead();
         }
+        //Suicide Button for testing purposes, no im not a sadist; SHOUTOUT TO RILEY FOR HELPING GREG END HIS SUFFERING
+        if (Keyboard.isKeyDown(SUICIDE)) {
+            levelState = LevelState.PLAYER_DEAD;
+        }
     }
 
     // add gravity to player, which is a downward force
@@ -106,7 +115,8 @@ public abstract class Player extends GameObject {
         moveAmountY += gravity + momentumY;
     }
 
-    // based on player's current state, call appropriate player state handling method
+    // based on player's current state, call appropriate player state handling
+    // method
     protected void handlePlayerState() {
         switch (playerState) {
             case STANDING:
@@ -115,12 +125,17 @@ public abstract class Player extends GameObject {
             case WALKING:
                 playerWalking();
                 break;
-            case CROUCHING:
-                playerCrouching();
-                break;
             case JUMPING:
                 playerJumping();
                 break;
+        }
+    }
+
+    protected void playerShooting() {
+        // Check if the SHOOT_KEY (Spacebar) is pressed
+        if (Keyboard.isKeyDown(SHOOT_KEY)) {
+            // Implement code to shoot a fireball here
+            playerState = PlayerState.SHOOTING;
         }
     }
 
@@ -137,10 +152,6 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
-        // if crouch key is pressed, player enters CROUCHING state
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
-            playerState = PlayerState.CROUCHING;
-        }
     }
 
     // player WALKING state logic
@@ -165,24 +176,11 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
         }
 
-        // if crouch key is pressed,
-        else if (Keyboard.isKeyDown(CROUCH_KEY)) {
-            playerState = PlayerState.CROUCHING;
-        }
-
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
         if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
             walkSpeed = normalWalkSpeed * 2;
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
-        }
-    }
-
-    // player CROUCHING state logic
-    protected void playerCrouching() {
-        // if crouch key is released, player enters STANDING state
-        if (Keyboard.isKeyUp(CROUCH_KEY)) {
-            playerState = PlayerState.STANDING;
         }
 
         // if jump key is pressed, player enters JUMPING state
@@ -194,7 +192,8 @@ public abstract class Player extends GameObject {
 
     // player JUMPING state logic
     protected void playerJumping() {
-        // if last frame player was on ground and this frame player is still on ground, the jump needs to be setup
+        // if last frame player was on ground and this frame player is still on ground,
+        // the jump needs to be setup
         if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
 
             // sets animation to a JUMP animation based on which way player is facing
@@ -212,7 +211,8 @@ public abstract class Player extends GameObject {
             }
         }
 
-        // if player is in air (currently in a jump) and has more jumpForce, continue sending player upwards
+        // if player is in air (currently in a jump) and has more jumpForce, continue
+        // sending player upwards
         else if (airGroundState == AirGroundState.AIR) {
             if (jumpForce > 0) {
                 moveAmountY -= jumpForce;
@@ -229,19 +229,22 @@ public abstract class Player extends GameObject {
                 moveAmountX += walkSpeed;
             }
 
-            // if player is falling, increases momentum as player falls so it falls faster over time
+            // if player is falling, increases momentum as player falls so it falls faster
+            // over time
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
         }
 
-        // if player last frame was in air and this frame is now on ground, player enters STANDING state
+        // if player last frame was in air and this frame is now on ground, player
+        // enters STANDING state
         else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
             playerState = PlayerState.STANDING;
         }
     }
 
-    // while player is in air, this is called, and will increase momentumY by a set amount until player reaches terminal velocity
+    // while player is in air, this is called, and will increase momentumY by a set
+    // amount until player reaches terminal velocity
     protected void increaseMomentum() {
         momentumY += momentumYIncrease;
         if (momentumY > terminalVelocityY) {
@@ -269,17 +272,15 @@ public abstract class Player extends GameObject {
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
             }
-        }
-        else if (playerState == PlayerState.WALKING) {
+        } else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
-        }
-        else if (playerState == PlayerState.CROUCHING) {
+        } else if (playerState == PlayerState.CROUCHING) {
             // sets animation to a CROUCH animation based on which way player is facing
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
-        }
-        else if (playerState == PlayerState.JUMPING) {
-            // if player is moving upwards, set player's animation to jump. if player moving downwards, set player's animation to fall
+        } else if (playerState == PlayerState.JUMPING) {
+            // if player is moving upwards, set player's animation to jump. if player moving
+            // downwards, set player's animation to fall
             if (lastAmountMovedY <= 0) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
             } else {
@@ -289,7 +290,8 @@ public abstract class Player extends GameObject {
     }
 
     @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) { }
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+    }
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
@@ -305,7 +307,8 @@ public abstract class Player extends GameObject {
             }
         }
 
-        // if player collides with map tile upwards, it means it was jumping and then hit into a ceiling -- immediately stop upwards jump velocity
+        // if player collides with map tile upwards, it means it was jumping and then
+        // hit into a ceiling -- immediately stop upwards jump velocity
         else if (direction == Direction.UP) {
             if (hasCollided) {
                 jumpForce = 0;
@@ -362,11 +365,13 @@ public abstract class Player extends GameObject {
             }
             super.update();
         }
-        // if death animation not on last frame yet, continue to play out death animation
+        // if death animation not on last frame yet, continue to play out death
+        // animation
         else if (currentFrameIndex != getCurrentAnimation().length - 1) {
-          super.update();
+            super.update();
         }
-        // if death animation on last frame (it is set up not to loop back to start), player should continually fall until it goes off screen
+        // if death animation on last frame (it is set up not to loop back to start),
+        // player should continually fall until it goes off screen
         else if (currentFrameIndex == getCurrentAnimation().length - 1) {
             if (map.getCamera().containsDraw(this)) {
                 moveY(3);
