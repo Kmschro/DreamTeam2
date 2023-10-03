@@ -5,6 +5,10 @@ import SpriteFont.SpriteFont;
 import Utils.Colors;
 
 import javax.swing.*;
+
+import Game.GameState;
+import Game.ScreenCoordinator;
+
 import java.awt.*;
 
 /*
@@ -20,8 +24,10 @@ public class GamePanel extends JPanel {
 
 	private boolean isGamePaused = false;
 	private SpriteFont pauseLabel;
+	private SpriteFont resumeGameLabel;
+	private SpriteFont mainMenuLabel;
 	private KeyLocker keyLocker = new KeyLocker();
-	private final Key pauseKey = Key.P;
+	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
 
 	private Key showFPSKey = Key.G;
@@ -41,9 +47,17 @@ public class GamePanel extends JPanel {
 
 		screenManager = new ScreenManager();
 
-		pauseLabel = new SpriteFont("PAUSE", 365, 280, "Comic Sans", 24, Color.white);
+		pauseLabel = new SpriteFont("PAUSE", 365, 100, "Comic Sans", 30, Color.white);
 		pauseLabel.setOutlineColor(Color.black);
 		pauseLabel.setOutlineThickness(2.0f);
+
+		//code for resume game and main menu labels on pause screen
+		resumeGameLabel = new SpriteFont("RESUME GAME", 300, 150, "Comic Sans", 24, Color.white);
+        resumeGameLabel.setOutlineColor(Color.black);
+        resumeGameLabel.setOutlineThickness(3);
+        mainMenuLabel= new SpriteFont("MAIN MENU", 300, 190, "Comic Sans", 24, Color.white);
+        mainMenuLabel.setOutlineColor(Color.black);
+        mainMenuLabel.setOutlineThickness(3);
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Comic Sans", 12, Color.black);
 
@@ -62,7 +76,7 @@ public class GamePanel extends JPanel {
 		screenManager.initialize(new Rectangle(getX(), getY(), getWidth(), getHeight()));
 	}
 
-	// this starts the timer (the game loop is started here
+	// this starts the timer (the game loop is started here)
 	public void startGame() {
 		gameLoopProcess.start();
 	}
@@ -82,10 +96,12 @@ public class GamePanel extends JPanel {
 		if (!isGamePaused) {
 			screenManager.update();
 		}
+
+		
 	}
 
 	private void updatePauseState() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey)) {
+		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && ScreenCoordinator.getGameState() != GameState.MENU && ScreenCoordinator.getGameState() != GameState.CREDITS) {
 			isGamePaused = !isGamePaused;
 			keyLocker.lockKey(pauseKey);
 		}
@@ -114,6 +130,9 @@ public class GamePanel extends JPanel {
 		// if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
 			pauseLabel.draw(graphicsHandler);
+			resumeGameLabel.draw(graphicsHandler);
+			mainMenuLabel.draw(graphicsHandler);
+
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 		}
 

@@ -49,8 +49,15 @@ public class Fireball extends Enemy {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
+                   // Check if the entity collided with is an instance of Fireball
+        if (entityCollidedWith instanceof Fireball) {
+            // Remove the collided fireball as well
+            entityCollidedWith.mapEntityStatus = MapEntityStatus.REMOVED;
+            }
         }
     }
+    
+    
 
     @Override
     public void touchedPlayer(Player player) {
