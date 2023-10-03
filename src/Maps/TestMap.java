@@ -28,8 +28,13 @@ public class TestMap extends Map {
         BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
         enemies.add(bugEnemy);
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(19, 1).getLocation().addY(2), getMapTile(22, 1).getLocation().addY(2), Direction.RIGHT);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(
+            getMapTile(17, 9).getLocation(), // Adjusted Y-coordinate here
+            getMapTile(21, 9).getLocation(), // Adjusted Y-coordinate here
+            Direction.RIGHT
+        );
         enemies.add(dinosaurEnemy);
+        
 
         return enemies;
     }
