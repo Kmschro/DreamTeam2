@@ -178,7 +178,7 @@ public abstract class Player extends GameObject {
 
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
         if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
-            walkSpeed = normalWalkSpeed * 3;
+            walkSpeed = normalWalkSpeed * 2.5f;
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
