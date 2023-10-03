@@ -89,7 +89,7 @@ public class GamePanel extends JPanel {
 	}
 
 	private void updatePauseState() {
-		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && ScreenCoordinator.getGameState() != GameState.MENU) {
+		if (Keyboard.isKeyDown(pauseKey) && !keyLocker.isKeyLocked(pauseKey) && ScreenCoordinator.getGameState() != GameState.MENU && ScreenCoordinator.getGameState() != GameState.CREDITS) {
 			isGamePaused = !isGamePaused;
 			keyLocker.lockKey(pauseKey);
 		}
