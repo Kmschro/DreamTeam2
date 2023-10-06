@@ -24,9 +24,13 @@ public class BugEnemy extends Enemy {
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
+    private Point startLocation;
+    private Point endLocation;
 
-    public BugEnemy(Point location, Direction facingDirection) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+    public BugEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+        this.startLocation = startLocation;
+        this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
         this.initialize();
     }
@@ -45,6 +49,8 @@ public class BugEnemy extends Enemy {
 
     @Override
     public void update(Player player) {
+        float startBound = startLocation.x;
+        float endBound = endLocation.x;
         float moveAmountX = 0;
         float moveAmountY = 0;
 
@@ -57,6 +63,16 @@ public class BugEnemy extends Enemy {
                 moveAmountX += movementSpeed;
             } else {
                 moveAmountX -= movementSpeed;
+            }
+
+            if (getX1() + getWidth() >= endBound) {
+                float difference = endBound - (getX2());
+                moveXHandleCollision(-difference);
+                facingDirection = Direction.LEFT;
+            } else if (getX1() <= startBound) {
+                float difference = startBound - getX1();
+                moveXHandleCollision(difference);
+                facingDirection = Direction.RIGHT;
             }
         }
 
@@ -122,5 +138,6 @@ public class BugEnemy extends Enemy {
                             .build()
             });
         }};
+        
     }
 }

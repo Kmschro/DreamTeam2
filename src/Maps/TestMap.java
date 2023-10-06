@@ -25,12 +25,12 @@ public class TestMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(16, 10).getLocation().subtractY(25), Direction.LEFT);
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(13, 10).getLocation().subtractY(25), getMapTile(18, 10).getLocation(), Direction.RIGHT);
         enemies.add(bugEnemy);
 
         DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(
-            getMapTile(17, 9).getLocation(), // Adjusted Y-coordinate here
-            getMapTile(21, 9).getLocation(), // Adjusted Y-coordinate here
+            getMapTile(18, 9).getLocation(), // Adjusted Y-coordinate here
+            getMapTile(22, 9).getLocation(), // Adjusted Y-coordinate here
             Direction.RIGHT
         );
         enemies.add(dinosaurEnemy);
