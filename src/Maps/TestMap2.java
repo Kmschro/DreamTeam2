@@ -8,6 +8,7 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import NPCs.Walrus;
+import Powerups.FireballPowerup;
 import Tilesets.CommonTileset;
 import Utils.Direction;
 
@@ -25,6 +26,12 @@ public class TestMap2 extends Map {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
         return enemies;
+    }
+    @Override
+    public ArrayList<Powerup> loadPowerups() {
+        ArrayList<Powerup> powerups = new ArrayList<>();
+        
+        return powerups;
     }
 
     @Override

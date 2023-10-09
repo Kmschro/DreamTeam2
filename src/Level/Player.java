@@ -411,4 +411,8 @@ public abstract class Player extends GameObject {
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
     }
+
+    public void gainFireballAbility() {
+        
+    }
 }
