@@ -35,7 +35,7 @@ public class Greg extends Player {
         //super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y, "STAND_RIGHT");
 
         //The og cat for testing purposes (mainly used by Thomas for Skin related tests)
-        super(new SpriteSheet(ImageLoader.load("Gregv1.8.png"), 24, 24), x, y, "STAND_RIGHT");
+        super(new SpriteSheet(ImageLoader.load("Gregv1.8.1.png"), 24, 24), x, y, "STAND_RIGHT");
         
         gravity = .5f;
         terminalVelocityY = 6f;
