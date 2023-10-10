@@ -16,10 +16,9 @@ public class TileBuilder extends JPanel {
     private SelectedTileIndexHolder controlPanelHolder;
     private GraphicsHandler graphicsHandler = new GraphicsHandler();
     private JLabel hoveredTileIndexLabel;
-    private boolean showNPCs;
+    private boolean showPowerups;
     private boolean showEnhancedMapTiles;
     private boolean showEnemies;
-    private boolean showPowerups;
 
     public TileBuilder(SelectedTileIndexHolder controlPanelHolder, JLabel hoveredTileIndexLabel) {
         setBackground(Colors.MAGENTA);
@@ -81,14 +80,8 @@ public class TileBuilder extends JPanel {
             }
         }
 
-        if (showNPCs) {
-            for (NPC npc : map.getNPCs()) {
-                npc.draw(graphicsHandler);
-            }
-        }
-
         if (showPowerups) {
-            for (Powerup powerup : map.getPowerups()) {
+            for (Powerups powerup : map.getPowerups()) {
                 powerup.draw(graphicsHandler);
             }
         }
@@ -164,14 +157,6 @@ public class TileBuilder extends JPanel {
                 point.y >= tile.getY() && point.y <= tile.getY() + tile.getHeight());
     }
 
-    public boolean getShowNPCs() {
-        return showNPCs;
-    }
-
-    public void setShowNPCs(boolean showNPCs) {
-        this.showNPCs = showNPCs;
-        repaint();
-    }
     public boolean getShowPowerups() {
         return showPowerups;
     }

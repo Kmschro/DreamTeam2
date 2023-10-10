@@ -1,7 +1,6 @@
 package Players;
 
 import Builders.FrameBuilder;
-import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
@@ -13,14 +12,12 @@ import Level.Player;
 import Utils.Direction;
 import Utils.Point;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 // This is the class for the Greg player character
 // basically just sets some values for physics and then defines animations
 public class Greg extends Player {
 
-        private DinosaurEnemy dinosaurEnemy;
 
         // Cooldown timer for shooting fireballs (in frames)
         private int fireballCooldown = 0;
