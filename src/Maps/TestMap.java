@@ -62,7 +62,7 @@ public class TestMap extends Map {
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> npcs = new ArrayList<>();
 
-        FireballPU fireballPU = new FireballPU(getMapTile(3, 10).getLocation().subtractY(13));
+        FireballPU fireballPU = new FireballPU(getMapTile(30, 10).getLocation().subtractY(13));
         npcs.add(fireballPU);
 
         return npcs;

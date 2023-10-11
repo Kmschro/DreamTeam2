@@ -43,13 +43,12 @@ public class Powerups extends MapEntity {
     protected SpriteFont createMessage() {
         return null;
     }
-
     public void update(Player player) {
         super.update();
-        
+        if (intersects(player)) {
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+        }
     }
-
-    
     
 
     @Override

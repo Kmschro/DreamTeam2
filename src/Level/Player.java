@@ -19,10 +19,11 @@ public abstract class Player extends GameObject {
     protected float walkSpeed = 3;
     protected float gravity = 0;
     protected float jumpHeight = 0;
-    protected float jumpDegrade = 0;
+    protected float jumpDegrade = 0; 
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
     protected float normalWalkSpeed;
+    protected float fireballSpeed;
 
     // values used to handle player movement
     protected float jumpForce = 0;
@@ -53,6 +54,7 @@ public abstract class Player extends GameObject {
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean haveFBPowerup = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -412,7 +414,12 @@ public abstract class Player extends GameObject {
         listeners.add(listener);
     }
 
-    public void gainFireballAbility() {
-        
+    public void setFBPowerup(boolean haveFBPowerup) {
+        this.haveFBPowerup = haveFBPowerup;
     }
+
+    public boolean getFBPowerup() {
+        return haveFBPowerup;
+    }
+    
 }

@@ -11,6 +11,7 @@ import GameObject.SpriteSheet;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
+import Powerups.FireballPU;
 
 import java.util.HashMap;
 
@@ -18,33 +19,35 @@ import java.util.HashMap;
 // basically just sets some values for physics and then defines animations
 public class Greg extends Player {
 
-
         // Cooldown timer for shooting fireballs (in frames)
         private int fireballCooldown = 0;
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
 
         public Greg(float x, float y) {
-   
-        //No outline, but large, will need to adjust collision
-        //super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y, "STAND_RIGHT");
-        
-        //Standard Size, pink outline //Pink outline is a happy lil accident 
-        //super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y, "STAND_RIGHT");
 
-        //The og cat for testing purposes (mainly used by Thomas for Skin related tests)
-        super(new SpriteSheet(ImageLoader.load("Gregv1.8.png"), 24, 24), x, y, "STAND_RIGHT");
-        
-        gravity = .5f;
-        terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
-        jumpDegrade = .5f;
-        walkSpeed = 2.3f;
-        momentumYIncrease = .5f;
+                // No outline, but large, will need to adjust collision
+                // super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y,
+                // "STAND_RIGHT");
+
+                // Standard Size, pink outline //Pink outline is a happy lil accident
+                // super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y,
+                // "STAND_RIGHT");
+
+                // The og cat for testing purposes (mainly used by Thomas for Skin related
+                // tests)
+                super(new SpriteSheet(ImageLoader.load("Gregv1.8.png"), 24, 24), x, y, "STAND_RIGHT");
+
+                gravity = .5f;
+                terminalVelocityY = 6f;
+                jumpHeight = 14.5f;
+                jumpDegrade = .5f;
+                walkSpeed = 2.3f;
+                momentumYIncrease = .5f;
         }
 
         public void update() {
                 super.update();
-
+                
                 // Decrease the fireball cooldown timer if it's greater than zero
                 if (fireballCooldown > 0) {
                         fireballCooldown--;
@@ -227,13 +230,30 @@ public class Greg extends Player {
                 // Calculate the fireball's initial position and movement speed based on
                 // player's position and direction
                 int fireballX;
+
                 float movementSpeed;
-                if (playerFacingDirection == Direction.RIGHT) {
-                        fireballX = Math.round(playerX) + getWidth() -10;
-                        movementSpeed = 1.5f; // Adjust as needed
-                } else {
-                        fireballX = (Math.round(playerX - 21))-15; // Adjust as needed
-                        movementSpeed = -1.5f; // Adjust as needed
+                boolean hasFireballPowerup = getFBPowerup();
+                if (hasFireballPowerup == false)
+                {
+                        movementSpeed = 1.5f;
+                        if (playerFacingDirection == Direction.RIGHT) {
+                                fireballX = Math.round(playerX) + getWidth() - 10;
+                        
+                        } else {
+                                fireballX = (Math.round(playerX - 21)) - 15; // Adjust as needed
+                                movementSpeed = movementSpeed * -1; // Adjust as needed
+                        }
+                }
+                else 
+                {
+                        movementSpeed = 10.0f;
+                        if (playerFacingDirection == Direction.RIGHT) {
+                                fireballX = Math.round(playerX) + getWidth() - 10;
+                        
+                        } else {
+                                fireballX = (Math.round(playerX - 21)) - 15; // Adjust as needed
+                                movementSpeed = movementSpeed * -1; // Adjust as needed
+                        }
                 }
 
                 // Define where fireball will spawn on the map (y location) relative to player's
