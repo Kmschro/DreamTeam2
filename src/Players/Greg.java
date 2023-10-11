@@ -22,7 +22,8 @@ public class Greg extends Player {
         // Cooldown timer for shooting fireballs (in frames)
         private int fireballCooldown = 0;
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
-
+        SpriteSheet spriteSheet;
+        
         public Greg(float x, float y) {
 
                 // No outline, but large, will need to adjust collision
@@ -35,7 +36,7 @@ public class Greg extends Player {
 
                 // The og cat for testing purposes (mainly used by Thomas for Skin related
                 // tests)
-                super(new SpriteSheet(ImageLoader.load("Gregv1.8.png"), 24, 24), x, y, "STAND_RIGHT");
+                super(new SpriteSheet(ImageLoader.load("Gregv1.8.1.png"), 24, 24), x, y, "STAND_RIGHT");
 
                 gravity = .5f;
                 terminalVelocityY = 6f;
@@ -59,6 +60,7 @@ public class Greg extends Player {
                         // Set the cooldown timer
                         fireballCooldown = FIREBALL_COOLDOWN_DURATION;
                 }
+                
         }
 
         private boolean isFacingRight() {
@@ -221,56 +223,35 @@ public class Greg extends Player {
                 };
         }
 
-        // Method to create a fireball and add it to the level
         private void createFireball() {
                 // Check if the cat is facing left or right
                 float playerX = getX();
                 Direction playerFacingDirection = isFacingRight() ? Direction.RIGHT : Direction.LEFT;
-
-                // Calculate the fireball's initial position and movement speed based on
-                // player's position and direction
+        
                 int fireballX;
-
                 float movementSpeed;
                 boolean hasFireballPowerup = getFBPowerup();
-                if (hasFireballPowerup == false)
-                {
-                        movementSpeed = 1.5f;
-                        if (playerFacingDirection == Direction.RIGHT) {
-                                fireballX = Math.round(playerX) + getWidth() - 10;
-                        
-                        } else {
-                                fireballX = (Math.round(playerX - 21)) - 15; // Adjust as needed
-                                movementSpeed = movementSpeed * -1; // Adjust as needed
-                        }
+        
+                // Check if Greg has the fireball powerup
+                if (hasFireballPowerup) {
+                    // Use the Fireball powerup sprite sheet
+                    spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
+                    movementSpeed = 10.0f;
+                } else {
+                    // Use the regular sprite sheet
+                    movementSpeed = 1.5f;
                 }
-                else 
-                {
-                        movementSpeed = 10.0f;
-                        if (playerFacingDirection == Direction.RIGHT) {
-                                fireballX = Math.round(playerX) + getWidth() - 10;
-                        
-                        } else {
-                                fireballX = (Math.round(playerX - 21)) - 15; // Adjust as needed
-                                movementSpeed = movementSpeed * -1; // Adjust as needed
-                        }
+        
+                if (playerFacingDirection == Direction.RIGHT) {
+                    fireballX = Math.round(playerX) + getWidth() - 10;
+                } else {
+                    fireballX = (Math.round(playerX - 21)) - 15;
+                    movementSpeed = -movementSpeed;
                 }
-
-                // Define where fireball will spawn on the map (y location) relative to player's
-                // location
+        
                 int fireballY = Math.round(getY());
-
-                // Create Fireball enemy
                 Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
-
                 map.addEnemy(fireball);
-                // Add fireball enemy to the map for it to spawn in the level
-                // Note: You may need to access the game's map object here
-                // For example: gameMap.addEnemy(fireball);
-                // Make sure to adapt this part to your game's architecture.
-
-                // Optional: Play a sound effect or animation for the fireball creation
-
-                // Optional: Implement cooldown or limits to fireball creation
+        
+            }
         }
-}
