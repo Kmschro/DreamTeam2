@@ -12,10 +12,10 @@ import Utils.SlopeTileLayoutUtils;
 import java.util.ArrayList;
 
 // This class represents a "common" tileset of standard tiles defined in the CommonTileset.png file
-public class NewTileset extends Tileset {
+public class LabTileset extends Tileset {
 
-    public NewTileset() {
-        super(ImageLoader.load("NewTileset.png"), 16, 16, 3);
+    public LabTileset() {
+        super(ImageLoader.load("LabTileset.png"), 16, 16, 3);
     }
 
     @Override

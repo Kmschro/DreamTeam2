@@ -1,7 +1,6 @@
 package Players;
 
 import Builders.FrameBuilder;
-import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
@@ -12,42 +11,34 @@ import GameObject.SpriteSheet;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
+import Powerups.FireballPU;
 
-import java.awt.Color;
 import java.util.HashMap;
 
 // This is the class for the Greg player character
 // basically just sets some values for physics and then defines animations
 public class Greg extends Player {
 
-        private DinosaurEnemy dinosaurEnemy;
-
         // Cooldown timer for shooting fireballs (in frames)
         private int fireballCooldown = 0;
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
-
+        SpriteSheet spriteSheet;
+        
         public Greg(float x, float y) {
-   
-        //No outline, but large, will need to adjust collision
-        //super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y, "STAND_RIGHT");
-        
-        //Standard Size, pink outline //Pink outline is a happy lil accident 
-        //super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y, "STAND_RIGHT");
 
-        //The og cat for testing purposes (mainly used by Thomas for Skin related tests)
-        super(new SpriteSheet(ImageLoader.load("Gregv1.8.1.png"), 24, 24), x, y, "STAND_RIGHT");
-        
-        gravity = .5f;
-        terminalVelocityY = 6f;
-        jumpHeight = 14.5f;
-        jumpDegrade = .5f;
-        walkSpeed = 2.3f;
-        momentumYIncrease = .5f;
+                super(new SpriteSheet(ImageLoader.load("Gregv1.8.5.png"), 24, 24), x, y, "STAND_RIGHT");
+
+                gravity = .5f;
+                terminalVelocityY = 6f;
+                jumpHeight = 14.5f;
+                jumpDegrade = .5f;
+                walkSpeed = 2.3f;
+                momentumYIncrease = .5f;
         }
 
         public void update() {
                 super.update();
-
+                
                 // Decrease the fireball cooldown timer if it's greater than zero
                 if (fireballCooldown > 0) {
                         fireballCooldown--;
@@ -59,6 +50,7 @@ public class Greg extends Player {
                         // Set the cooldown timer
                         fireballCooldown = FIREBALL_COOLDOWN_DURATION;
                 }
+                
         }
 
         private boolean isFacingRight() {
@@ -217,43 +209,135 @@ public class Greg extends Player {
                                                                 .withBounds(8, 9, 8, 9)
                                                                 .build()
                                 });
+
+
+
+
+                                //FLIPPED ANIMATIONS
+                                put("PLAYER_FLIPPED_STANDING_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(0,0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8,9,8,9)
+                                                                .build()
+                                });
+                                put("PLAYER_FLIPPED_STANDING_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(0,0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8,9,8,9)
+                                                                .build()
+                                });
+                                put("PLAYER_FLIPPED_WALK_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+
+                                put("PLAYER_FLIPPED_WALK_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+                                put("PLAYER_FLIPPED_JUMP_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0))
+                                                                .withScale(3)
+                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+
+                                put("PLAYER_FLIPPED_JUMP_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0))
+                                                                .withScale(3)
+                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+                                /* 
+                                put("PLAYER_FLIPPED_FALL_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(3, 0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+
+                                put("PLAYER_FLIPPED_FALL_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(3, 0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+                                */
                         }
                 };
         }
 
-        // Method to create a fireball and add it to the level
         private void createFireball() {
                 // Check if the cat is facing left or right
                 float playerX = getX();
                 Direction playerFacingDirection = isFacingRight() ? Direction.RIGHT : Direction.LEFT;
-
-                // Calculate the fireball's initial position and movement speed based on
-                // player's position and direction
+        
                 int fireballX;
                 float movementSpeed;
-                if (playerFacingDirection == Direction.RIGHT) {
-                        fireballX = Math.round(playerX) + getWidth() -10;
-                        movementSpeed = 1.5f; // Adjust as needed
+                boolean hasFireballPowerup = getFBPowerup();
+        
+                // Check if Greg has the fireball powerup
+                if (hasFireballPowerup) {
+                    // Use the Fireball powerup sprite sheet
+                    spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
+                    movementSpeed = 10.0f;
                 } else {
-                        fireballX = (Math.round(playerX - 21))-15; // Adjust as needed
-                        movementSpeed = -1.5f; // Adjust as needed
+                    // Use the regular sprite sheet
+                    movementSpeed = 1.5f;
                 }
-
-                // Define where fireball will spawn on the map (y location) relative to player's
-                // location
+        
+                if (playerFacingDirection == Direction.RIGHT) {
+                    fireballX = Math.round(playerX) + getWidth() - 10;
+                } else {
+                    fireballX = (Math.round(playerX - 21)) - 15;
+                    movementSpeed = -movementSpeed;
+                }
+        
                 int fireballY = Math.round(getY());
-
-                // Create Fireball enemy
                 Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
-
                 map.addEnemy(fireball);
-                // Add fireball enemy to the map for it to spawn in the level
-                // Note: You may need to access the game's map object here
-                // For example: gameMap.addEnemy(fireball);
-                // Make sure to adapt this part to your game's architecture.
-
-                // Optional: Play a sound effect or animation for the fireball creation
-
-                // Optional: Implement cooldown or limits to fireball creation
+        
+            }
         }
-}

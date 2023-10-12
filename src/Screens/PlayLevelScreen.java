@@ -4,10 +4,12 @@ import Engine.GraphicsHandler;
 import Engine.Screen;
 import Game.GameState;
 import Game.ScreenCoordinator;
+import Level.LevelState;
 import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
+import Maps.TestMap2;
 import Players.Greg;
 import Utils.Point;
 import Utils.AudioPlayer;
@@ -55,12 +57,21 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
+
+        
+        
+
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
+<<<<<<< HEAD
                 map.update(player);       
+=======
+                map.update(player);
+                
+>>>>>>> 6f447951045477213171d6c22951c4013fd8707d
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -71,6 +82,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                     levelClearedScreen.update();
                     screenTimer--;
                     if (screenTimer == 0) {
+                        
                         goBackToMenu();
                     }
                 }
@@ -81,6 +93,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case LEVEL_LOSE:
                 levelLoseScreen.update();
                 break;
+                    
         }
     }
 
@@ -104,9 +117,39 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         return playLevelScreenState;
     }
 
+    /*
+        //if (player == level_two)
+        //load that screen
+        if (player.stateWin == true) {
+            this.player.levelTwo();
+            this.map = new TestMap2();
+            this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            Point playerStartPosition = map.getPlayerStartPosition();
+            this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+            levelClearedScreen = new LevelClearedScreen();
+            levelLoseScreen = new LevelLoseScreen(this);
+            this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+            player.update();
+            map.update(player);
+        }
+        */
+
+        //counter for all levels
+        protected int counter = 2;
+    //change here for level two
     @Override
     public void onLevelCompleted() {
-        if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED) {
+        if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter >= 2) {
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+            this.map = new TestMap2();
+            this.player.levelTwo();
+            this.player = new Greg(4, 4);
+            Point playerStartPosition = map.getPlayerStartPosition();
+            this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+            //player.update(); //causes error for some reason
+            //map.update(player);
+        }
+        else if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter < 2) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
         }

@@ -25,7 +25,8 @@ public class Camera extends Rectangle {
     // current map entities that are to be included in this frame's update/draw cycle
     private ArrayList<Enemy> activeEnemies = new ArrayList<>();
     private ArrayList<EnhancedMapTile> activeEnhancedMapTiles = new ArrayList<>();
-    private ArrayList<NPC> activeNPCs = new ArrayList<>();
+    private ArrayList<Powerups> activePowerups = new ArrayList<>();
+    
 
     // determines how many tiles off screen an entity can be before it will be deemed inactive and not included in the update/draw cycles until it comes back in range
     private final int UPDATE_OFF_SCREEN_RANGE = 4;
@@ -64,7 +65,7 @@ public class Camera extends Rectangle {
     public void updateMapEntities(Player player) {
         activeEnemies = loadActiveEnemies();
         activeEnhancedMapTiles = loadActiveEnhancedMapTiles();
-        activeNPCs = loadActiveNPCs();
+        activePowerups = loadActivePowerups();
 
         for (Enemy enemy : activeEnemies) {
             enemy.update(player);
@@ -74,9 +75,11 @@ public class Camera extends Rectangle {
             enhancedMapTile.update(player);
         }
 
-        for (NPC npc : activeNPCs) {
-            npc.update(player);
+        for (Powerups powerup : activePowerups) {
+            powerup.update(player);
         }
+
+        
     }
 
     // determine which enemies are active (exist and are within range of the camera)
@@ -120,27 +123,28 @@ public class Camera extends Rectangle {
     }
 
     // determine which npcs are active (exist and are within range of the camera)
-    private ArrayList<NPC> loadActiveNPCs() {
-        ArrayList<NPC> activeNPCs = new ArrayList<>();
-        for (int i = map.getNPCs().size() - 1; i >= 0; i--) {
-            NPC npc = map.getNPCs().get(i);
+    private ArrayList<Powerups> loadActivePowerups() {
+        ArrayList<Powerups> activePowerups = new ArrayList<>();
+        for (int i = map.getPowerups().size() - 1; i >= 0; i--) {
+            Powerups powerup = map.getPowerups().get(i);
 
-            if (isMapEntityActive(npc)) {
-                activeNPCs.add(npc);
-                if (npc.mapEntityStatus == MapEntityStatus.INACTIVE) {
-                    npc.setMapEntityStatus(MapEntityStatus.ACTIVE);
+            if (isMapEntityActive(powerup)) {
+                activePowerups.add(powerup);
+                if (powerup.mapEntityStatus == MapEntityStatus.INACTIVE) {
+                    powerup.setMapEntityStatus(MapEntityStatus.ACTIVE);
                 }
-            } else if (npc.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
-                npc.setMapEntityStatus(MapEntityStatus.INACTIVE);
-            } else if (npc.getMapEntityStatus() == MapEntityStatus.REMOVED) {
-                map.getNPCs().remove(i);
+            } else if (powerup.getMapEntityStatus() == MapEntityStatus.ACTIVE) {
+                powerup.setMapEntityStatus(MapEntityStatus.INACTIVE);
+            } else if (powerup.getMapEntityStatus() == MapEntityStatus.REMOVED) {
+                map.getPowerups().remove(i);
             }
         }
-        return activeNPCs;
+        return activePowerups;
     }
-
+    
+    // determine which npcs are active (exist and are within range of the camera)
     /*
-        determines if map entity (enemy, enhanced map tile, or npc) is active by the camera's standards
+        determines if map entity (enemy, enhanced map tile, or powerup) is active by the camera's standards
         1. if entity's status is REMOVED, it is not active, no questions asked
         2. if an entity is hidden, it is not active
         3. if entity's status is not REMOVED and the entity is not hidden, then there's additional checks that take place:
@@ -183,11 +187,13 @@ public class Camera extends Rectangle {
                 enhancedMapTile.draw(graphicsHandler);
             }
         }
-        for (NPC npc : activeNPCs) {
-            if (containsDraw(npc)) {
-                npc.draw(graphicsHandler);
+        for (Powerups powerup : activePowerups) {
+            if (containsDraw(powerup)) {
+                powerup.draw(graphicsHandler);
             }
         }
+
+        
     }
 
     // checks if a game object's position falls within the camera's current radius
@@ -213,9 +219,11 @@ public class Camera extends Rectangle {
         return activeEnhancedMapTiles;
     }
 
-    public ArrayList<NPC> getActiveNPCs() {
-        return activeNPCs;
+    public ArrayList<Powerups> getActivePowerups() {
+        return activePowerups;
     }
+
+
 
     // gets end bound X position of the camera (start position is always 0)
     public float getEndBoundX() {
