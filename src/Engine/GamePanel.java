@@ -1,6 +1,7 @@
 package Engine;
 
 import GameObject.Rectangle;
+import Screens.PlayLevelScreen;
 import SpriteFont.SpriteFont;
 import Utils.Colors;
 
@@ -30,6 +31,14 @@ public class GamePanel extends JPanel {
 	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
 
+	//newer variables introduced
+	protected int keyPressTimer;
+	protected int pointerLocationX, pointerLocationY;
+	protected int currentMenuItemHovered = 0; // current menu item being "hovered" over
+    protected int menuItemSelected = -1;
+	protected ScreenCoordinator screenCoordinator;
+	protected PlayLevelScreen playLevelScreen;
+
 	private Key showFPSKey = Key.G;
 	private SpriteFont fpsDisplayLabel;
 	private boolean showFPS = false;
@@ -58,6 +67,11 @@ public class GamePanel extends JPanel {
         mainMenuLabel= new SpriteFont("MAIN MENU", 300, 190, "Comic Sans", 24, Color.white);
         mainMenuLabel.setOutlineColor(Color.black);
         mainMenuLabel.setOutlineThickness(3);
+
+		//logic for pasue menu functionailty
+		keyPressTimer = 0;
+        menuItemSelected = -1;
+        keyLocker.lockKey(Key.SPACE);
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Comic Sans", 12, Color.black);
 
@@ -97,6 +111,55 @@ public class GamePanel extends JPanel {
 			screenManager.update();
 		}
 
+		// //everything here copied from menu screen class
+		
+
+		 // if down or up is pressed, change menu item "hovered" over (blue square in front of text will move along with currentMenuItemHovered changing)
+		 if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
+			 keyPressTimer = 14;
+			 currentMenuItemHovered++;
+		 } else if (Keyboard.isKeyDown(Key.UP) &&  keyPressTimer == 0) {
+			 keyPressTimer = 14;
+			 currentMenuItemHovered--;
+		 } else {
+			 if (keyPressTimer > 0) {
+				 keyPressTimer--;
+			 }
+		 }
+ 
+		 // if down is pressed on last menu item or up is pressed on first menu item, "loop" the selection back around to the beginning/end
+		 if (currentMenuItemHovered > 1) {
+			 currentMenuItemHovered = 0;
+		 } else if (currentMenuItemHovered < 0) {
+			 currentMenuItemHovered = 1;
+		 }
+ 
+		 // sets location for blue square in front of text (pointerLocation) and also sets color of spritefont text based on which menu item is being hovered
+		 if (currentMenuItemHovered == 0) {
+			 resumeGameLabel.setColor(new Color(255, 215, 0));
+			 mainMenuLabel.setColor(new Color(49, 207, 240));
+			 pointerLocationX = 270;
+			 pointerLocationY = 155;
+		 } else if (currentMenuItemHovered == 1) {
+			 resumeGameLabel.setColor(new Color(49, 207, 240));
+			 mainMenuLabel.setColor(new Color(255, 215, 0));
+			 pointerLocationX = 270;
+			 pointerLocationY = 195;
+		 }
+ 
+		 //if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
+		 if (Keyboard.isKeyUp(Key.SPACE)) {
+			 keyLocker.unlockKey(Key.SPACE);
+		 }
+		 if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
+			 menuItemSelected = currentMenuItemHovered;
+			 if (menuItemSelected == 0) {
+				 isGamePaused = !isGamePaused;
+				 keyLocker.lockKey(Key.SPACE);
+			 } else if (menuItemSelected == 1) {
+				
+			 }
+		 }
 		
 	}
 
@@ -125,15 +188,16 @@ public class GamePanel extends JPanel {
 	}
 
 	public void draw() {
-		screenManager.draw(graphicsHandler);
+		 screenManager.draw(graphicsHandler);
 
-		// if game is paused, draw pause gfx over Screen gfx
+		// // if game is paused, draw pause gfx over Screen gfx
 		if (isGamePaused) {
 			pauseLabel.draw(graphicsHandler);
 			resumeGameLabel.draw(graphicsHandler);
 			mainMenuLabel.draw(graphicsHandler);
 
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+			graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 15, 15, new Color(49, 207, 240), Color.black, 2);
 		}
 
 		if (showFPS) {
