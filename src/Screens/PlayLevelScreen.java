@@ -66,7 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
-                map.update(player);
+                map.update(player);       
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
