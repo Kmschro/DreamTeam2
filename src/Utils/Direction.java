@@ -15,5 +15,4 @@ public enum Direction {
 		return velocity;
 	}
 
-
 }

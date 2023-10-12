@@ -11,6 +11,7 @@ import Utils.AirGroundState;
 import Utils.Direction;
 
 import java.awt.Color;
+import java.nio.file.FileVisitOption;
 import java.util.ArrayList;
 
 
@@ -20,16 +21,18 @@ public abstract class Player extends GameObject {
     protected float walkSpeed = 3;
     protected float gravity = 0;
     protected float jumpHeight = 0;
-    protected float jumpDegrade = 0;
+    protected float jumpDegrade = 0; 
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
     protected float normalWalkSpeed;
+    protected float fireballSpeed;
 
     // values used to handle player movement
     protected float jumpForce = 0;
     protected float momentumY = 0;
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
+    protected boolean isFlipped = false;
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -53,11 +56,18 @@ public abstract class Player extends GameObject {
     protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
 
+<<<<<<< HEAD
     //level countdown
     int levelIndex = 1;
+=======
+    protected Key FLIP_KEY = Key.R;
+    boolean R_Key_Pressed = false;
+    
+>>>>>>> 9cc28e69887864a95e15f1bdee4e0e5a43e2cff2
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
+    protected boolean haveFBPowerup = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -69,11 +79,9 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
         normalWalkSpeed = walkSpeed;
     }
-
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
-
         // if player is currently playing through level (has not won or lost) NOTE FROM THOMAS: THIS IF STATEMENT THAT CALLS THE applyGravity(): FUNCTION MAY CAUSE FUTURE PROBLEMS WHEN WE INSTIUTE OUR GRAVITY FLIP
         if (levelState == LevelState.RUNNING) {
             applyGravity();
@@ -113,7 +121,43 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(SUICIDE)) {
             levelState = LevelState.PLAYER_DEAD;
         }
+        if (Keyboard.isKeyDown(FLIP_KEY) && !keyLocker.isKeyLocked(FLIP_KEY)) {
+            flipWorld();
+            keyLocker.lockKey(FLIP_KEY);
+            System.out.println("R key press detected");
+        }
     }
+
+    protected void flipWorld() {
+        if (isFlipped) {
+            isFlipped = false;
+            gravity = -gravity;
+            terminalVelocityY = -terminalVelocityY;
+            //Reset JumpForce and momentumY
+            jumpForce = 0;
+            momentumY = 10;
+
+        } else {
+            isFlipped = true;
+            R_Key_Pressed = true;
+            // Reverse gravity
+            gravity = -gravity;
+            // Reverse terminal velocity
+            terminalVelocityY = -terminalVelocityY;
+            momentumY = -10;
+        }
+
+        // Update player state based on new gravity direction
+        if (airGroundState == AirGroundState.AIR) {
+            playerState = PlayerState.JUMPING;
+        } else {
+            playerState = PlayerState.STANDING;
+        }
+
+    }
+    
+    
+
 
     // add gravity to player, which is a downward force
     protected void applyGravity() {
@@ -183,7 +227,7 @@ public abstract class Player extends GameObject {
 
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
         if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
-            walkSpeed = normalWalkSpeed * 3;
+            walkSpeed = normalWalkSpeed * 2.5f;
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
@@ -239,6 +283,9 @@ public abstract class Player extends GameObject {
             if (moveAmountY > 0) {
                 increaseMomentum();
             }
+            if (Keyboard.isKeyUp(JUMP_KEY)) {
+                playerState = PlayerState.STANDING;
+            }
         }
 
         // if player last frame was in air and this frame is now on ground, player
@@ -261,29 +308,36 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(JUMP_KEY)) {
             keyLocker.unlockKey(JUMP_KEY);
         }
+
+        if (Keyboard.isKeyUp(FLIP_KEY))
+        {
+            keyLocker.unlockKey(FLIP_KEY);
+            
+        }
     }
 
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {
             // sets animation to a STAND animation based on which way player is facing
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
-
-            // handles putting goggles on when standing in water
-            // checks if the center of the player is currently touching a water tile
-            int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
-            int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
-            MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-            if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
+            if (isFlipped == true) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "PLAYER_FLIPPED_STANDING_RIGHT" : "PLAYER_FLIPPED_STANDING_LEFT";
+            } else if (isFlipped == false) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
             }
-        } else if (playerState == PlayerState.WALKING) {
-            // sets animation to a WALK animation based on which way player is facing
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
-        } else if (playerState == PlayerState.CROUCHING) {
-            // sets animation to a CROUCH animation based on which way player is facing
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "CROUCH_RIGHT" : "CROUCH_LEFT";
-        } else if (playerState == PlayerState.JUMPING) {
+
+        }
+        if (playerState == PlayerState.WALKING) {
+            if (isFlipped) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "PLAYER_FLIPPED_WALK_RIGHT"
+                        : "PLAYER_FLIPPED_WALK_LEFT";
+            } else {
+                // sets animation to a WALK animation based on which way player is facing
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
+            }
+
+        }
+        if (playerState == PlayerState.JUMPING && isFlipped) {
             // if player is moving upwards, set player's animation to jump. if player moving
             // downwards, set player's animation to fall
             if (lastAmountMovedY <= 0) {
@@ -291,6 +345,24 @@ public abstract class Player extends GameObject {
             } else {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
+        }
+         
+        if (playerState == PlayerState.JUMPING) {
+            // if player is moving upwards, set player's animation to jump. if player moving
+            // downwards, set player's animation to fall
+            if (lastAmountMovedY <= 0) {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
+            } else {
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
+            }
+        }
+        // handles putting goggles on when standing in water
+        // checks if the center of the player is currently touching a water tile
+        int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
+        int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
+        MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
+        if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
+            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
         }
     }
 
@@ -306,12 +378,16 @@ public abstract class Player extends GameObject {
             if (hasCollided) {
                 momentumY = 0;
                 airGroundState = AirGroundState.GROUND;
+                if (isFlipped) {
+                    playerState = PlayerState.STANDING; // Player stands on ceiling when flipped
+                } else {
+                    playerState = PlayerState.JUMPING;
+                }
             } else {
-                playerState = PlayerState.JUMPING;
                 airGroundState = AirGroundState.AIR;
             }
         }
-
+    
         // if player collides with map tile upwards, it means it was jumping and then
         // hit into a ceiling -- immediately stop upwards jump velocity
         else if (direction == Direction.UP) {
@@ -320,6 +396,7 @@ public abstract class Player extends GameObject {
             }
         }
     }
+    
 
     // other entities can call this method to hurt the player
     public void hurtPlayer(MapEntity mapEntity) {
@@ -421,4 +498,13 @@ public abstract class Player extends GameObject {
     public void addListener(PlayerListener listener) {
         listeners.add(listener);
     }
+
+    public void setFBPowerup(boolean haveFBPowerup) {
+        this.haveFBPowerup = haveFBPowerup;
+    }
+
+    public boolean getFBPowerup() {
+        return haveFBPowerup;
+    }
+    
 }
