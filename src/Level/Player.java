@@ -13,6 +13,7 @@ import Utils.Direction;
 import java.awt.Color;
 import java.util.ArrayList;
 
+
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
@@ -37,6 +38,7 @@ public abstract class Player extends GameObject {
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
+    public boolean stateWin = false;
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -50,6 +52,9 @@ public abstract class Player extends GameObject {
     protected Key SPEED_UP_KEY = Key.SHIFT;
     protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
+
+    //level countdown
+    int levelIndex = 1;
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -326,8 +331,13 @@ public abstract class Player extends GameObject {
         }
     }
 
+    //called when player beats level one
+    public void levelTwo() {
+        levelState = LevelState.RUNNING;
+    }
     // other entities can call this to tell the player they beat a level
     public void completeLevel() {
+        stateWin = true;
         levelState = LevelState.LEVEL_COMPLETED;
     }
 

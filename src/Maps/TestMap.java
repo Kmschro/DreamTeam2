@@ -49,7 +49,7 @@ public class TestMap extends Map {
         );
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(146, 5).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(146, 4).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         return enhancedMapTiles;
