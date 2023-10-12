@@ -8,6 +8,7 @@ import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Players.Greg;
 import Utils.AirGroundState;
+import Utils.AudioPlayer;
 import Utils.Direction;
 
 import java.awt.Color;
@@ -40,6 +41,7 @@ public abstract class Player extends GameObject {
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
+    private AudioPlayer Level1SFX = new AudioPlayer();
 
     // define keys
     protected KeyLocker keyLocker = new KeyLocker();
@@ -174,11 +176,18 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
             keyLocker.lockKey(JUMP_KEY);
             playerState = PlayerState.JUMPING;
+
+            try {
+                Level1SFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/jump.wav");
+                Level1SFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
         if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
-            walkSpeed = normalWalkSpeed * 2.5f;
+            walkSpeed = normalWalkSpeed * 3;
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
@@ -270,7 +279,7 @@ public abstract class Player extends GameObject {
             int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
             }
         } else if (playerState == PlayerState.WALKING) {
             // sets animation to a WALK animation based on which way player is facing
@@ -322,6 +331,12 @@ public abstract class Player extends GameObject {
             // if map entity is an enemy, kill player on touch
             if (mapEntity instanceof Enemy) {
                 levelState = LevelState.PLAYER_DEAD;
+                try {
+                    Level1SFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/VOXScrm_Wilhelm scream (ID 0477)_BSB.wav");
+                    Level1SFX.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
     }

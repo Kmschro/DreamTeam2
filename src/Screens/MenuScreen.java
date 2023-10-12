@@ -6,8 +6,10 @@ import Game.ScreenCoordinator;
 import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
+import Utils.AudioPlayer;
 
 import java.awt.*;
+import java.io.IOException;
 
 // This is the class for the main menu screen
 public class MenuScreen extends Screen {
@@ -20,6 +22,9 @@ public class MenuScreen extends Screen {
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
+
+    private AudioPlayer menuMusic = new AudioPlayer();
+    private AudioPlayer menuSFX = new AudioPlayer();
 
     public MenuScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -38,8 +43,16 @@ public class MenuScreen extends Screen {
         keyPressTimer = 0;
         menuItemSelected = -1;
         keyLocker.lockKey(Key.SPACE);
-    }
 
+        try {
+            menuMusic.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/Adventure Awaits FULL.wav");
+            menuMusic.playLooped();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+        
+    
     public void update() {
         // update background map (to play tile animations)
         background.update(null);
@@ -48,9 +61,21 @@ public class MenuScreen extends Screen {
         if (Keyboard.isKeyDown(Key.DOWN) &&  keyPressTimer == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered++;
+            try {
+                menuSFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/button-124476.wav");
+                menuSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else if (Keyboard.isKeyDown(Key.UP) &&  keyPressTimer == 0) {
             keyPressTimer = 14;
             currentMenuItemHovered--;
+            try {
+                menuSFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/button-124476.wav");
+                menuSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
             if (keyPressTimer > 0) {
                 keyPressTimer--;
@@ -84,8 +109,10 @@ public class MenuScreen extends Screen {
         if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
             menuItemSelected = currentMenuItemHovered;
             if (menuItemSelected == 0) {
+                exit();
                 screenCoordinator.setGameState(GameState.LEVEL);
             } else if (menuItemSelected == 1) {
+                exit();
                 screenCoordinator.setGameState(GameState.CREDITS);
             }
         }
@@ -96,5 +123,9 @@ public class MenuScreen extends Screen {
         playGame.draw(graphicsHandler);
         credits.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
+    }
+
+    public void exit() {
+        menuMusic.stop();
     }
 }

@@ -1,6 +1,8 @@
 package Engine;
 
 
+import java.io.IOException;
+
 import GameObject.Rectangle;
 
 /*
@@ -24,7 +26,12 @@ public class ScreenManager {
     }
 
     public void update() {
-        currentScreen.update();
+        try {
+            currentScreen.update();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
