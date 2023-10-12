@@ -20,7 +20,8 @@ public class LevelLoseScreen extends Screen {
     @Override
     public void initialize() {
         loseMessage = new SpriteFont("You lose!", 350, 239, "Comic Sans", 30, Color.white);
-        instructions = new SpriteFont("Press Space to try again or Escape to go back to the main menu", 120, 279,"Comic Sans", 20, Color.white);
+        instructions = new SpriteFont("Press Space to try again or Escape to go back to the main menu", 120, 279,
+                "Comic Sans", 20, Color.white);
         keyLocker.lockKey(Key.SPACE);
         keyLocker.lockKey(Key.ESC);
     }
@@ -43,7 +44,8 @@ public class LevelLoseScreen extends Screen {
     }
 
     public void draw(GraphicsHandler graphicsHandler) {
-        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), Color.black);
+        graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(),
+                Color.black);
         loseMessage.draw(graphicsHandler);
         instructions.draw(graphicsHandler);
     }

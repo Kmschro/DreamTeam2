@@ -7,9 +7,8 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
-import NPCs.Walrus;
 import Tilesets.CommonTileset;
-import Utils.Direction;
+
 
 import java.util.ArrayList;
 
@@ -26,6 +25,7 @@ public class TestMap2 extends Map {
 
         return enemies;
     }
+   
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -37,11 +37,5 @@ public class TestMap2 extends Map {
         return enhancedMapTiles;
     }
 
-    @Override
-    public ArrayList<NPC> loadNPCs() {
-        ArrayList<NPC> npcs = new ArrayList<>();
-
-        return npcs;
-    }
     
 }
