@@ -26,17 +26,7 @@ public class Greg extends Player {
         
         public Greg(float x, float y) {
 
-                // No outline, but large, will need to adjust collision
-                // super(new SpriteSheet(ImageLoader.load("Gregv1.6.png"), 64, 64), x, y,
-                // "STAND_RIGHT");
-
-                // Standard Size, pink outline //Pink outline is a happy lil accident
-                // super(new SpriteSheet(ImageLoader.load("Gregv1.7.png"), 24, 24), x, y,
-                // "STAND_RIGHT");
-
-                // The og cat for testing purposes (mainly used by Thomas for Skin related
-                // tests)
-                super(new SpriteSheet(ImageLoader.load("Gregv1.8.1.png"), 24, 24), x, y, "STAND_RIGHT");
+                super(new SpriteSheet(ImageLoader.load("Gregv1.8.5.png"), 24, 24), x, y, "STAND_RIGHT");
 
                 gravity = .5f;
                 terminalVelocityY = 6f;
