@@ -217,6 +217,102 @@ public class Greg extends Player {
                                                                 .withBounds(8, 9, 8, 9)
                                                                 .build()
                                 });
+
+
+
+
+                                //FLIPPED ANIMATIONS
+                                put("PLAYER_FLIPPED_STANDING_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(0,0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8,9,8,9)
+                                                                .build()
+                                });
+                                put("PLAYER_FLIPPED_STANDING_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(0,0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8,9,8,9)
+                                                                .build()
+                                });
+                                put("PLAYER_FLIPPED_WALK_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_VERTICAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+
+                                put("PLAYER_FLIPPED_WALK_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(1, 0), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 1), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 2), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build(),
+                                                new FrameBuilder(spriteSheet.getSprite(1, 3), 14)
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_H_AND_V)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+                                put("PLAYER_FLIPPED_JUMP_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0))
+                                                                .withScale(3)
+                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+
+                                put("PLAYER_FLIPPED_JUMP_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(2, 0))
+                                                                .withScale(3)
+                                                                //.withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+                                /* 
+                                put("PLAYER_FLIPPED_FALL_RIGHT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(3, 0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+
+                                put("PLAYER_FLIPPED_FALL_LEFT", new Frame[] {
+                                                new FrameBuilder(spriteSheet.getSprite(3, 0))
+                                                                .withScale(3)
+                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                                                                .withBounds(8, 9, 8, 9)
+                                                                .build()
+                                });
+                                */
                         }
                 };
         }
