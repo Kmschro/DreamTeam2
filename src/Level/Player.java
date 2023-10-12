@@ -56,14 +56,12 @@ public abstract class Player extends GameObject {
     protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
 
-<<<<<<< HEAD
+
     //level countdown
     int levelIndex = 1;
-=======
+
     protected Key FLIP_KEY = Key.R;
     boolean R_Key_Pressed = false;
-    
->>>>>>> 9cc28e69887864a95e15f1bdee4e0e5a43e2cff2
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
