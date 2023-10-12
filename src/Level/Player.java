@@ -327,7 +327,6 @@ public abstract class Player extends GameObject {
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {
             // sets animation to a STAND animation based on which way player is facing
-<<<<<<< HEAD
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
 
             // handles putting goggles on when standing in water
@@ -337,12 +336,10 @@ public abstract class Player extends GameObject {
             MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
             if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "SWIM_STAND_RIGHT" : "SWIM_STAND_LEFT";
-=======
             if (isFlipped == true) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "PLAYER_FLIPPED_STANDING_RIGHT" : "PLAYER_FLIPPED_STANDING_LEFT";
             } else if (isFlipped == false) {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
->>>>>>> 6f447951045477213171d6c22951c4013fd8707d
             }
 
         }
@@ -382,7 +379,7 @@ public abstract class Player extends GameObject {
         MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
         if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
-        }
+        } 
     }
 
     @Override
