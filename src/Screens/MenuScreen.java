@@ -45,7 +45,7 @@ public class MenuScreen extends Screen {
         keyLocker.lockKey(Key.SPACE);
 
         try {
-            menuMusic.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/Adventure Awaits FULL.wav");
+            menuMusic.load("Music/WAV/Adventure Awaits FULL.wav");
             menuMusic.playLooped();
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,7 +62,7 @@ public class MenuScreen extends Screen {
             keyPressTimer = 14;
             currentMenuItemHovered++;
             try {
-                menuSFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/button-124476.wav");
+                menuSFX.load("Resources/Music/WAV/button-124476.wav");
                 menuSFX.play();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -71,7 +71,7 @@ public class MenuScreen extends Screen {
             keyPressTimer = 14;
             currentMenuItemHovered--;
             try {
-                menuSFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/button-124476.wav");
+                menuSFX.load("Resources/Music/WAV/button-124476.wav");
                 menuSFX.play();
             } catch (Exception e) {
                 e.printStackTrace();

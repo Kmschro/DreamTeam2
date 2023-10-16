@@ -225,7 +225,7 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
 
             try {
-                Level1SFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/jump.wav");
+                Level1SFX.load("Resources/8 bit Action Music Pack/WAV/jump.wav");
                 Level1SFX.play();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -372,16 +372,8 @@ public abstract class Player extends GameObject {
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
             }
         }
-        // handles putting goggles on when standing in water
-        // checks if the center of the player is currently touching a water tile
-        int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
-        int centerY = Math.round(getBounds().getY1()) + Math.round(getBounds().getHeight() / 2f);
-        MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
-        if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
-            this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
-        } 
     }
-
+    }
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
     }
@@ -421,7 +413,7 @@ public abstract class Player extends GameObject {
             if (mapEntity instanceof Enemy) {
                 levelState = LevelState.PLAYER_DEAD;
                 try {
-                    Level1SFX.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/VOXScrm_Wilhelm scream (ID 0477)_BSB.wav");
+                    Level1SFX.load("Resources/8 bit Action Music Pack/WAV/VOXScrm_Wilhelm scream (ID 0477)_BSB.wav");
                     Level1SFX.play();
                 } catch (Exception e) {
                     e.printStackTrace();

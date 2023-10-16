@@ -281,7 +281,7 @@ public abstract class Map {
     }
 
     // list of powerups defined to be a part of the map, should be overridden in a
-    // subclass
+    // subclass 
     protected ArrayList<Powerups> loadPowerups() {
         return new ArrayList<>();
     }
@@ -299,10 +299,10 @@ public abstract class Map {
         return enhancedMapTiles;
     }
 
-    public ArrayList<Powerups> getPowerups() {
+/*    public ArrayList<Powerups> getPowerups() {
         return powerups;
     }
-
+*/
     public ArrayList<MapTile> getAnimatedMapTiles() {
         return animatedMapTiles;
     }
@@ -319,12 +319,12 @@ public abstract class Map {
         return camera.getActiveEnhancedMapTiles();
     }
 
-    // returns all active powerups (powerups that are a part of the current update cycle) --
+ /*   // returns all active powerups (powerups that are a part of the current update cycle) --
     // this changes every frame by the Camera class
     public ArrayList<Powerups> getActivePowerups() {
         return camera.getActivePowerups();
     }
-
+*/
    
     // add an enemy to the map's list of enemies
     public void addEnemy(Enemy enemy) {
@@ -340,7 +340,7 @@ public abstract class Map {
         this.enhancedMapTiles.add(enhancedMapTile);
     }
 
-    // add an powerups to the map's list of powerups
+  // add an powerups to the map's list of powerups
     public void addPowerups(Powerups powerups) {
      powerups.setMap(this);
         this.powerups.add(powerups);

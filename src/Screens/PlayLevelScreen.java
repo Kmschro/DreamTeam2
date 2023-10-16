@@ -48,7 +48,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
         try {
-            menuMusic.load("/Users/henry/Downloads/8 bit Action Music Pack/WAV/Fresh Start LOOP.wav");
+            menuMusic.load("Resources/8 bit Action Music Pack/WAV/Fresh Start LOOP.wav");
             menuMusic.playLooped();
         } catch (Exception e) {
             e.printStackTrace();
