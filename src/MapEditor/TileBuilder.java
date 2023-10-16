@@ -3,6 +3,7 @@ package MapEditor;
 import Engine.GraphicsHandler;
 import Level.*;
 import Utils.Colors;
+import Level.Powerups;
 
 import javax.swing.*;
 import java.awt.*;
@@ -81,7 +82,7 @@ public class TileBuilder extends JPanel {
         }
 
         if (showPowerups) {
-            for (Powerups powerup : map.getPowerups()) {
+            for (Powerups powerup : map.loadPowerups()) {
                 powerup.draw(graphicsHandler);
             }
         }

@@ -45,7 +45,7 @@ public class MenuScreen extends Screen {
         keyLocker.lockKey(Key.SPACE);
 
         try {
-            menuMusic.load("Music/WAV/Adventure Awaits FULL.wav");
+            menuMusic.load("Resources/Music/WAV/Adventure Awaits FULL.wav");
             menuMusic.playLooped();
         } catch (Exception e) {
             e.printStackTrace();

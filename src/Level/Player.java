@@ -225,7 +225,7 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.JUMPING;
 
             try {
-                Level1SFX.load("Resources/8 bit Action Music Pack/WAV/jump.wav");
+                Level1SFX.load("Resources/Music/WAV/jump.wav");
                 Level1SFX.play();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -413,7 +413,7 @@ public abstract class Player extends GameObject {
             if (mapEntity instanceof Enemy) {
                 levelState = LevelState.PLAYER_DEAD;
                 try {
-                    Level1SFX.load("Resources/8 bit Action Music Pack/WAV/VOXScrm_Wilhelm scream (ID 0477)_BSB.wav");
+                    Level1SFX.load("Resources/Music/WAV/death.wav");
                     Level1SFX.play();
                 } catch (Exception e) {
                     e.printStackTrace();

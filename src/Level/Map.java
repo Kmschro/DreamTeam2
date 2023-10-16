@@ -282,7 +282,7 @@ public abstract class Map {
 
     // list of powerups defined to be a part of the map, should be overridden in a
     // subclass 
-    protected ArrayList<Powerups> loadPowerups() {
+    public ArrayList<Powerups> loadPowerups() {
         return new ArrayList<>();
     }
 
@@ -299,10 +299,10 @@ public abstract class Map {
         return enhancedMapTiles;
     }
 
-/*    public ArrayList<Powerups> getPowerups() {
+    public ArrayList<Powerups> getPowerups() {
         return powerups;
     }
-*/
+
     public ArrayList<MapTile> getAnimatedMapTiles() {
         return animatedMapTiles;
     }
