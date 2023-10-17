@@ -8,10 +8,10 @@ import GameObject.ImageEffect;
 import Level.TileType;
 import Level.Tileset;
 import Utils.SlopeTileLayoutUtils;
-
 import java.util.ArrayList;
 
-// This class represents a "common" tileset of standard tiles defined in the CommonTileset.png file
+
+// This class represents The Lab Tileset found in LabTileset.png
 public class LabTileset extends Tileset {
 
     public LabTileset() {
@@ -51,8 +51,8 @@ public class LabTileset extends Tileset {
 
         mapTiles.add(dirtTile);
 
-        // sun (havent replaced it yet)
-        Frame[] sunFrames = new Frame[]{
+        // Alarm
+        Frame[] AlarmFrames = new Frame[]{
                 new FrameBuilder(getSubImage(2, 0), 50)
                         .withScale(tileScale)
                         .build(),
@@ -61,9 +61,9 @@ public class LabTileset extends Tileset {
                         .build()
         };
 
-        MapTileBuilder sunTile = new MapTileBuilder(sunFrames);
+        MapTileBuilder AlarmTile = new MapTileBuilder(AlarmFrames);
 
-        mapTiles.add(sunTile);
+        mapTiles.add(AlarmTile);
 
         // tree trunk with full hole
         Frame treeTrunkWithFullHoleFrame = new FrameBuilder(getSubImage(2, 2))
