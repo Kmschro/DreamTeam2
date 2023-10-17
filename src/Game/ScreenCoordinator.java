@@ -1,5 +1,7 @@
 package Game;
 
+import java.io.IOException;
+
 import Engine.DefaultScreen;
 import Engine.GraphicsHandler;
 import Engine.Screen;
@@ -59,7 +61,12 @@ public class ScreenCoordinator extends Screen {
 			previousGameState = gameState;
 
 			// call the update method for the currentScreen
-			currentScreen.update();
+			try {
+				currentScreen.update();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} while (previousGameState != gameState);
 	}
 

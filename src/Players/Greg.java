@@ -11,7 +11,7 @@ import GameObject.SpriteSheet;
 import Level.Player;
 import Utils.Direction;
 import Utils.Point;
-import Powerups.FireballPU;
+// import Powerups.FireballPU;
 
 import java.util.HashMap;
 

@@ -8,12 +8,12 @@ import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Players.Greg;
 import Utils.AirGroundState;
+import Utils.AudioPlayer;
 import Utils.Direction;
 
 import java.awt.Color;
 import java.nio.file.FileVisitOption;
 import java.util.ArrayList;
-
 
 public abstract class Player extends GameObject {
     // values that affect player movement
@@ -41,14 +41,12 @@ public abstract class Player extends GameObject {
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
-    public boolean stateWin = false;
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
 
     // define keys
     protected KeyLocker keyLocker = new KeyLocker();
-    protected Key JUMP_KEY = Key.W;
     protected Key MOVE_LEFT_KEY = Key.A;
     protected Key MOVE_RIGHT_KEY = Key.D;
 
@@ -56,7 +54,7 @@ public abstract class Player extends GameObject {
     protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
 
-    protected Key FLIP_KEY = Key.R;
+    protected Key FLIP_KEY = Key.W;
     boolean R_Key_Pressed = false;
     
 
@@ -144,7 +142,7 @@ public abstract class Player extends GameObject {
 
         // Update player state based on new gravity direction
         if (airGroundState == AirGroundState.AIR) {
-            playerState = PlayerState.JUMPING;
+            //playerState = PlayerState.JUMPING;
         } else {
             playerState = PlayerState.STANDING;
         }
@@ -152,8 +150,6 @@ public abstract class Player extends GameObject {
     }
     
     
-
-
     // add gravity to player, which is a downward force
     protected void applyGravity() {
         moveAmountY += gravity + momentumY;
@@ -169,14 +165,11 @@ public abstract class Player extends GameObject {
             case WALKING:
                 playerWalking();
                 break;
-            case JUMPING:
-                playerJumping();
-                break;
         }
     }
 
     protected void playerShooting() {
-        // Check if the SHOOT_KEY (Spacebar) is pressed
+        // Check if the SHOOT_KEY (F) is pressed
         if (Keyboard.isKeyDown(SHOOT_KEY)) {
             // Implement code to shoot a fireball here
             playerState = PlayerState.SHOOTING;
@@ -188,12 +181,6 @@ public abstract class Player extends GameObject {
         // if walk left or walk right key is pressed, player enters WALKING state
         if (Keyboard.isKeyDown(MOVE_LEFT_KEY) || Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
             playerState = PlayerState.WALKING;
-        }
-
-        // if jump key is pressed, player enters JUMPING state
-        else if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
-            keyLocker.lockKey(JUMP_KEY);
-            playerState = PlayerState.JUMPING;
         }
 
     }
@@ -214,82 +201,14 @@ public abstract class Player extends GameObject {
             playerState = PlayerState.STANDING;
         }
 
-        // if jump key is pressed, player enters JUMPING state
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
-            keyLocker.lockKey(JUMP_KEY);
-            playerState = PlayerState.JUMPING;
-        }
-
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
         if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
             walkSpeed = normalWalkSpeed * 2.5f;
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
-
-        // if jump key is pressed, player enters JUMPING state
-        if (Keyboard.isKeyDown(JUMP_KEY) && !keyLocker.isKeyLocked(JUMP_KEY)) {
-            keyLocker.lockKey(JUMP_KEY);
-            playerState = PlayerState.JUMPING;
-        }
     }
-
-    // player JUMPING state logic
-    protected void playerJumping() {
-        // if last frame player was on ground and this frame player is still on ground,
-        // the jump needs to be setup
-        if (previousAirGroundState == AirGroundState.GROUND && airGroundState == AirGroundState.GROUND) {
-
-            // sets animation to a JUMP animation based on which way player is facing
-            currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-
-            // player is set to be in air and then player is sent into the air
-            airGroundState = AirGroundState.AIR;
-            jumpForce = jumpHeight;
-            if (jumpForce > 0) {
-                moveAmountY -= jumpForce;
-                jumpForce -= jumpDegrade;
-                if (jumpForce < 0) {
-                    jumpForce = 0;
-                }
-            }
-        }
-
-        // if player is in air (currently in a jump) and has more jumpForce, continue
-        // sending player upwards
-        else if (airGroundState == AirGroundState.AIR) {
-            if (jumpForce > 0) {
-                moveAmountY -= jumpForce;
-                jumpForce -= jumpDegrade;
-                if (jumpForce < 0) {
-                    jumpForce = 0;
-                }
-            }
-
-            // allows you to move left and right while in the air
-            if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-                moveAmountX -= walkSpeed;
-            } else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-                moveAmountX += walkSpeed;
-            }
-
-            // if player is falling, increases momentum as player falls so it falls faster
-            // over time
-            if (moveAmountY > 0) {
-                increaseMomentum();
-            }
-            if (Keyboard.isKeyUp(JUMP_KEY)) {
-                playerState = PlayerState.STANDING;
-            }
-        }
-
-        // if player last frame was in air and this frame is now on ground, player
-        // enters STANDING state
-        else if (previousAirGroundState == AirGroundState.AIR && airGroundState == AirGroundState.GROUND) {
-            playerState = PlayerState.STANDING;
-        }
-    }
-
+   
     // while player is in air, this is called, and will increase momentumY by a set
     // amount until player reaches terminal velocity
     protected void increaseMomentum() {
@@ -300,9 +219,6 @@ public abstract class Player extends GameObject {
     }
 
     protected void updateLockedKeys() {
-        if (Keyboard.isKeyUp(JUMP_KEY)) {
-            keyLocker.unlockKey(JUMP_KEY);
-        }
 
         if (Keyboard.isKeyUp(FLIP_KEY))
         {
@@ -332,25 +248,6 @@ public abstract class Player extends GameObject {
             }
 
         }
-        if (playerState == PlayerState.JUMPING && isFlipped) {
-            // if player is moving upwards, set player's animation to jump. if player moving
-            // downwards, set player's animation to fall
-            if (lastAmountMovedY <= 0) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-            } else {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
-            }
-        }
-         
-        if (playerState == PlayerState.JUMPING) {
-            // if player is moving upwards, set player's animation to jump. if player moving
-            // downwards, set player's animation to fall
-            if (lastAmountMovedY <= 0) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "JUMP_RIGHT" : "JUMP_LEFT";
-            } else {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "FALL_RIGHT" : "FALL_LEFT";
-            }
-        }
         // handles putting goggles on when standing in water
         // checks if the center of the player is currently touching a water tile
         int centerX = Math.round(getBounds().getX1()) + Math.round(getBounds().getWidth() / 2f);
@@ -375,8 +272,6 @@ public abstract class Player extends GameObject {
                 airGroundState = AirGroundState.GROUND;
                 if (isFlipped) {
                     playerState = PlayerState.STANDING; // Player stands on ceiling when flipped
-                } else {
-                    playerState = PlayerState.JUMPING;
                 }
             } else {
                 airGroundState = AirGroundState.AIR;
@@ -403,13 +298,8 @@ public abstract class Player extends GameObject {
         }
     }
 
-    //called when player beats level one
-    public void levelTwo() {
-        levelState = LevelState.RUNNING;
-    }
     // other entities can call this to tell the player they beat a level
     public void completeLevel() {
-        stateWin = true;
         levelState = LevelState.LEVEL_COMPLETED;
     }
 
@@ -500,6 +390,8 @@ public abstract class Player extends GameObject {
 
     public boolean getFBPowerup() {
         return haveFBPowerup;
+    }
+    public void levelTwo() {
     }
     
 }

@@ -12,6 +12,7 @@ import Maps.TestMap;
 import Maps.TestMap2;
 import Players.Greg;
 import Utils.Point;
+import Utils.AudioPlayer;
 
 // This class is for when the platformer game is actually being played
 public class PlayLevelScreen extends Screen implements PlayerListener {
@@ -23,6 +24,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+
+    private AudioPlayer menuMusic = new AudioPlayer();
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -43,6 +46,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
+        try {
+            menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
+            menuMusic.playLooped();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void update() {
@@ -55,8 +66,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // if level is "running" update player and map to keep game logic for the platformer level going
             case RUNNING:
                 player.update();
-                map.update(player);
-                
+                map.update(player);       
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:
@@ -71,6 +81,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                         goBackToMenu();
                     }
                 }
+
+                exit();
                 break;
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
@@ -158,5 +170,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 
+    public void exit() {
+        menuMusic.stop();
+    }
     
 }
