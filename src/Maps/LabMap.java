@@ -8,15 +8,15 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
 import Tilesets.CommonTileset;
-
+import Tilesets.LabTileset;
 
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
-public class TestMap2 extends Map {
-    public TestMap2() {
-        super("TestMap2.txt", new CommonTileset());
-        this.playerStartPosition = getMapTile(0, 0).getLocation();
+public class LabMap extends Map {
+    public LabMap() {
+        super("TestMap2.txt", new LabTileset());
+        this.playerStartPosition = getMapTile(1, 8).getLocation();
     }
 
     @Override

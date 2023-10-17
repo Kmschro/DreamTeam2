@@ -28,12 +28,12 @@ public class Greg extends Player {
 
                 super(new SpriteSheet(ImageLoader.load("Gregv1.8.5.png"), 24, 24), x, y, "STAND_RIGHT");
 
-                gravity = .5f;
+                gravity = 5f;
                 terminalVelocityY = 6f;
                 jumpHeight = 14.5f;
                 jumpDegrade = .5f;
                 walkSpeed = 2.3f;
-                momentumYIncrease = .5f;
+                momentumYIncrease = 5f;
         }
 
         public void update() {

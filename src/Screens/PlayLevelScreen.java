@@ -9,7 +9,8 @@ import Level.Map;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
-import Maps.TestMap2;
+import Maps.LabMap;
+import Maps.LabMap;
 import Players.Greg;
 import Utils.Point;
 import Utils.AudioPlayer;
@@ -33,8 +34,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
     public void initialize() {
         // define/setup map
-        this.map = new TestMap();
-
+        //this.map = new LabMap();
+        this.map = new LabMap();
         // setup player
         this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
         this.player.setMap(map);
@@ -136,7 +137,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void onLevelCompleted() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter >= 2) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
-            this.map = new TestMap2();
+            this.map = new LabMap();
             this.player.levelTwo();
             this.player = new Greg(4, 4);
             Point playerStartPosition = map.getPlayerStartPosition();
