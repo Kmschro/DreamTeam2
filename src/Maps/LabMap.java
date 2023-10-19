@@ -7,6 +7,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
 
@@ -34,8 +35,20 @@ public class LabMap extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
+        
+
         return enhancedMapTiles;
     }
 
-    
+    /* 
+    public ArrayList<Powerups> loadPowerups() {
+        ArrayList<Powerups> powerups = new ArrayList<>();
+
+        Checkpoint checkpoint = new Checkpoint(getMapTile(30, 10).getLocation().subtractY(13));
+        powerups.add(checkpoint);
+
+        return powerups;
+
+        */
+    }
 }

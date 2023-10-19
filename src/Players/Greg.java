@@ -24,6 +24,11 @@ public class Greg extends Player {
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
         SpriteSheet spriteSheet;
         
+
+        //checkpoint instance variables
+        boolean playerCP = false;
+        Point respawnPoint;
+        
         public Greg(float x, float y) {
 
                 super(new SpriteSheet(ImageLoader.load("Gregv1.8.5.png"), 24, 24), x, y, "STAND_RIGHT");
@@ -310,7 +315,7 @@ public class Greg extends Player {
         }
 
         private void createFireball() {
-                // Check if the cat is facing left or right
+                // Check if the player is facing left or right
                 float playerX = getX();
                 Direction playerFacingDirection = isFacingRight() ? Direction.RIGHT : Direction.LEFT;
         
@@ -340,4 +345,6 @@ public class Greg extends Player {
                 map.addEnemy(fireball);
         
             }
+
+            
         }
