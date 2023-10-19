@@ -57,6 +57,7 @@ public abstract class Player extends GameObject {
     protected Key FLIP_KEY = Key.W;
     protected Key X_FLIP_KEY = Key.S;
     boolean R_Key_Pressed = false;
+    public boolean hasKey = false;
     
 
     // flags
@@ -392,6 +393,9 @@ public abstract class Player extends GameObject {
         return haveFBPowerup;
     }
     public void levelTwo() {
+    }
+    public void collectKey(EnhancedMapTiles.Key key) {
+        hasKey = true;
     }
     
 }
