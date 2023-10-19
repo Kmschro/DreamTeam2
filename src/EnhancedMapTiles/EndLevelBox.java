@@ -21,7 +21,7 @@ public class EndLevelBox extends EnhancedMapTile {
     @Override
     public void update(Player player) {
         super.update(player);
-        if (intersects(player)) {
+        if (intersects(player) && player.hasKey) {
             player.completeLevel();
         }
     }

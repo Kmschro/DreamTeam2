@@ -5,12 +5,14 @@ import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.Key;
 import GameObject.Rectangle;
 import Level.*;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
 import Utils.Direction;
 import Powerups.Coin;
+import Utils.Direction;
 
 import java.util.ArrayList;
 
@@ -38,6 +40,9 @@ public class LabMap extends Map {
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
+
+        Key key = new Key(getMapTile(13, 4).getLocation());
+        enhancedMapTiles.add(key);
 
         return enhancedMapTiles;
     }
