@@ -13,7 +13,7 @@ import java.util.HashMap;
 
 public class Key extends EnhancedMapTile {
     public Key(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("key.png"), 16, 16), TileType.PASSABLE);
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Key.png"), 16, 16), TileType.PASSABLE);
     }
 
     @Override
