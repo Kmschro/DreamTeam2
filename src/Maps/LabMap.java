@@ -9,6 +9,8 @@ import GameObject.Rectangle;
 import Level.*;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
+import Utils.Direction;
+import Powerups.Coin;
 
 import java.util.ArrayList;
 
@@ -20,10 +22,13 @@ public class LabMap extends Map {
     }
 
     @Override
-    public ArrayList<Enemy> loadEnemies() {
-        ArrayList<Enemy> enemies = new ArrayList<>();
+    public ArrayList<Powerups> loadPowerups() {
+        ArrayList<Powerups> coins = new ArrayList<>();
 
-        return enemies;
+        Coin coin = new Coin(getMapTile(2, 8).getLocation());
+        coins.add(coin);
+
+        return coins;
     }
    
 
