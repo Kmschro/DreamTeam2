@@ -56,6 +56,7 @@ public abstract class Player extends GameObject {
     protected Key SUICIDE = Key.L;
 
     protected Key FLIP_KEY = Key.W;
+    protected Key X_FLIP_KEY = Key.S;
     boolean R_Key_Pressed = false;
     
 
@@ -121,7 +122,6 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(FLIP_KEY) && !keyLocker.isKeyLocked(FLIP_KEY)) {
             flipWorld();
             keyLocker.lockKey(FLIP_KEY);
-            System.out.println("R key press detected");
         }
     }
 
