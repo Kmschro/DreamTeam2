@@ -33,7 +33,7 @@ public class LabMap extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 4).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         Key key = new Key(getMapTile(13, 4).getLocation());
