@@ -26,7 +26,7 @@ public class Greg extends Player {
         
         public Greg(float x, float y) {
 
-                super(new SpriteSheet(ImageLoader.load("Gregv1.8.5.png"), 24, 24), x, y, "STAND_RIGHT");
+                super(new SpriteSheet(ImageLoader.load("Gregv1.9.png"), 24, 24), x, y, "STAND_RIGHT");
 
                 gravity = 5f;
                 terminalVelocityY = 6f;

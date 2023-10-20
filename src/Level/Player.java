@@ -15,24 +15,30 @@ import java.awt.Color;
 import java.nio.file.FileVisitOption;
 import java.util.ArrayList;
 
+import Level.TileType;
 public abstract class Player extends GameObject {
     // values that affect player movement
     // these should be set in a subclass
     protected float walkSpeed = 3;
     protected float gravity = 0;
+    protected float gravityX = 0;
     protected float jumpHeight = 0;
     protected float jumpDegrade = 0; 
     protected float terminalVelocityY = 0;
     protected float momentumYIncrease = 0;
+    protected float terminalVelocityX = 0;
+    protected float momentumXIncrease = 0;
     protected float normalWalkSpeed;
     protected float fireballSpeed;
 
     // values used to handle player movement
     protected float jumpForce = 0;
     protected float momentumY = 0;
+    protected float momentumX = 0;
     protected float moveAmountX, moveAmountY;
     protected float lastAmountMovedX, lastAmountMovedY;
     protected boolean isFlipped = false;
+    protected boolean isFlippedX = false;
 
     // values used to keep track of player's current state
     protected PlayerState playerState;
@@ -55,7 +61,7 @@ public abstract class Player extends GameObject {
     protected Key SUICIDE = Key.L;
 
     protected Key FLIP_KEY = Key.W;
-    protected Key X_FLIP_KEY = Key.S;
+    protected Key FLIP_KEY_X = Key.S;
     boolean R_Key_Pressed = false;
     
 
@@ -73,6 +79,7 @@ public abstract class Player extends GameObject {
         levelState = LevelState.RUNNING;
         normalWalkSpeed = walkSpeed;
     }
+
     public void update() {
         moveAmountX = 0;
         moveAmountY = 0;
@@ -119,6 +126,10 @@ public abstract class Player extends GameObject {
             flipWorld();
             keyLocker.lockKey(FLIP_KEY);
         }
+        if (Keyboard.isKeyDown(FLIP_KEY_X) && !keyLocker.isKeyLocked(FLIP_KEY_X)) {
+            flipWorldX();
+            keyLocker.lockKey(FLIP_KEY_X);
+        }
     }
 
     protected void flipWorld() {
@@ -139,6 +150,26 @@ public abstract class Player extends GameObject {
             terminalVelocityY = -terminalVelocityY;
             momentumY = -10;
         }
+    }
+
+    protected void flipWorldX() {
+        if (isFlippedX) {
+            isFlippedX = false;
+            gravityX = -gravityX;
+            terminalVelocityX = -terminalVelocityX;
+            //Reset JumpForce and momentumY
+            jumpForce = 0;
+            momentumX = 10;
+
+        } else {
+            isFlipped = true;
+            R_Key_Pressed = true;
+            // Reverse gravity
+            gravityX = -gravityX;
+            // Reverse terminal velocity
+            terminalVelocityX = -terminalVelocityX;
+            momentumX = -10;
+        }
 
         // Update player state based on new gravity direction
         if (airGroundState == AirGroundState.AIR) {
@@ -153,6 +184,10 @@ public abstract class Player extends GameObject {
     // add gravity to player, which is a downward force
     protected void applyGravity() {
         moveAmountY += gravity + momentumY;
+    }
+
+    protected void applyXGravity() {
+        moveAmountX += gravityX + momentumX;
     }
 
     // based on player's current state, call appropriate player state handling
@@ -223,6 +258,11 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(FLIP_KEY))
         {
             keyLocker.unlockKey(FLIP_KEY);
+
+        }
+        if (Keyboard.isKeyUp(FLIP_KEY_X))
+        {
+            keyLocker.unlockKey(FLIP_KEY_X);
             
         }
     }
@@ -266,6 +306,16 @@ public abstract class Player extends GameObject {
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if player collides with a map tile below it, it is now on the ground
         // if player does not collide with a map tile below, it is in air
+
+        if (entityCollidedWith instanceof MapTile)
+        {
+            MapTile mapTiles = (MapTile) entityCollidedWith;
+            if (mapTiles != null && mapTiles.getTileType() == TileType.LETHAL) {
+                levelState = LevelState.PLAYER_DEAD;
+            }
+        }
+
+
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 momentumY = 0;
