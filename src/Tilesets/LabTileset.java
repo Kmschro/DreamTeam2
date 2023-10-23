@@ -291,7 +291,33 @@ public class LabTileset extends Tileset {
                 .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(leftStairsTopTile);
+        // LethalTile
+        Frame deathBeamStartFrame = new FrameBuilder(getSubImage(4, 5))
+                .withScale(tileScale)
+                .build();
 
+        MapTileBuilder deathBeamStart = new MapTileBuilder(deathBeamStartFrame)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(deathBeamStart);
+        
+
+        Frame deathBeamMidFrame = new FrameBuilder(getSubImage(4,6))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder deathBeamMid = new MapTileBuilder(deathBeamMidFrame)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(deathBeamMid);
+
+        Frame deathBeamEndFrame = new FrameBuilder(getSubImage(4,7))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder deathBeamEnd = new MapTileBuilder(deathBeamEndFrame)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamEnd);
         return mapTiles;
     }
 }
