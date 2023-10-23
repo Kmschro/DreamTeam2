@@ -27,8 +27,23 @@ public class LabMap extends Map {
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> coins = new ArrayList<>();
 
-        Coin coin = new Coin(getMapTile(2, 8).getLocation());
-        coins.add(coin);
+        Coin coin1 = new Coin(getMapTile(3, 4).getLocation());
+        coins.add(coin1);
+
+        Coin coin2 = new Coin(getMapTile(16, 4).getLocation());
+        coins.add(coin2);
+
+        Coin coin3 = new Coin(getMapTile(21, 2).getLocation());
+        coins.add(coin3);
+
+        Coin coin4 = new Coin(getMapTile(42, 8).getLocation());
+        coins.add(coin4);
+
+        Coin coin5 = new Coin(getMapTile(32, 2).getLocation());
+        coins.add(coin5);
+
+        Coin coin6 = new Coin(getMapTile(57, 6).getLocation());
+        coins.add(coin6);
 
         return coins;
     }

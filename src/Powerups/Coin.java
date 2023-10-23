@@ -8,6 +8,7 @@ import Engine.GraphicsHandler;
 import Engine.ImageLoader;
 import SpriteFont.SpriteFont;
 import GameObject.Frame;
+import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import GameObject.AnimatedSprite;
 import Level.MapEntityStatus;
@@ -19,23 +20,28 @@ import Utils.Colors;
 public class Coin extends Powerups  {
     
     //variables to be used
-    protected SpriteFont coinLabel;
-    protected int coinCount;
+    //protected SpriteFont coinLabel;
+    protected SpriteFont coinNumber;
+    //protected int coinCount;
 
     public Coin(Point location){
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Coin.png"), 24, 24), "COIN_FRONT");
 
-        coinLabel = new SpriteFont("COINS", 0, 0, "Comic Sans", 15, Color.white);
-        coinLabel.setOutlineColor(Color.black);
-        coinLabel.setOutlineThickness(3);
+        // coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
+        // coinLabel.setOutlineColor(Color.black);
+        // coinLabel.setOutlineThickness(3);
+
+        //coinCount = 0;
     }
 
     @Override
     public void update(Player player) {
         super.update();
         if (intersects(player)) {
+            //coinCount++;
             this.mapEntityStatus = MapEntityStatus.REMOVED;
-            coinCount++;
+            //coinCount++;
+            //printCoinCount();
         }
 
         //logic to update coin count and make it disappear
@@ -45,6 +51,10 @@ public class Coin extends Powerups  {
         }
 
     }
+
+    // private void printCoinCount() {
+    //     System.out.println(coinLabel + " " + coinCount);
+    // }
 
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {
@@ -92,6 +102,6 @@ public class Coin extends Powerups  {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
 
-        coinLabel.draw(graphicsHandler);
+        //coinLabel.draw(graphicsHandler);
     }
 }

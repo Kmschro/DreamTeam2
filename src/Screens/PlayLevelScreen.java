@@ -12,6 +12,8 @@ import Maps.TestMap;
 import Maps.LabMap;
 import Maps.LabMap;
 import Players.Greg;
+import SpriteFont.SpriteFont;
+import java.awt.*;
 import Utils.Point;
 import Utils.AudioPlayer;
 
@@ -25,6 +27,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+
+    protected SpriteFont coinLabel;
 
     private AudioPlayer menuMusic = new AudioPlayer();
 
@@ -47,6 +51,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+
+        coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
+        coinLabel.setOutlineColor(Color.black);
+        coinLabel.setOutlineThickness(3);
 
         try {
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
@@ -107,6 +115,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelLoseScreen.draw(graphicsHandler);
                 break;
         }
+
+        coinLabel.draw(graphicsHandler);
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
