@@ -48,15 +48,12 @@ public class LabMap extends Map {
 
         FireballPU fbPU = new FireballPU(getMapTile(13, 8).getLocation());
         coins.add(fbPU);
-
         return coins;
-
     }
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
@@ -65,6 +62,15 @@ public class LabMap extends Map {
 
         return enhancedMapTiles;
     }
+    @Override
+    public ArrayList<Enemy> loadEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>();
 
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(13, 7).getLocation(),
+                getMapTile(18, 7).getLocation(), Direction.RIGHT);
+        enemies.add(bugEnemy);
+
+        return enemies;
+    }
     
 }
