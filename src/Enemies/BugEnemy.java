@@ -119,10 +119,7 @@ public class BugEnemy extends Enemy {
                             .withScale(2)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
+
             });
 
             put("WALK_RIGHT", new Frame[] {
@@ -131,11 +128,7 @@ public class BugEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
+ 
             });
         }};
         
