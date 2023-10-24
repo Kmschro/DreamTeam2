@@ -13,7 +13,6 @@ import Maps.TestMap;
 import Maps.LabMap;
 import Maps.LabMap;
 import Players.Greg;
-import Powerups.Coin;
 import SpriteFont.SpriteFont;
 import java.awt.*;
 import java.util.Timer;
@@ -32,7 +31,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
-    private int timeInSeconds = 30;
+    private int timeInSeconds;
     protected Timer timer;
     private int powerUpTimeInSeconds = 30; // Set the initial time for the power-up to 30 seconds
     private Timer powerUpTimer;
@@ -41,8 +40,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected SpriteFont levelTimer;
     protected SpriteFont powerupTimer;
     
-    // protected SpriteFont coinCountLabel;
-    protected int coinCount;
 
     private AudioPlayer menuMusic = new AudioPlayer();
 
@@ -66,9 +63,33 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
+        coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 25, Color.white);
         coinLabel.setOutlineColor(Color.black);
         coinLabel.setOutlineThickness(3);
+
+        timeInSeconds = 30;
+        levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25, Color.white);
+        levelTimer.setOutlineColor(Color.black);
+        levelTimer.setOutlineThickness(3);
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                timeInSeconds--;
+                if (timeInSeconds >= 0) {
+                    levelTimer.setText("LEVEL TIMER: " + String.valueOf(timeInSeconds));
+                } else {
+                    //levelState = LevelState.PLAYER_DEAD;
+                    timer.cancel();
+                   
+                    // Perform necessary actions when the timer ends
+                }
+            }
+        }, 0, 1100); // Update the timer every 1000 milliseconds (1 second)
+
+        powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+        powerupTimer.setOutlineColor(Color.black);
+        powerupTimer.setOutlineThickness(3);
 
         try {
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
@@ -132,15 +153,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 levelLoseScreen.update();
                 break;       
         }
-
     }
-
-    // public void printCoinCount(){
-
-    //     coinCount++;
-    //     String countString = Integer.toString(coinCount);
-    //     coinCountLabel = new SpriteFont(countString, 60, 0, "Comic Sans", 15, Color.white);
-    // }
 
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
@@ -158,6 +171,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         }
 
         coinLabel.draw(graphicsHandler);
+        powerupTimer.draw(graphicsHandler);
+        levelTimer.draw(graphicsHandler);
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
