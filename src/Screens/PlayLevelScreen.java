@@ -223,6 +223,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             
         }
+        menuMusic.stop();
     }
 
     public void resetLevel() {
