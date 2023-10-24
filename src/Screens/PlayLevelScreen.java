@@ -161,6 +161,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+                coinLabel.draw(graphicsHandler);
+                powerupTimer.draw(graphicsHandler);
+                levelTimer.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
@@ -170,9 +173,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
         }
 
-        coinLabel.draw(graphicsHandler);
-        powerupTimer.draw(graphicsHandler);
-        levelTimer.draw(graphicsHandler);
+
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
