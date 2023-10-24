@@ -62,5 +62,16 @@ public class LabMap extends Map {
         return enhancedMapTiles;
     }
 
+    @Override
+    public ArrayList<Enemy> loadEnemies() {
+        ArrayList<Enemy> enemies = new ArrayList<>();
+
+        BugEnemy bugEnemy = new BugEnemy(getMapTile(13, 7).getLocation(),
+                getMapTile(18, 7).getLocation(), Direction.RIGHT);
+        enemies.add(bugEnemy);
+
+        return enemies;
+    }
+
     
 }

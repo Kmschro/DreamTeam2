@@ -166,6 +166,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
         }
+        menuMusic.stop();
     }
 
     public void resetLevel() {
