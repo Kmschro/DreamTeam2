@@ -28,7 +28,7 @@ public class BugEnemy extends Enemy {
     private Point endLocation;
 
     public BugEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("Resources/madScientist.png"), 24, 15), "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
