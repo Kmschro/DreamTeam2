@@ -24,7 +24,7 @@ public class LabMap extends Map {
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
-
+        
         return enemies;
     }
    
