@@ -12,6 +12,7 @@ import Maps.TestMap;
 import Maps.LabMap;
 import Maps.LabMap;
 import Players.Greg;
+import Powerups.Coin;
 import SpriteFont.SpriteFont;
 import java.awt.*;
 import Utils.Point;
@@ -28,7 +29,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
 
-    protected SpriteFont coinLabel;
+    // protected SpriteFont coinLabel;
+    // protected SpriteFont coinCountLabel;
+    protected int coinCount;
 
     private AudioPlayer menuMusic = new AudioPlayer();
 
@@ -52,9 +55,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
-        coinLabel.setOutlineColor(Color.black);
-        coinLabel.setOutlineThickness(3);
+        // coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
+        // coinLabel.setOutlineColor(Color.black);
+        // coinLabel.setOutlineThickness(3);
+
+        // coinCountLabel = new SpriteFont("0", 60, 0, "Comic Sans", 15, Color.white);
+        // coinCountLabel.setOutlineColor(Color.black);
+        // coinCountLabel.setOutlineThickness(3);
 
         try {
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
@@ -99,7 +106,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
                     
         }
+
     }
+
+    // public void printCoinCount(){
+
+    //     coinCount++;
+    //     String countString = Integer.toString(coinCount);
+    //     coinCountLabel = new SpriteFont(countString, 60, 0, "Comic Sans", 15, Color.white);
+    // }
 
     public void draw(GraphicsHandler graphicsHandler) {
         // based on screen state, draw appropriate graphics
@@ -116,7 +131,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
         }
 
-        coinLabel.draw(graphicsHandler);
+        // coinLabel.draw(graphicsHandler);
+        // coinCountLabel.draw(graphicsHandler);
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
