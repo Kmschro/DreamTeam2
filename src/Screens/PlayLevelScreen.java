@@ -6,6 +6,7 @@ import Game.GameState;
 import Game.ScreenCoordinator;
 import Level.LevelState;
 import Level.Map;
+import Level.MapEntityStatus;
 import Level.Player;
 import Level.PlayerListener;
 import Maps.TestMap;
@@ -15,6 +16,9 @@ import Players.Greg;
 import Powerups.Coin;
 import SpriteFont.SpriteFont;
 import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import Utils.Point;
 import Utils.AudioPlayer;
 
@@ -28,8 +32,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    private int timeInSeconds = 30;
+    protected Timer timer;
+    private int powerUpTimeInSeconds = 30; // Set the initial time for the power-up to 30 seconds
+    private Timer powerUpTimer;
 
-    // protected SpriteFont coinLabel;
+    protected SpriteFont coinLabel;
+    protected SpriteFont levelTimer;
+    protected SpriteFont powerupTimer;
+    
     // protected SpriteFont coinCountLabel;
     protected int coinCount;
 
@@ -55,13 +66,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        // coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
-        // coinLabel.setOutlineColor(Color.black);
-        // coinLabel.setOutlineThickness(3);
-
-        // coinCountLabel = new SpriteFont("0", 60, 0, "Comic Sans", 15, Color.white);
-        // coinCountLabel.setOutlineColor(Color.black);
-        // coinCountLabel.setOutlineThickness(3);
+        coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 15, Color.white);
+        coinLabel.setOutlineColor(Color.black);
+        coinLabel.setOutlineThickness(3);
 
         try {
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
@@ -75,8 +82,28 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void update() {
 
         
-        
-
+        if (timeInSeconds == 0)
+        {
+            playLevelScreenState =  PlayLevelScreenState.LEVEL_LOSE;
+        }
+        // Set up the Timer for the power-up
+        powerUpTimer = new Timer();
+        if (player.getFBPowerup() == true) {
+            powerUpTimer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    powerUpTimeInSeconds--;
+                    if (powerUpTimeInSeconds >= 0) {
+                        powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
+                    } else {
+                        powerUpTimer.cancel();
+                        // Perform necessary actions when the power-up timer ends
+                    }
+                }
+            }, 0, 1100);
+        }
+        player.setFBPowerup(false); 
+        // Reset the power-up flag
         // based on screen state, perform specific actions
         switch (playLevelScreenState) {
             // if level is "running" update player and map to keep game logic for the platformer level going
@@ -103,8 +130,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             // wait on level lose screen to make a decision (either resets level or sends player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
-                break;
-                    
+                break;       
         }
 
     }
@@ -131,8 +157,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
         }
 
-        // coinLabel.draw(graphicsHandler);
-        // coinCountLabel.draw(graphicsHandler);
+        coinLabel.draw(graphicsHandler);
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
@@ -181,7 +206,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+            
         }
+        menuMusic.stop();
     }
 
     public void resetLevel() {

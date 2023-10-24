@@ -28,7 +28,7 @@ public class BugEnemy extends Enemy {
     private Point endLocation;
 
     public BugEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("madScientist.png"), 24, 15), "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -119,10 +119,7 @@ public class BugEnemy extends Enemy {
                             .withScale(2)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
+
             });
 
             put("WALK_RIGHT", new Frame[] {
@@ -131,11 +128,7 @@ public class BugEnemy extends Enemy {
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
                             .withBounds(6, 6, 12, 7)
                             .build(),
-                    new FrameBuilder(spriteSheet.getSprite(0, 1), 8)
-                            .withScale(2)
-                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
-                            .build()
+ 
             });
         }};
         

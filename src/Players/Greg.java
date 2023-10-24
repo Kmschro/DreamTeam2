@@ -29,11 +29,13 @@ public class Greg extends Player {
                 super(new SpriteSheet(ImageLoader.load("Gregv1.9.png"), 24, 24), x, y, "STAND_RIGHT");
 
                 gravity = 5f;
+                gravityX = 5f;
                 terminalVelocityY = 6f;
                 jumpHeight = 14.5f;
                 jumpDegrade = .5f;
                 walkSpeed = 2.3f;
                 momentumYIncrease = 5f;
+                momentumXIncrease = 5f;
         }
 
         public void update() {
@@ -319,7 +321,7 @@ public class Greg extends Player {
                 boolean hasFireballPowerup = getFBPowerup();
         
                 // Check if Greg has the fireball powerup
-                if (hasFireballPowerup) {
+                if (hasFireballPowerup == true) {
                     // Use the Fireball powerup sprite sheet
                     spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
                     movementSpeed = 10.0f;
