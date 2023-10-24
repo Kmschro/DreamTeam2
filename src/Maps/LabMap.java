@@ -12,6 +12,7 @@ import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
 import Utils.Direction;
 import Powerups.Coin;
+import Powerups.FireballPU;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -45,9 +46,12 @@ public class LabMap extends Map {
         Coin coin6 = new Coin(getMapTile(57, 6).getLocation());
         coins.add(coin6);
 
+        FireballPU fbPU = new FireballPU(getMapTile(13, 8).getLocation());
+        coins.add(fbPU);
+
         return coins;
+
     }
-   
 
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
@@ -62,5 +66,4 @@ public class LabMap extends Map {
         return enhancedMapTiles;
     }
 
-    
 }
