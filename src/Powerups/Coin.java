@@ -45,11 +45,6 @@ public class Coin extends Powerups {
     @Override
     public void update(Player player) {
         super.update();
-<<<<<<< HEAD
-        if (intersects(player)) {
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
-            //coinCount++;
-=======
         //logic to update coin count and make it disappear
         //logic to check for player collision
         if (this.intersects(player)) {
@@ -61,7 +56,6 @@ public class Coin extends Powerups {
             }
 
             this.mapEntityStatus = MapEntityStatus.REMOVED;
->>>>>>> 07db782403809ba180960b7e6c441d86c7c3d9f3
             //printCoinCount();
         }
 
