@@ -24,10 +24,6 @@ public class Greg extends Player {
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
         SpriteSheet spriteSheet;
         
-
-        //checkpoint instance variables
-        boolean playerCP = false;
-        Point respawnPoint;
         
         public Greg(float x, float y) {
 

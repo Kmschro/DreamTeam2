@@ -397,13 +397,13 @@ public abstract class Player extends GameObject {
     }
     public void levelTwo() {
     }
+    
+    // public void setCP(boolean hasCP) {
+    //     this.hasCP = hasCP;
+    // }
 
-    public void setCP(boolean hasCP) {
-        this.hasCP = hasCP;
-    }
-
-    public boolean getCP() {
-        return hasCP;
-    }
+    // public boolean getCP() {
+    //     return hasCP;
+    // }
     
 }

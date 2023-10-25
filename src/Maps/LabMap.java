@@ -10,6 +10,7 @@ import Level.*;
 import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
+import Utils.Point;
 
 import java.util.ArrayList;
 
@@ -40,15 +41,17 @@ public class LabMap extends Map {
         return enhancedMapTiles;
     }
 
-    /* 
+    
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> powerups = new ArrayList<>();
 
-        Checkpoint checkpoint = new Checkpoint(getMapTile(30, 10).getLocation().subtractY(13));
+
+       // Checkpoint checkpoint = this.setCP(new Point(56, 6));
+        Checkpoint checkpoint = new Checkpoint(getMapTile(56, 6).getLocation().subtractY(13));
         powerups.add(checkpoint);
 
         return powerups;
 
-        */
+        
     }
 }

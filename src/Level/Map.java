@@ -3,6 +3,7 @@ package Level;
 import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
+import Powerups.Checkpoint;
 import Utils.Point;
 
 import java.io.File;
@@ -63,6 +64,17 @@ public abstract class Map {
     // if set to false, camera will not move as player moves
     protected boolean adjustCamera = true;
 
+    protected Checkpoint CP;
+    protected boolean hasCp = false;
+
+    public boolean getCp() {
+        return hasCp;
+    }
+
+    public void setCp(boolean check) {
+        hasCp = check;
+    }
+
     // map tiles in map that are animated
     protected ArrayList<MapTile> animatedMapTiles;
 
@@ -77,6 +89,20 @@ public abstract class Map {
         this.xMidPoint = ScreenManager.getScreenWidth() / 2;
         this.yMidPoint = (ScreenManager.getScreenHeight() / 2);
         this.playerStartPosition = new Point(0, 0);
+        
+    }
+
+
+    
+    public Checkpoint setCP(Point p) {
+        CP = new Checkpoint(p);
+        return CP;
+    }
+
+    public void hasCP() {
+         if(CP.hasCP) {
+            playerStartPosition = CP.getLoc();
+         }
     }
 
     // sets up map by reading in the map file to create the tile map
