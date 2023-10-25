@@ -36,9 +36,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
-    private int timeInSeconds;
+    private int timeInSeconds = 60;
     protected Timer timer;
-    private int powerUpTimeInSeconds = 30; // Set the initial time for the power-up to 30 seconds
+    private int powerUpTimeInSeconds; // Set the initial time for the power-up to 30 seconds
     private Timer powerUpTimer;
 
     protected SpriteFont coinLabel;
@@ -72,7 +72,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        timeInSeconds = 30;
         levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25, Color.white);
         levelTimer.setOutlineColor(Color.black);
         levelTimer.setOutlineThickness(3);
@@ -81,7 +80,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             @Override
             public void run() {
                 timeInSeconds--;
-                if (timeInSeconds >= 0) {
+                if (timeInSeconds > 0) {
                     levelTimer.setText("LEVEL TIMER: " + String.valueOf(timeInSeconds));
                 } else {
                     //levelState = LevelState.PLAYER_DEAD;
@@ -90,7 +89,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                     // Perform necessary actions when the timer ends
                 }
             }
-        }, 0, 1100); // Update the timer every 1000 milliseconds (1 second)
+        }, 0,  1000); // Update the timer every 1000 milliseconds (1 second)
 
         powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
         powerupTimer.setOutlineColor(Color.black);
@@ -110,14 +109,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         coinLabel = new SpriteFont("COINS: " + String.valueOf(coinCount), 0, 0, "Comic Sans", 25, Color.white);
         coinLabel.setOutlineColor(Color.black);
         coinLabel.setOutlineThickness(3);
-
+        
         if (timeInSeconds == 0)
         {
             playLevelScreenState =  PlayLevelScreenState.LEVEL_LOSE;
         }
         // Set up the Timer for the power-up
         powerUpTimer = new Timer();
-        if (player.getFBPowerup() == true) {
+        if (player.getFBPowerup()) {
+            powerUpTimeInSeconds=30;
             powerUpTimer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
@@ -232,7 +232,20 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+            // reset the timer to the original time value
+            // Also cancel the powerUpTimer if it's running
+            if (timer != null) {
+                timer.cancel();
+            }
+
+            if (powerUpTimer != null) {
+                powerUpTimer.cancel();
+            }
             
+            timeInSeconds = 60;
+            powerUpTimeInSeconds = 0;
+            player.setFBPowerup(false);
+
         }
         menuMusic.stop();
     }

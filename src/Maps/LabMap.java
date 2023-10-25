@@ -46,7 +46,7 @@ public class LabMap extends Map {
         Coin coin6 = new Coin(getMapTile(57, 6).getLocation(), null);
         coins.add(coin6);
 
-        FireballPU fbPU = new FireballPU(getMapTile(13, 8).getLocation());
+        FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
         coins.add(fbPU);
         return coins;
     }
