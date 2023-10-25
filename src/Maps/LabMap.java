@@ -68,9 +68,7 @@ public class LabMap extends Map {
 
         DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
-
-        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(12, 4).getLocation(), getMapTile(12, 4).getLocation(), Direction.LEFT);
-        enemies.add(dinosaurEnemy2);
+        
         return enemies;
     }
     
