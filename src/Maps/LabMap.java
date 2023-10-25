@@ -28,22 +28,22 @@ public class LabMap extends Map {
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> coins = new ArrayList<>();
 
-        Coin coin1 = new Coin(getMapTile(3, 4).getLocation());
+        Coin coin1 = new Coin(getMapTile(3, 4).getLocation(), null);
         coins.add(coin1);
 
-        Coin coin2 = new Coin(getMapTile(16, 4).getLocation());
+        Coin coin2 = new Coin(getMapTile(16, 4).getLocation(), null);
         coins.add(coin2);
 
-        Coin coin3 = new Coin(getMapTile(21, 2).getLocation());
+        Coin coin3 = new Coin(getMapTile(21, 2).getLocation(), null);
         coins.add(coin3);
 
-        Coin coin4 = new Coin(getMapTile(42, 8).getLocation());
+        Coin coin4 = new Coin(getMapTile(42, 8).getLocation(), null);
         coins.add(coin4);
 
-        Coin coin5 = new Coin(getMapTile(32, 2).getLocation());
+        Coin coin5 = new Coin(getMapTile(32, 2).getLocation(), null);
         coins.add(coin5);
 
-        Coin coin6 = new Coin(getMapTile(57, 6).getLocation());
+        Coin coin6 = new Coin(getMapTile(57, 6).getLocation(), null);
         coins.add(coin6);
 
         FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
@@ -66,9 +66,9 @@ public class LabMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
-        enemies.add(dinosaurEnemy);
-
+        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
+        enemies.add(dinosaurEnemy1);
+        
         return enemies;
     }
     

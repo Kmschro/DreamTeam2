@@ -260,7 +260,6 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(FLIP_KEY))
         {
             keyLocker.unlockKey(FLIP_KEY);
-
         }
         if (Keyboard.isKeyUp(FLIP_KEY_X))
         {
@@ -268,7 +267,6 @@ public abstract class Player extends GameObject {
             
         }
     }
-
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
         if (playerState == PlayerState.STANDING) {
@@ -282,8 +280,7 @@ public abstract class Player extends GameObject {
         }
         if (playerState == PlayerState.WALKING) {
             if (isFlipped) {
-                this.currentAnimationName = facingDirection == Direction.RIGHT ? "PLAYER_FLIPPED_WALK_RIGHT"
-                        : "PLAYER_FLIPPED_WALK_LEFT";
+                this.currentAnimationName = facingDirection == Direction.RIGHT ? "PLAYER_FLIPPED_WALK_RIGHT" : "PLAYER_FLIPPED_WALK_LEFT";
             } else {
                 // sets animation to a WALK animation based on which way player is facing
                 this.currentAnimationName = facingDirection == Direction.RIGHT ? "WALK_RIGHT" : "WALK_LEFT";
@@ -316,8 +313,7 @@ public abstract class Player extends GameObject {
                 levelState = LevelState.PLAYER_DEAD;
             }
         }
-
-
+        
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 momentumY = 0;

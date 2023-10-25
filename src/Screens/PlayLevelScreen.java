@@ -22,8 +22,12 @@ import Powerups.Coin;
 import Utils.Point;
 import Utils.AudioPlayer;
 
+interface CoinListener {
+    void onCoinCollected(int coins);
+}
+
 // This class is for when the platformer game is actually being played
-public class PlayLevelScreen extends Screen implements PlayerListener {
+public class PlayLevelScreen extends Screen implements PlayerListener, CoinListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
     protected Player player;
@@ -40,6 +44,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     protected SpriteFont coinLabel;
     protected SpriteFont levelTimer;
     protected SpriteFont powerupTimer;
+    private int coinCount;
+
 
     private AudioPlayer menuMusic = new AudioPlayer();
 
@@ -47,6 +53,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
         this.screenCoordinator = screenCoordinator;
     }
 
+    public void onCoinCollected(int coins) {
+        coinCount = coins;
+    }
     public void initialize() {
         // define/setup map
         // this.map = new LabMap();
@@ -97,7 +106,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
-        int coinCount = 0;// = getCoinCount();
+        //int coinCount = 0;// = getCoinCount();
         coinLabel = new SpriteFont("COINS: " + String.valueOf(coinCount), 0, 0, "Comic Sans", 25, Color.white);
         coinLabel.setOutlineColor(Color.black);
         coinLabel.setOutlineThickness(3);
@@ -141,6 +150,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 player.update();
                 map.update(player);
+                coinCount = Coin.getCoinCount();
+
                 break;
             // if level has been completed, bring up level cleared screen
             case LEVEL_COMPLETED:

@@ -216,9 +216,6 @@ public class Greg extends Player {
                                                                 .build()
                                 });
 
-
-
-
                                 //FLIPPED ANIMATIONS
                                 put("PLAYER_FLIPPED_STANDING_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(0,0))
