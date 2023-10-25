@@ -212,9 +212,6 @@ public class Greg extends Player {
                                                                 .build()
                                 });
 
-
-
-
                                 //FLIPPED ANIMATIONS
                                 put("PLAYER_FLIPPED_STANDING_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(0,0))
@@ -321,7 +318,7 @@ public class Greg extends Player {
                 boolean hasFireballPowerup = getFBPowerup();
         
                 // Check if Greg has the fireball powerup
-                if (hasFireballPowerup == true) {
+                if (hasFireballPowerup) {
                     // Use the Fireball powerup sprite sheet
                     spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
                     movementSpeed = 10.0f;

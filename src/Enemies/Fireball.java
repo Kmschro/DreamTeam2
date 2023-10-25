@@ -51,8 +51,8 @@ public class Fireball extends Enemy {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
                    // Check if the entity collided with is an instance of Fireball
         if (entityCollidedWith instanceof Fireball) {
-            // Remove the collided fireball as well
-            entityCollidedWith.mapEntityStatus = MapEntityStatus.REMOVED;
+                // Remove the collided fireball as well
+                entityCollidedWith.mapEntityStatus = MapEntityStatus.REMOVED;
             }
         }
     }
