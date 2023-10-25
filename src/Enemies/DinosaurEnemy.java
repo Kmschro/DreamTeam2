@@ -41,7 +41,7 @@ public class DinosaurEnemy extends Enemy {
     protected DinosaurState previousDinosaurState;
 
     public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("DinosaurEnemy.png"), 14, 17), "WALK_RIGHT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("madScientist.png"), 24, 24), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -143,9 +143,9 @@ public class DinosaurEnemy extends Enemy {
             dinosaurState = DinosaurState.WALK;
 
             // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
-            shootWaitTimer = 130;
+            shootWaitTimer = 130;    
         }
-
+        
         super.update(player);
 
         previousDinosaurState = dinosaurState;

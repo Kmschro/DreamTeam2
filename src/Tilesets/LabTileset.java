@@ -292,6 +292,133 @@ public class LabTileset extends Tileset {
 
         mapTiles.add(leftStairsTopTile);
 
+        // LethalTile
+        Frame deathBeamStartFrame = new FrameBuilder(getSubImage(4, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamStart = new MapTileBuilder(deathBeamStartFrame)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(deathBeamStart);
+        
+
+        Frame deathBeamMidFrame = new FrameBuilder(getSubImage(4,6))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder deathBeamMid = new MapTileBuilder(deathBeamMidFrame)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(deathBeamMid);
+
+        Frame deathBeamEndFrame = new FrameBuilder(getSubImage(4,7))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder deathBeamEnd = new MapTileBuilder(deathBeamEndFrame)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamEnd);
+
+
+
+        //Lethal Ceiling Tiles
+        Frame deathBeamStartFrameUpper = new FrameBuilder(getSubImage(3, 5))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamStartUpper = new MapTileBuilder(deathBeamStartFrameUpper)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(deathBeamStartUpper);
+        
+
+        Frame deathBeamMidFrameUpper = new FrameBuilder(getSubImage(3,6))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder deathBeamMidUpper = new MapTileBuilder(deathBeamMidFrameUpper)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(deathBeamMidUpper);
+
+        Frame deathBeamEndFrameUpper = new FrameBuilder(getSubImage(3,7))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder deathBeamEndUpper = new MapTileBuilder(deathBeamEndFrameUpper)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamEndUpper);
+
+        //Lethal Tile Other Joins
+        Frame deathBeamJointTurnRightFrame = new FrameBuilder(getSubImage(2, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamJointTurnRight = new MapTileBuilder(deathBeamJointTurnRightFrame)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamJointTurnRight);
+
+        Frame deathBeamJointTurnLeftFrame = new FrameBuilder(getSubImage(2, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamJointTurnLeft = new MapTileBuilder(deathBeamJointTurnLeftFrame)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamJointTurnLeft);
+
+
+
+        //Lethal Vertical Tiles
+                //TypeA
+        Frame deathBeamFrameTypeA = new FrameBuilder(getSubImage(0, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamTypeA = new MapTileBuilder(deathBeamFrameTypeA)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamTypeA);
+
+        Frame deathBeamFrameTypeAConnectorTop = new FrameBuilder(getSubImage(1, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamTypeAConnectorTop = new MapTileBuilder(deathBeamFrameTypeAConnectorTop)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamTypeAConnectorTop);
+
+        Frame deathBeamFrameTypeAConnectorBottom = new FrameBuilder(getSubImage(1, 6))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamTypeAConnectorBottom = new MapTileBuilder(deathBeamFrameTypeAConnectorBottom)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamTypeAConnectorBottom);
+
+                //TypeB
+        Frame deathBeamFrameTypeB = new FrameBuilder(getSubImage(0, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamTypeB = new MapTileBuilder(deathBeamFrameTypeB)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamTypeB);
+
+        Frame deathBeamFrameTypeBConnectorTop = new FrameBuilder(getSubImage(0, 8))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamTypeBConnectorTop = new MapTileBuilder(deathBeamFrameTypeBConnectorTop)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamTypeBConnectorTop);
+
+        Frame deathBeamFrameTypeBConnectorBottom = new FrameBuilder(getSubImage(1, 7))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder deathBeamTypeBConnector = new MapTileBuilder(deathBeamFrameTypeBConnectorBottom)
+                .withTileType(TileType.LETHAL);
+        mapTiles.add(deathBeamTypeBConnector);
         return mapTiles;
     }
 }

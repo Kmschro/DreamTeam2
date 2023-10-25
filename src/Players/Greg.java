@@ -7,8 +7,10 @@ import Engine.ImageLoader;
 import Engine.Keyboard;
 import GameObject.Frame;
 import GameObject.ImageEffect;
+import GameObject.IntersectableRectangle;
 import GameObject.SpriteSheet;
 import Level.Player;
+import Powerups.FireballPU;
 import Utils.Direction;
 import Utils.Point;
 // import Powerups.FireballPU;
@@ -23,18 +25,22 @@ public class Greg extends Player {
         private int fireballCooldown = 0;
         private static final int FIREBALL_COOLDOWN_DURATION = 30; // Adjust as needed
         SpriteSheet spriteSheet;
+        private boolean hasFireballPowerup;
+        FireballPU fireballPU;
         
         
         public Greg(float x, float y) {
 
-                super(new SpriteSheet(ImageLoader.load("Gregv1.8.5.png"), 24, 24), x, y, "STAND_RIGHT");
+                super(new SpriteSheet(ImageLoader.load("Gregv1.9.png"), 24, 24), x, y, "STAND_RIGHT");
 
                 gravity = 5f;
+                gravityX = 5f;
                 terminalVelocityY = 6f;
                 jumpHeight = 14.5f;
                 jumpDegrade = .5f;
                 walkSpeed = 2.3f;
                 momentumYIncrease = 5f;
+                momentumXIncrease = 5f;
         }
 
         public void update() {
@@ -211,9 +217,6 @@ public class Greg extends Player {
                                                                 .build()
                                 });
 
-
-
-
                                 //FLIPPED ANIMATIONS
                                 put("PLAYER_FLIPPED_STANDING_RIGHT", new Frame[] {
                                                 new FrameBuilder(spriteSheet.getSprite(0,0))
@@ -317,28 +320,28 @@ public class Greg extends Player {
         
                 int fireballX;
                 float movementSpeed;
-                boolean hasFireballPowerup = getFBPowerup();
+                hasFireballPowerup = getFBPowerup();
         
                 // Check if Greg has the fireball powerup
                 if (hasFireballPowerup) {
-                    // Use the Fireball powerup sprite sheet
-                    spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
-                    movementSpeed = 10.0f;
-                } else {
-                    // Use the regular sprite sheet
-                    movementSpeed = 1.5f;
-                }
+                        // Use the Fireball powerup sprite sheet
+                        //spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
+                        movementSpeed = 2.5f; // Set the fireball speed
+                        if (playerFacingDirection == Direction.RIGHT) {
+                                fireballX = Math.round(playerX) + getWidth() - 10;
+                        } else {
+                                fireballX = (Math.round(playerX - 21)) - 15;
+                                movementSpeed = -movementSpeed;
+                        }
+                
+                        int fireballY = Math.round(getY());
+                        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+                        map.addEnemy(fireball);
+                    } else {
+                       
+                        
+                    }
         
-                if (playerFacingDirection == Direction.RIGHT) {
-                    fireballX = Math.round(playerX) + getWidth() - 10;
-                } else {
-                    fireballX = (Math.round(playerX - 21)) - 15;
-                    movementSpeed = -movementSpeed;
-                }
-        
-                int fireballY = Math.round(getY());
-                Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
-                map.addEnemy(fireball);
         
             }
 

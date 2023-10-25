@@ -3,11 +3,11 @@ package Level;
 import GameObject.GameObject;
 import Utils.Direction;
 import Utils.Point;
-
+import Level.Player;
+import Level.LevelState;
 // This class has methods to check if a game object has collided with a map tile or an enhanced map tile
 // it is used by the game object class to determine if and where a collision occurred
 public class MapCollisionHandler {
-
     public static MapCollisionCheckResult getAdjustedPositionAfterCollisionCheckX(GameObject gameObject, Map map, Direction direction) {
         int numberOfTilesToCheck = Math.max(gameObject.getBounds().getHeight() / map.getTileset().getScaledSpriteHeight(), 1);
         float edgeBoundX = direction == Direction.LEFT ? gameObject.getBounds().getX1() : gameObject.getBounds().getX2();
@@ -104,6 +104,8 @@ public class MapCollisionHandler {
                 case SLOPE:
                     // slopes have special collision logic that is handled elsewhere -- they are technically not considered "solid" by the game
                     return false;
+                case LETHAL:
+                    return gameObject.intersects(mapTile);
                 default:
                     return false;
             }
@@ -112,7 +114,6 @@ public class MapCollisionHandler {
             return mapEntity.intersects(gameObject);
         }
     }
-
     // special collision logic handling for detecting collision with slopes in the y direction
     public static MapCollisionCheckResult getAdjustedPositionAfterCollisionSlopeCheckY(GameObject gameObject, Map map) {
         int numberOfTilesToCheck = Math.max(gameObject.getBounds().getWidth() / map.getTileset().getScaledSpriteWidth(), 1);

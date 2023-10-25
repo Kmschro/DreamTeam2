@@ -7,6 +7,7 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Powerups;
+import SpriteFont.SpriteFont;
 import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Point;
@@ -16,7 +17,8 @@ import java.util.TimerTask;
 
 public class FireballPU extends Powerups {
 
-    public boolean hasFireballPowerup = false;
+    public boolean hasFireballPowerup;
+    protected Timer timer;
 
     public FireballPU(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.V2.png"), 11, 11), "DEFAULT");
@@ -27,21 +29,9 @@ public class FireballPU extends Powerups {
     public void update(Player player) {
 
         super.update(player);
-        player.setFBPowerup(false);
-        // Check for player collision
-        if (this.intersects(player)) {
-            // Increase the player's fireball speed
+        if (this.intersects(player) && !hasFireballPowerup) {
             player.setFBPowerup(true);
-            Timer powerupTimer = new Timer();
-            powerupTimer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    // Timer task to remove the power-up effect after 30 seconds
-                    player.setFBPowerup(false);
-                    mapEntityStatus = MapEntityStatus.REMOVED;
-                    powerupTimer.cancel();
-                }
-            }, 30000); // 30 seconds in milliseconds
+            hasFireballPowerup = true;
         }
     }
 

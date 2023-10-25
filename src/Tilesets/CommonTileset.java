@@ -261,6 +261,15 @@ public class CommonTileset extends Tileset {
                 .withTileLayout(SlopeTileLayoutUtils.createTopLeft30SlopeLayout(spriteWidth, (int) tileScale));
 
         mapTiles.add(leftStairsTopTile);
+        // LethalTile
+        Frame lethalFrame = new FrameBuilder(getSubImage(0, 0))
+                .withScale(tileScale)
+                .build();
+
+        MapTileBuilder lethalTile = new MapTileBuilder(lethalFrame)
+                .withTileType(TileType.LETHAL);
+
+        mapTiles.add(lethalTile);
 
         return mapTiles;
     }
