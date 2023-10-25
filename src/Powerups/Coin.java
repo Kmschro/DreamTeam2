@@ -23,6 +23,7 @@ public class Coin extends Powerups  {
     //protected SpriteFont coinLabel;
     protected SpriteFont coinNumber;
     //protected int coinCount;
+    private int coinCount;
 
     public Coin(Point location){
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Coin.png"), 24, 24), "COIN_FRONT");
@@ -31,30 +32,29 @@ public class Coin extends Powerups  {
         // coinLabel.setOutlineColor(Color.black);
         // coinLabel.setOutlineThickness(3);
 
-        //coinCount = 0;
+        coinCount = 0;
     }
 
     @Override
     public void update(Player player) {
         super.update();
-        if (intersects(player)) {
-            //coinCount++;
-            this.mapEntityStatus = MapEntityStatus.REMOVED;
-            //coinCount++;
-            //printCoinCount();
-        }
-
         //logic to update coin count and make it disappear
         //logic to check for player collision
         if (this.intersects(player)) {
-
+            coinCount++;
+            this.mapEntityStatus = MapEntityStatus.REMOVED;
+            //printCoinCount();
         }
 
     }
 
-    // private void printCoinCount() {
-    //     System.out.println(coinLabel + " " + coinCount);
-    // }
+    public void setCoinCount(int coinCount) {
+        this.coinCount = coinCount;
+    }
+
+    public int getCoinCount() {
+        return coinCount;
+    }
 
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {

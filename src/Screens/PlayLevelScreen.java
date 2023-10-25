@@ -17,6 +17,7 @@ import SpriteFont.SpriteFont;
 import java.awt.*;
 import java.util.Timer;
 import java.util.TimerTask;
+import Powerups.Coin;
 
 import Utils.Point;
 import Utils.AudioPlayer;
@@ -63,10 +64,6 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
 
-        coinLabel = new SpriteFont("COINS:", 0, 0, "Comic Sans", 25, Color.white);
-        coinLabel.setOutlineColor(Color.black);
-        coinLabel.setOutlineThickness(3);
-
         timeInSeconds = 30;
         levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25, Color.white);
         levelTimer.setOutlineColor(Color.black);
@@ -101,8 +98,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
     }
 
     public void update() {
+        int coinCount = 0;// = getCoinCount();
+        coinLabel = new SpriteFont("COINS: " + String.valueOf(coinCount), 0, 0, "Comic Sans", 25, Color.white);
+        coinLabel.setOutlineColor(Color.black);
+        coinLabel.setOutlineThickness(3);
 
-        
         if (timeInSeconds == 0)
         {
             playLevelScreenState =  PlayLevelScreenState.LEVEL_LOSE;
@@ -161,6 +161,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
             case RUNNING:
                 map.draw(graphicsHandler);
                 player.draw(graphicsHandler);
+                coinLabel.draw(graphicsHandler);
+                powerupTimer.draw(graphicsHandler);
+                levelTimer.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
@@ -170,9 +173,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener {
                 break;
         }
 
-        coinLabel.draw(graphicsHandler);
-        powerupTimer.draw(graphicsHandler);
-        levelTimer.draw(graphicsHandler);
+
     }
 
     public PlayLevelScreenState getPlayLevelScreenState() {
