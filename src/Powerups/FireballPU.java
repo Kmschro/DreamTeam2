@@ -37,11 +37,12 @@ public class FireballPU extends Powerups {
                 @Override
                 public void run() {
                     // Timer task to remove the power-up effect after 30 seconds
-                    player.setFBPowerup(false);
+                    // player.setFBPowerup(false);
                     mapEntityStatus = MapEntityStatus.REMOVED;
                     powerupTimer.cancel();
                 }
             }, 30000); // 30 seconds in milliseconds
+            player.setFBPowerup(false);
         }
     }
 
