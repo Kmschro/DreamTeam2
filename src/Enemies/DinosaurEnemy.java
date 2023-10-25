@@ -143,9 +143,9 @@ public class DinosaurEnemy extends Enemy {
             dinosaurState = DinosaurState.WALK;
 
             // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
-            shootWaitTimer = 130;
+            shootWaitTimer = 130;    
         }
-
+        
         super.update(player);
 
         previousDinosaurState = dinosaurState;

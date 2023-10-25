@@ -68,7 +68,7 @@ public abstract class Player extends GameObject {
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
-    protected boolean haveFBPowerup = false;
+    protected boolean haveFBPowerup;
     private int coinCount;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
