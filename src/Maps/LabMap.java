@@ -66,9 +66,8 @@ public class LabMap extends Map {
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        BugEnemy bugEnemy = new BugEnemy(getMapTile(13, 7).getLocation(),
-                getMapTile(18, 7).getLocation(), Direction.RIGHT);
-        enemies.add(bugEnemy);
+        DinosaurEnemy dinosaurEnemy = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
+        enemies.add(dinosaurEnemy);
 
         return enemies;
     }

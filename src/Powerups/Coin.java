@@ -63,35 +63,23 @@ public class Coin extends Powerups  {
                     new FrameBuilder(spriteSheet.getSprite(0,0),5)
                     .withScale(3)
                     .withBounds(14, 14, 14, 14)
-                    .build()
-                });
-
-                put("COIN_QUART_SIDE", new Frame[] {
+                    .build(),
                     new FrameBuilder(spriteSheet.getSprite(0,1),5)
                     .withScale(3)
                     .withBounds(14, 14, 14, 14)
-                    .build()
-                });
-
-                put("COIN_HALF_SIDE", new Frame[] {
+                    .build(),
                     new FrameBuilder(spriteSheet.getSprite(0,2),5)
                     .withScale(3)
                     .withBounds(14, 14, 14, 14)
-                    .build()
-                });
-
-                put("COIN_FULL_SIDE", new Frame[] {
+                    .build(),
                     new FrameBuilder(spriteSheet.getSprite(0,3),5)
                     .withScale(3)
                     .withBounds(14, 14, 14, 14)
-                    .build()
-                });
-
-                put("COIN_BACK", new Frame[] {
+                    .build(),
                     new FrameBuilder(spriteSheet.getSprite(0,4),5)
                     .withScale(3)
                     .withBounds(14, 14, 14, 14)
-                    .build()
+                    .build(),
                 });
             }
         };
