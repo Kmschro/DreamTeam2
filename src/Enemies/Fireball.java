@@ -58,7 +58,6 @@ public class Fireball extends Enemy {
     }
     
     
-
     @Override
     public void touchedPlayer(Player player) {
         // if fireball touches player, it disappears

@@ -165,6 +165,7 @@ public class DinosaurEnemy extends Enemy {
         }
     }
 
+
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{

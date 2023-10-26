@@ -5,6 +5,8 @@ import GameObject.SpriteSheet;
 
 import java.util.HashMap;
 
+import Enemies.DinosaurEnemy;
+
 // This class is a base class for all enemies in the game -- all enemies should extend from it
 public class Enemy extends MapEntity {
 
