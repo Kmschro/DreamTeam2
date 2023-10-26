@@ -3,6 +3,7 @@ package Level;
 import Engine.GraphicsHandler;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Utils.Direction;
 
 import java.util.HashMap;
 
@@ -34,7 +35,9 @@ public class EnhancedMapTile extends MapTile {
     public void update(Player player) {
         super.update();
     }
-
+    @Override
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
+    }
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);

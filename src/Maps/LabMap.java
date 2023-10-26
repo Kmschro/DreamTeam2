@@ -8,8 +8,10 @@ import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
+import Utils.Point;
 import Utils.Direction;
 import Powerups.Coin;
 import Powerups.FireballPU;
@@ -48,6 +50,11 @@ public class LabMap extends Map {
 
         FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
         coins.add(fbPU);
+
+        // Checkpoint checkpoint = this.setCP(new Point(56, 6));
+        Checkpoint checkpoint = new Checkpoint(getMapTile(56, 6).getLocation().subtractY(13));
+        coins.add(checkpoint);
+
         return coins;
     }
 
@@ -57,6 +64,7 @@ public class LabMap extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
+        
         Key key = new Key(getMapTile(13, 4).getLocation());
         enhancedMapTiles.add(key);
 
@@ -71,5 +79,6 @@ public class LabMap extends Map {
         
         return enemies;
     }
+    
     
 }

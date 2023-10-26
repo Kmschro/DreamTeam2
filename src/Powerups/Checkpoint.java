@@ -1,5 +1,6 @@
 package Powerups;
 
+
 import Builders.FrameBuilder;
 import Engine.GraphicsHandler;
 import Engine.ImageLoader;
@@ -7,7 +8,6 @@ import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
 import Level.Powerups;
-import SpriteFont.SpriteFont;
 import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Point;
@@ -15,23 +15,31 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class FireballPU extends Powerups {
 
-    public boolean hasFireballPowerup;
-    protected Timer timer;
+public class Checkpoint extends Powerups{
+    
+    public boolean hasCP;
 
-    public FireballPU(Point location) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.V2.png"), 11, 11), "DEFAULT");
-
+    public Checkpoint(Point location) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Checkpointv2.png"), 24, 24), "DEFAULT");
+        hasCP = false;
     }
 
     @Override
     public void update(Player player) {
 
         super.update(player);
-        if (this.intersects(player) && !hasFireballPowerup) {
-            player.setFBPowerup(true);
-            hasFireballPowerup = true;
+        
+
+       
+        // Check for player collision
+        if (this.intersects(player)) {
+            // tells player it reached checkpoint
+            hasCP = true;
+            map.setCp(true);
+            
+            System.out.print("true1");
+            
         }
     }
 
@@ -53,4 +61,13 @@ public class FireballPU extends Powerups {
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
     }
+
+    public boolean getCP() {
+        return hasCP;
+    }
+
+    public Point getLoc() {
+        return this.getLocation();
+    }
 }
+
