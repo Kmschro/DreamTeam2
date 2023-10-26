@@ -40,10 +40,10 @@ public class Enemy extends MapEntity {
         if (intersects(player)) {
             touchedPlayer(player);
         }
-        if (intersects(this))
+        /*if (intersects(this))
         {
             hitByFireball();
-        }
+        }*/
     }
     public void hitByFireball() {
         this.mapEntityStatus = MapEntityStatus.REMOVED;
