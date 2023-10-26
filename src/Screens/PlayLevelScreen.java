@@ -21,6 +21,7 @@ import Powerups.Coin;
 
 import Utils.Point;
 import Utils.AudioPlayer;
+import Powerups.Checkpoint;
 
 interface CoinListener {
     void onCoinCollected(int coins);
@@ -36,6 +37,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected LevelClearedScreen levelClearedScreen;
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
+    protected boolean hasCP;
     private int timeInSeconds = 61;
     protected Timer timer;
     private int powerUpTimeInSeconds; // Set the initial time for the power-up to 30 seconds
@@ -51,17 +53,34 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
+        hasCP = false;
+        //cp = new Checkpoint(new Point(56, 6));
     }
+
+    //set up checkpoint
+    
+
 
     public void onCoinCollected(int coins) {
         coinCount = coins;
     }
     public void initialize() {
+      
+        
+
         // define/setup map
         // this.map = new LabMap();
         this.map = new LabMap();
         // setup player
         this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        /*if (map.getCp()) {
+            System.out.println("TEST");
+            this.player = new Greg(56, 6);
+        }
+        else {
+        this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        }
+        */
         this.player.setMap(map);
         this.player.addListener(this);
         Point playerStartPosition = map.getPlayerStartPosition();
@@ -111,6 +130,22 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         coinLabel.setOutlineColor(Color.black);
         coinLabel.setOutlineThickness(3);
 
+        /* 
+        if(cp.getCP()) {
+            hasCP = true;
+            //System.out.print("true");
+        }
+        */
+
+        // if (map.getCp()) {
+        //     this.player = new Greg(56, 6);
+
+        //     this.player.setMap(map);
+        //     this.player.addListener(this);
+        // }
+        // else {
+        // this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        // }
         if (timeInSeconds == 0) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
         }
@@ -230,6 +265,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             this.map = new LabMap();
             this.player.levelTwo();
             this.player = new Greg(4, 4);
+
+            this.player.setMap(map);
+            this.player.addListener(this);
+
             Point playerStartPosition = map.getPlayerStartPosition();
             this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
             // player.update(); //causes error for some reason
@@ -240,10 +279,33 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         }
     }
 
+
+    
+
+    //and !Map.hasCP vvvvv
     @Override
     public void onDeath() {
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
-            playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+            //playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
+
+            if (map.getCp()) {
+                // this.player = new Greg(56, 6);
+        
+                // this.player.setMap(map);
+                // this.player.addListener(this);
+
+                System.out.print("line 207");
+
+                Point point = map.getMapTile(56, 6).getLocation().subtractY(13);
+                
+                this.player.setLocation(point.x, point.y);
+            }
+            else {
+            System.out.print("line 211");
+            this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+            }
+            this.player.setLevelState(LevelState.RUNNING);
+            // playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             // reset the timer to the original time value
             // Also cancel the powerUpTimer if it's running
             if (timer != null) {

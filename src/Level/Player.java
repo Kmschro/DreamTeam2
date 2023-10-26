@@ -47,6 +47,7 @@ public abstract class Player extends GameObject {
     protected AirGroundState airGroundState;
     protected AirGroundState previousAirGroundState;
     protected LevelState levelState;
+    
 
     // classes that listen to player events can be added to this list
     protected ArrayList<PlayerListener> listeners = new ArrayList<>();
@@ -70,6 +71,9 @@ public abstract class Player extends GameObject {
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
     protected boolean haveFBPowerup;
     private int coinCount;
+
+    //for checkpoint
+    protected boolean hasCP = false;
 
     public Player(SpriteSheet spriteSheet, float x, float y, String startingAnimationName) {
         super(spriteSheet, x, y, startingAnimationName);
@@ -442,5 +446,13 @@ public abstract class Player extends GameObject {
     public void collectKey(EnhancedMapTiles.Key key) {
         hasKey = true;
     }
+    
+    // public void setCP(boolean hasCP) {
+    //     this.hasCP = hasCP;
+    // }
+
+    // public boolean getCP() {
+    //     return hasCP;
+    // }
     
 }
