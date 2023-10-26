@@ -297,9 +297,7 @@ public abstract class Player extends GameObject {
         }
     }
 
-    @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
-    }
+    
 
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
