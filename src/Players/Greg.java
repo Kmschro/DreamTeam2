@@ -326,7 +326,7 @@ public class Greg extends Player {
                 if (hasFireballPowerup) {
                         // Use the Fireball powerup sprite sheet
                         //spriteSheet = new SpriteSheet(ImageLoader.load("Gregv1.8.1FBPowerup.png"), 24, 24);
-                        movementSpeed = 2.5f; // Set the fireball speed
+                        movementSpeed = 3.0f; // Set the fireball speed
                         if (playerFacingDirection == Direction.RIGHT) {
                                 fireballX = Math.round(playerX) + getWidth() - 10;
                         } else {
@@ -335,7 +335,7 @@ public class Greg extends Player {
                         }
                 
                         int fireballY = Math.round(getY());
-                        Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+                        PlayerFireball fireball = new PlayerFireball(fireballX-1, fireballY, movementSpeed, 60);
                         map.addEnemy(fireball);
                     } else {
                        

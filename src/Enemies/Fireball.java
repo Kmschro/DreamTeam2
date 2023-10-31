@@ -4,6 +4,7 @@ import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
+import Level.AbilityListenerManager;
 import Level.Enemy;
 import Level.LevelState;
 import Level.MapEntity;
@@ -28,9 +29,14 @@ public class Fireball extends Enemy {
         // how long the fireball will exist for before disappearing
         this.existenceFrames = existenceFrames;
 
-        initialize();
+        
     }
-
+    @Override
+    public void initialize() {
+        // Add the firewisp as an enemy to listen for elemental abilities
+        //AbilityListenerManager.addEnemyListener(this);
+        super.initialize();
+    }
     @Override
     public void update(Player player) {
         // if timer is up, set map entity status to REMOVED

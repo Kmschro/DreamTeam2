@@ -2,7 +2,8 @@ package Level;
 
 import GameObject.Frame;
 import GameObject.SpriteSheet;
-
+import Players.PlayerFireball;
+import Level.AbilityListener;
 import java.util.HashMap;
 
 import Enemies.Fireball;
@@ -10,6 +11,13 @@ import Enemies.Fireball;
 // This class is a base class for all enemies in the game -- all enemies should extend from it
 public class Enemy extends MapEntity {
     public boolean hitbyFB;
+    protected PlayerFireball activeFireball = null;
+
+    
+    public void fireballKilledEnemy(){
+
+    }
+
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
     }
@@ -40,15 +48,22 @@ public class Enemy extends MapEntity {
         if (intersects(player)) {
             touchedPlayer(player);
         }
+        if (activeFireball != null){
+            if (intersects(activeFireball)){
+                hitByFireball(this);
+            }
+        }
         /*if (intersects(this))
         {
             hitByFireball();
         }*/
     }
-    public void hitByFireball() {
-        this.mapEntityStatus = MapEntityStatus.REMOVED;
-      // Set the enemy's visibility to false when hit by a fireball
+
+    public void hitByFireball(Enemy enemy){
+        // This makes the enemy dissapear
+        enemy.mapEntityStatus = MapEntityStatus.REMOVED;
     }
+
     // A subclass can override this method to specify what it does when it touches
     // the player
     public void touchedPlayer(Player player) {
