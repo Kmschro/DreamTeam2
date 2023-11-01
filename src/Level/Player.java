@@ -7,6 +7,7 @@ import GameObject.GameObject;
 import GameObject.Sprite;
 import GameObject.SpriteSheet;
 import Players.Greg;
+import Players.PlayerFireball;
 import Utils.AirGroundState;
 import Utils.AudioPlayer;
 import Utils.Direction;
@@ -71,6 +72,9 @@ public abstract class Player extends GameObject {
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
     protected boolean haveFBPowerup;
     private int coinCount;
+    protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
+    protected boolean waveOnCooldown = false; // Whether wave is on cooldown
+    protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
 
     //for checkpoint
     protected boolean hasCP = false;
@@ -209,13 +213,8 @@ public abstract class Player extends GameObject {
         }
     }
 
-    protected void playerShooting() {
-        // Check if the SHOOT_KEY (F) is pressed
-        if (Keyboard.isKeyDown(SHOOT_KEY)) {
-            // Implement code to shoot a fireball here
-            playerState = PlayerState.SHOOTING;
-        }
-    }
+
+    
 
     // player STANDING state logic
     protected void playerStanding() {
@@ -298,6 +297,10 @@ public abstract class Player extends GameObject {
         MapTile currentMapTile = map.getTileByPosition(centerX, centerY);
         if (currentMapTile != null && currentMapTile.getTileType() == TileType.WATER) {
             this.currentAnimationName = facingDirection == Direction.RIGHT ? "STAND_RIGHT" : "STAND_LEFT";
+        }
+        
+        if ((Keyboard.isKeyDown(SHOOT_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && getFBPowerup() == true){
+            fireballSpit(getX(), getY(), getFacingDirection());
         }
     }
 
@@ -437,9 +440,32 @@ public abstract class Player extends GameObject {
     public void setFBPowerup(boolean haveFBPowerup) {
         this.haveFBPowerup = haveFBPowerup;
     }
+     public void fireballSpit(float x, float y, Direction direction){
+        float movementSpeed;
+        float spawnX =x;
+        float spawnY = y;
+        int existenceFrames = 50;
+        if (direction == Direction.RIGHT){
+            spawnX+= 30;
+            movementSpeed = 4;
+        }
+        else {
+            spawnX += 10;
+            movementSpeed = -4;
+        }
+        // Create a fireball and add it to the map
+        PlayerFireball fireball = new PlayerFireball(spawnX, spawnY, movementSpeed, existenceFrames);
+        map.addEnemy(fireball);
 
+        // Set the cooldown here (cooldown is in frames, remember 60 fps so 60 = 1 second)
+        cooldownCounter = 200;
+        fireballOnCooldown = true;
+    }
     public boolean getFBPowerup() {
         return haveFBPowerup;
+    }
+    public LevelState getLevelState() {
+        return levelState;
     }
     public void levelTwo() {
     }

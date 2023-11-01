@@ -14,6 +14,7 @@ public class Powerups extends MapEntity {
     protected int talkedToTime; // how long after talking to NPC will textbox stay open -- use negative number
                                 // to have it be infinite time
     protected int timer;
+    private LevelState levelState;
 
     public Powerups(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -45,10 +46,16 @@ public class Powerups extends MapEntity {
     }
 
     public void update(Player player) {
+        levelState = player.getLevelState();
         super.update();
         if (intersects(player)) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
+            if (levelState == LevelState.PLAYER_DEAD)
+        {
+            this.mapEntityStatus = MapEntityStatus.ACTIVE;
         }
+        }
+
     }
 
     @Override
