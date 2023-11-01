@@ -65,7 +65,7 @@ public class LabMap extends Map {
         enhancedMapTiles.add(endLevelBox);
 
         
-        Key key = new Key(getMapTile(13, 4).getLocation());
+        Key key = new Key(getMapTile(67, 9).getLocation());
         enhancedMapTiles.add(key);
 
         return enhancedMapTiles;
@@ -76,7 +76,7 @@ public class LabMap extends Map {
 
         DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
-        
+
         return enemies;
     }
     
