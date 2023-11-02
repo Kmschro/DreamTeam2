@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import Powerups.Coin;
-
+import Powerups.FireballPU;
 import Utils.Point;
 import Utils.AudioPlayer;
 import Powerups.Checkpoint;
@@ -64,10 +64,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     public void onCoinCollected(int coins) {
         coinCount = coins;
     }
-
+    
     public void initialize() {
-        
-        
+
         // define/setup map
         // this.map = new LabMap();
         this.map = new LabMap();
@@ -98,6 +97,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 Color.white);
         levelTimer.setOutlineColor(Color.black);
         levelTimer.setOutlineThickness(3);
+        timeInSeconds = 76;
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override

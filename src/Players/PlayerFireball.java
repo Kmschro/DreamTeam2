@@ -84,7 +84,6 @@ public class PlayerFireball extends Enemy {
     public void enemyAttacked(Enemy enemy) {}
 
     // If the fireball has killed an enemy, it will disappear
-    @Override
     public void fireballKilledEnemy(){
         AbilityListenerManager.fireballDespawned();
         this.mapEntityStatus = MapEntityStatus.REMOVED;

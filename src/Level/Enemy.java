@@ -12,11 +12,7 @@ import Enemies.Fireball;
 public class Enemy extends MapEntity {
     public boolean hitbyFB;
     protected PlayerFireball activeFireball = null;
-
     
-    public void fireballKilledEnemy(){
-
-    }
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
