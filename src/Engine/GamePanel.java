@@ -28,7 +28,9 @@ public class GamePanel extends JPanel {
 	private SpriteFont resumeGameLabel;
 	private SpriteFont mainMenuLabel;
 	private SpriteFont instructionsLabel;
-	private SpriteFont movementLabel;
+	private SpriteFont movementLabel1;
+	private SpriteFont movementLabel2;
+	private SpriteFont powerupLabel1;
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
@@ -72,9 +74,15 @@ public class GamePanel extends JPanel {
 		instructionsLabel = new SpriteFont("INSTRUCTIONS:", 425, 450, "Comic Sans", 24, Color.white);
         instructionsLabel.setOutlineColor(Color.black);
         instructionsLabel.setOutlineThickness(3);
-		movementLabel = new SpriteFont("Use A & D to move Left & Right", 425, 450, "Comic Sans", 24, Color.white);
-        movementLabel.setOutlineColor(Color.black);
-        movementLabel.setOutlineThickness(3);
+		movementLabel1 = new SpriteFont("Use A & D to Move Left & Right", 425, 475, "Comic Sans", 18, Color.white);
+		movementLabel1.setOutlineColor(Color.black);
+        movementLabel1.setOutlineThickness(3);
+		movementLabel2 = new SpriteFont("Use W to Flip the World's Gravity", 425, 495, "Comic Sans", 18, Color.white);
+        movementLabel2.setOutlineColor(Color.black);
+        movementLabel2.setOutlineThickness(3);
+		powerupLabel1 = new SpriteFont("Use F to Shoot Fireballs (POWERUP!)", 425, 515, "Comic Sans", 18, Color.white);
+        powerupLabel1.setOutlineColor(Color.black);
+        powerupLabel1.setOutlineThickness(3);
 
 		//logic for pasue menu functionailty
 		keyPressTimer = 0;
@@ -208,6 +216,9 @@ public class GamePanel extends JPanel {
 			resumeGameLabel.draw(graphicsHandler);
 			mainMenuLabel.draw(graphicsHandler);
 			instructionsLabel.draw(graphicsHandler);
+			movementLabel1.draw(graphicsHandler);
+			movementLabel2.draw(graphicsHandler);
+			powerupLabel1.draw(graphicsHandler);
 
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 			graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 15, 15, new Color(49, 207, 240), Color.black, 2);
