@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import Powerups.Coin;
+import Engine.GamePanel;
 
 import Utils.Point;
 import Utils.AudioPlayer;
@@ -50,8 +51,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected SpriteFont levelTimer;
     protected SpriteFont powerupTimer;
     private int coinCount;
+    private boolean isBackToMenu = false;
 
-    private AudioPlayer menuMusic = new AudioPlayer();
+    private static AudioPlayer menuMusic = new AudioPlayer();
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -65,7 +67,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         coinCount = coins;
     }
 
-    public void initialize() {
+    public void initialize () {
         
         
         // define/setup map
@@ -126,8 +128,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             e.printStackTrace();
         }
 
-    }
+        if (backToMenu()) {
+            menuMusic.stop();
+        }
 
+    }
+    
     public void update() {
         // int coinCount = 0;// = getCoinCount();
         coinLabel = new SpriteFont("COINS: " + String.valueOf(coinCount), 0, 0, "Comic Sans", 25, Color.white);
@@ -213,6 +219,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             // player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
+                exit();
                 break;
         }
     }
@@ -325,7 +332,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             timeInSeconds = 76;
             
         }
-        menuMusic.stop();
+
     }
 
     public void resetLevel() {
@@ -335,6 +342,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
+        isBackToMenu = true;  
     }
 
     // This enum represents the different states this screen can be in
@@ -342,8 +350,12 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 
-    public void exit() {
+    public static void exit() {
         menuMusic.stop();
     }
 
-}
+    public boolean backToMenu() {
+        return isBackToMenu;
+    }
+
+} 
