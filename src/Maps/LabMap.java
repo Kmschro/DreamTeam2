@@ -6,6 +6,7 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
+import EnhancedMapTiles.Door;
 import GameObject.Rectangle;
 import Level.*;
 import Powerups.Checkpoint;
@@ -25,7 +26,7 @@ public class LabMap extends Map {
         super("TestMap2.txt", new LabTileset());
         this.playerStartPosition = getMapTile(1, 8).getLocation();
     }
-
+    
     @Override
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> coins = new ArrayList<>();
@@ -65,8 +66,21 @@ public class LabMap extends Map {
         enhancedMapTiles.add(endLevelBox);
 
         
-        Key key = new Key(getMapTile(13, 4).getLocation());
+        Key key = new Key(getMapTile(23, 8).getLocation());
         enhancedMapTiles.add(key);
+
+
+        
+        Door door1 = new Door(
+        ImageLoader.load("Door.png"),
+        getMapTile(26, 6).getLocation(),
+        getMapTile(26, -0).getLocation(),
+        TileType.NOT_PASSABLE,
+        5,
+        new Rectangle(0, 6, 16, 16),
+        Direction.RIGHT);
+        enhancedMapTiles.add(door1);
+
 
         return enhancedMapTiles;
     }
@@ -76,7 +90,7 @@ public class LabMap extends Map {
 
         DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
-        
+
         return enemies;
     }
     

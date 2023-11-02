@@ -6,6 +6,7 @@ import Players.PlayerFireball;
 import Level.AbilityListener;
 import java.util.HashMap;
 
+import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 
 // This class is a base class for all enemies in the game -- all enemies should extend from it

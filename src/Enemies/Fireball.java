@@ -21,6 +21,8 @@ import java.util.HashMap;
 public class Fireball extends Enemy {
     private float movementSpeed;
     private int existenceFrames;
+    private float speedY;
+
 
     public Fireball(Point location, float movementSpeed, int existenceFrames) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
@@ -66,7 +68,6 @@ public class Fireball extends Enemy {
     }
     
     
-
     @Override
     public void touchedPlayer(Player player) {
         // if fireball touches player, it disappears

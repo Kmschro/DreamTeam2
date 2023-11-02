@@ -71,7 +71,7 @@ public class GamePanel extends JPanel {
 		//logic for pasue menu functionailty
 		keyPressTimer = 0;
         menuItemSelected = -1;
-        keyLocker.lockKey(Key.SPACE);
+        keyLocker.lockKey(Key.ESC);
 
 		fpsDisplayLabel = new SpriteFont("FPS", 4, 3, "Comic Sans", 12, Color.black);
 
@@ -148,16 +148,19 @@ public class GamePanel extends JPanel {
 		 }
  
 		 //if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
-		 if (Keyboard.isKeyUp(Key.SPACE)) {
-			 keyLocker.unlockKey(Key.SPACE);
+		 if (Keyboard.isKeyUp(Key.ENTER)) {
+			 keyLocker.unlockKey(Key.ENTER);
 		 }
-		 if (!keyLocker.isKeyLocked(Key.SPACE) && Keyboard.isKeyDown(Key.SPACE)) {
+		 if (!keyLocker.isKeyLocked(Key.ENTER) && Keyboard.isKeyDown(Key.ENTER)) {
 			 menuItemSelected = currentMenuItemHovered;
 			 if (menuItemSelected == 0) {
 				 isGamePaused = !isGamePaused;
-				 keyLocker.lockKey(Key.SPACE);
+				 keyLocker.lockKey(Key.ENTER);
 			 } else if (menuItemSelected == 1) {
-				
+				isGamePaused = !isGamePaused;
+				initializeScreenCoordinator();
+				screenCoordinator.setGameState(GameState.MENU); // Switch to MenuScreen
+				keyLocker.lockKey(Key.ENTER); 
 			 }
 		 }
 		
@@ -191,7 +194,7 @@ public class GamePanel extends JPanel {
 		 screenManager.draw(graphicsHandler);
 
 		// // if game is paused, draw pause gfx over Screen gfx
-		if (isGamePaused) {
+		if (isGamePaused && ScreenCoordinator.getGameState() != GameState.MENU) {
 			pauseLabel.draw(graphicsHandler);
 			resumeGameLabel.draw(graphicsHandler);
 			mainMenuLabel.draw(graphicsHandler);
@@ -213,4 +216,9 @@ public class GamePanel extends JPanel {
 		graphicsHandler.setGraphics((Graphics2D) g);
 		draw();
 	}
+
+	private void initializeScreenCoordinator() {
+        screenCoordinator = new ScreenCoordinator();
+        screenCoordinator.initialize();
+    }
 }
