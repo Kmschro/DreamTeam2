@@ -5,6 +5,7 @@ import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
+import Level.AbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
@@ -69,7 +70,14 @@ public class DinosaurEnemy extends Enemy {
     public void update(Player player) {
         float startBound = startLocation.x;
         float endBound = endLocation.x;
-
+        
+        if (activeFireball != null){
+            if (intersects(activeFireball)){
+                hitByFireball(this);
+                // broadcast so the fireball disappears
+                AbilityListenerManager.fireballKilledEnemy();
+            }
+        }
         // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
         if (shootWaitTimer == 0 && dinosaurState != DinosaurState.SHOOT_WAIT) {
             dinosaurState = DinosaurState.SHOOT_WAIT;
@@ -164,6 +172,7 @@ public class DinosaurEnemy extends Enemy {
             }
         }
     }
+
 
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {

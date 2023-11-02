@@ -9,12 +9,14 @@ import Level.Map;
 import Level.MapEntityStatus;
 import Level.Player;
 import Level.PlayerListener;
+import Level.Powerups;
 import Maps.TestMap;
 import Maps.LabMap;
 import Maps.LabMap;
 import Players.Greg;
 import SpriteFont.SpriteFont;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import Powerups.Coin;
@@ -31,6 +33,7 @@ interface CoinListener {
 public class PlayLevelScreen extends Screen implements PlayerListener, CoinListener {
     protected ScreenCoordinator screenCoordinator;
     protected Map map;
+    protected Powerups fbPU;
     protected Player player;
     protected PlayLevelScreenState playLevelScreenState;
     protected int screenTimer;
@@ -38,7 +41,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected LevelLoseScreen levelLoseScreen;
     protected boolean levelCompletedStateChangeStart;
     protected boolean hasCP;
-    private int timeInSeconds = 61;
+    private int timeInSeconds = 76;
     protected Timer timer;
     private int powerUpTimeInSeconds; // Set the initial time for the power-up to 30 seconds
     private Timer powerUpTimer;
@@ -63,12 +66,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     }
 
     public void initialize() {
-
+        
+        
         // define/setup map
         // this.map = new LabMap();
         this.map = new LabMap();
         // setup player
         this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        
         /*
          * if (map.getCp()) {
          * System.out.println("TEST");
@@ -317,7 +322,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 powerUpTimer.cancel();
             }
 
-            timeInSeconds = 61;
+            timeInSeconds = 76;
             
         }
         menuMusic.stop();
@@ -325,6 +330,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
     public void resetLevel() {
         initialize();
+        
     }
 
     public void goBackToMenu() {

@@ -90,7 +90,7 @@ public class LabMap extends Map {
 
         DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
-        
+
         return enemies;
     }
     
