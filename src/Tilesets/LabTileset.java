@@ -223,7 +223,7 @@ public class LabTileset extends Tileset {
                 .build();
 
         MapTileBuilder hoverPlatformLeft = new MapTileBuilder(hoverPlatformLeftFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(hoverPlatformLeft);
 
@@ -233,7 +233,7 @@ public class LabTileset extends Tileset {
                 .build();
 
         MapTileBuilder hoverPlatformMiddle = new MapTileBuilder(hoverPlatformMiddleFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(hoverPlatformMiddle);
 
@@ -243,7 +243,7 @@ public class LabTileset extends Tileset {
                 .build();
 
         MapTileBuilder hoverPlatformRight = new MapTileBuilder(hoverPlatformRightFrame)
-                .withTileType(TileType.NOT_PASSABLE);
+                .withTileType(TileType.JUMP_THROUGH_PLATFORM);
 
         mapTiles.add(hoverPlatformRight);
 

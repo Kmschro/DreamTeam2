@@ -183,7 +183,6 @@ public abstract class Player extends GameObject {
         } else {
             playerState = PlayerState.STANDING;
         }
-
     }
     
     
