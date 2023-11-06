@@ -63,7 +63,6 @@ public abstract class Player extends GameObject {
     protected Key SUICIDE = Key.L;
 
     protected Key FLIP_KEY = Key.W;
-    protected Key FLIP_KEY_X = Key.S;
     boolean R_Key_Pressed = false;
     public boolean hasKey = false;
     
@@ -135,10 +134,6 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(FLIP_KEY) && !keyLocker.isKeyLocked(FLIP_KEY)) {
             flipWorld();
             keyLocker.lockKey(FLIP_KEY);
-        }
-        if (Keyboard.isKeyDown(FLIP_KEY_X) && !keyLocker.isKeyLocked(FLIP_KEY_X)) {
-            flipWorldX();
-            keyLocker.lockKey(FLIP_KEY_X);
         }
     }
 
@@ -262,11 +257,6 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyUp(FLIP_KEY))
         {
             keyLocker.unlockKey(FLIP_KEY);
-        }
-        if (Keyboard.isKeyUp(FLIP_KEY_X))
-        {
-            keyLocker.unlockKey(FLIP_KEY_X);
-            
         }
     }
     // anything extra the player should do based on interactions can be handled here

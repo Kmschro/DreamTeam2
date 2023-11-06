@@ -226,7 +226,7 @@ public class Camera extends Rectangle {
 
 
 
-    // gets end bound X position of the camera (start position is always 0)
+    // gets end bound X posFition of the camera (start position is always 0)
     public float getEndBoundX() {
         return x + (width * tileWidth) + leftoverSpaceX;
     }

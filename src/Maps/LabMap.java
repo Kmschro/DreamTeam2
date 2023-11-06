@@ -74,10 +74,10 @@ public class LabMap extends Map {
         Door door1 = new Door(
         ImageLoader.load("Door.png"),
         getMapTile(26, 7).getLocation(),
-        getMapTile(26, -0).getLocation(),
+        getMapTile(26, 1).getLocation(),
         TileType.NOT_PASSABLE,
         3,
-        new Rectangle(0, 6, 16, 16),
+        new Rectangle(0, 6, 16, 32),
         Direction.RIGHT);
         enhancedMapTiles.add(door1);
 
