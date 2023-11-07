@@ -1,11 +1,12 @@
 package Enemies;
 
+import Level.AbilityListenerManager;
+import Level.Enemy;
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.AbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
@@ -15,22 +16,18 @@ import Utils.Direction;
 import Utils.Point;
 
 import java.util.HashMap;
-
-// This class is for the black bug enemy
-// enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
-// if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
-public class BugEnemy extends Enemy {
-
-    private float gravity = .5f;
-    private float movementSpeed = .5f;
+public class FlyingBug extends Enemy {
+ 
+   // private float gravity = .5f;
+    private float movementSpeed = 1.5f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
     private Point startLocation;
     private Point endLocation;
 
-    public BugEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+    public FlyingBug(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FlyingBug.png"), 24, 15), "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -47,7 +44,7 @@ public class BugEnemy extends Enemy {
         } else if (facingDirection == Direction.LEFT) {
             currentAnimationName = "WALK_LEFT";
         }
-        airGroundState = AirGroundState.GROUND;
+        airGroundState = AirGroundState.AIR;
     }
 
     @Override
@@ -58,10 +55,10 @@ public class BugEnemy extends Enemy {
         float moveAmountY = 0;
 
         // add gravity (if in air, this will cause bug to fall)
-        moveAmountY += gravity;
+        //moveAmountY += gravity;
 
         // if on ground, walk forward based on facing direction
-        if (airGroundState == AirGroundState.GROUND) {
+        if (airGroundState == AirGroundState.AIR) {
             if (facingDirection == Direction.RIGHT) {
                 moveAmountX += movementSpeed;
             } else {

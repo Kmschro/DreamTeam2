@@ -2,6 +2,8 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.FlyingBug;
+import Enemies.RadioactiveCat;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -26,7 +28,7 @@ public class LabMap extends Map {
         super("TestMap2.txt", new LabTileset());
         this.playerStartPosition = getMapTile(1, 8).getLocation();
     }
-    
+
     @Override
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> coins = new ArrayList<>();
@@ -65,34 +67,35 @@ public class LabMap extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
-        
         Key key = new Key(getMapTile(23, 8).getLocation());
         enhancedMapTiles.add(key);
 
-
-        
         Door door1 = new Door(
-        ImageLoader.load("Door.png"),
-        getMapTile(26, 6).getLocation(),
-        getMapTile(26, -0).getLocation(),
-        TileType.NOT_PASSABLE,
-        5,
-        new Rectangle(0, 6, 16, 16),
-        Direction.RIGHT);
+                ImageLoader.load("Door.png"),
+                getMapTile(26, 6).getLocation(),
+                getMapTile(26, -0).getLocation(),
+                TileType.NOT_PASSABLE,
+                5,
+                new Rectangle(0, 6, 16, 16),
+                Direction.RIGHT);
         enhancedMapTiles.add(door1);
-
 
         return enhancedMapTiles;
     }
+
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
+        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(),
+                getMapTile(18, 8).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
-
+        FlyingBug fb1 = new FlyingBug(getMapTile(33, 1).getLocation(), getMapTile(18, 8).getLocation(), Direction.LEFT);
+        enemies.add(fb1);
+        RadioactiveCat cat = new RadioactiveCat(getMapTile(32, 7).getLocation(), getMapTile(18, 8).getLocation(),
+                Direction.LEFT);
+        enemies.add(cat);
         return enemies;
     }
-    
-    
+
 }
