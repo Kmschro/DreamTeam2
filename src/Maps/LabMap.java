@@ -39,7 +39,7 @@ public class LabMap extends Map {
         Coin coin2 = new Coin(getMapTile(16, 4).getLocation(), null);
         coins.add(coin2);
 
-        Coin coin3 = new Coin(getMapTile(21, 2).getLocation(), null);
+        Coin coin3 = new Coin(getMapTile(23,8).getLocation(), null);
         coins.add(coin3);
 
         Coin coin4 = new Coin(getMapTile(42, 8).getLocation(), null);
@@ -67,17 +67,20 @@ public class LabMap extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
+        
         Key key = new Key(getMapTile(23, 8).getLocation());
         enhancedMapTiles.add(key);
 
+
+        
         Door door1 = new Door(
-                ImageLoader.load("Door.png"),
-                getMapTile(26, 6).getLocation(),
-                getMapTile(26, -0).getLocation(),
-                TileType.NOT_PASSABLE,
-                5,
-                new Rectangle(0, 6, 16, 16),
-                Direction.RIGHT);
+        ImageLoader.load("Door.png"),
+        getMapTile(26, 6).getLocation(),
+        getMapTile(26, -0).getLocation(),
+        TileType.NOT_PASSABLE,
+        5,
+        new Rectangle(0, 6, 16, 16),
+        Direction.RIGHT);
         enhancedMapTiles.add(door1);
 
         return enhancedMapTiles;

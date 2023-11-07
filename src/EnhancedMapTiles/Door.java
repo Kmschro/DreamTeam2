@@ -45,9 +45,8 @@ public class Door extends EnhancedMapTile {
         int moveAmountY = 0;
         if (player.hasKey == true) {
             moveAmountY += movementSpeed;
-            moveY(moveAmountY);
+            moveY(-moveAmountY);
         }
-        //moveY(moveAmountY);
         super.update(player);
     }
 

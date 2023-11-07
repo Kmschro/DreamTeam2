@@ -248,6 +248,7 @@ public class LabTileset extends Tileset {
         mapTiles.add(hoverPlatformRight);
 
 
+
         // left 45 degree slope
         Frame leftSlopeFrame = new FrameBuilder(getSubImage(3, 3))
                 .withScale(tileScale)
@@ -295,6 +296,7 @@ public class LabTileset extends Tileset {
         // LethalTile
         Frame deathBeamStartFrame = new FrameBuilder(getSubImage(4, 5))
                 .withScale(tileScale)
+                .withBounds(11,3,4,6)
                 .build();
 
         MapTileBuilder deathBeamStart = new MapTileBuilder(deathBeamStartFrame)
@@ -344,6 +346,7 @@ public class LabTileset extends Tileset {
 
         Frame deathBeamEndFrameUpper = new FrameBuilder(getSubImage(3,7))
         .withScale(tileScale)
+        .withBounds(0, 11, 5, 2)
         .build();
 
         MapTileBuilder deathBeamEndUpper = new MapTileBuilder(deathBeamEndFrameUpper)
@@ -419,6 +422,69 @@ public class LabTileset extends Tileset {
         MapTileBuilder deathBeamTypeBConnector = new MapTileBuilder(deathBeamFrameTypeBConnectorBottom)
                 .withTileType(TileType.LETHAL);
         mapTiles.add(deathBeamTypeBConnector);
+
+
+
+        //Hover Crate
+        //Left Top
+        Frame hoverCrateLeftTopFrame = new FrameBuilder(getSubImage(3, 8))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder hoverCrateLeftTop = new MapTileBuilder(hoverCrateLeftTopFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        
+
+        mapTiles.add(hoverCrateLeftTop);
+        //LeftBottom
+        Frame hoverCrateLeftBottomFrame = new FrameBuilder(getSubImage(4, 8))
+        .withScale(tileScale)
+        .build();
+
+        MapTileBuilder hoverCrateLeftBottom = new MapTileBuilder(hoverCrateLeftBottomFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        
+        mapTiles.add(hoverCrateLeftBottom);
+        //Middle Top
+        Frame hoverCrateMiddleTopFrame = new FrameBuilder(getSubImage(3, 9))
+        .withScale(tileScale)
+        .build();
+        
+
+     
+        MapTileBuilder hoverCrateMiddleTop = new MapTileBuilder(hoverCrateMiddleTopFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(hoverCrateMiddleTop);
+        
+        //Middle Bottom
+        Frame hoverCrateMiddleBottomFrame = new FrameBuilder(getSubImage(4, 9))
+        .withScale(tileScale)
+        .build();
+        
+
+        MapTileBuilder hoverCrateMiddleBottom = new MapTileBuilder(hoverCrateMiddleBottomFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(hoverCrateMiddleBottom);
+        
+        //Right Top
+        Frame hoverCrateRightTopFrame = new FrameBuilder(getSubImage(3, 10))
+        .withScale(tileScale)
+        .build();
+        
+        
+        MapTileBuilder hoverCrateRightTop = new MapTileBuilder(hoverCrateRightTopFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(hoverCrateRightTop);
+        //Right Bottom
+        Frame hoverCrateRightBottomFrame = new FrameBuilder(getSubImage(4, 10))
+        .withScale(tileScale)
+        .build();
+        
+        MapTileBuilder hoverCrateRightBottom = new MapTileBuilder(hoverCrateRightBottomFrame)
+                        .withTileType(TileType.NOT_PASSABLE);
+        mapTiles.add(hoverCrateRightBottom);
+
+
         return mapTiles;
     }
 }
