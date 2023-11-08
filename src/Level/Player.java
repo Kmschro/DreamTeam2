@@ -297,7 +297,7 @@ public abstract class Player extends GameObject {
         }
         
         if ((Keyboard.isKeyDown(SHOOT_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && getFBPowerup() == true){
-            fireballSpit(getX(), getY(), getFacingDirection());
+            createFireball(getX(), getY(), getFacingDirection());
         }
     }
 

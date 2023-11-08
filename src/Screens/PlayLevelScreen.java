@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import Powerups.Coin;
-
+import Powerups.FireballPU;
 import Utils.Point;
 import Utils.AudioPlayer;
 import Powerups.Checkpoint;
@@ -139,7 +139,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         }
 
     }
-    
+
     public void update() {
         // int coinCount = 0;// = getCoinCount();
         coinLabel = new SpriteFont("COINS: " + String.valueOf(coinCount), 0, 0, "Comic Sans", 25, Color.white);
@@ -373,5 +373,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     public static void exit() {
         menuMusic.stop();
     }
-
+    
+    public boolean backToMenu() {
+        return isBackToMenu;
+    }
 }
