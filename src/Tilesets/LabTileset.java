@@ -296,6 +296,7 @@ public class LabTileset extends Tileset {
         // LethalTile
         Frame deathBeamStartFrame = new FrameBuilder(getSubImage(4, 5))
                 .withScale(tileScale)
+                .withBounds(11,3,4,6)
                 .build();
 
         MapTileBuilder deathBeamStart = new MapTileBuilder(deathBeamStartFrame)
@@ -345,6 +346,7 @@ public class LabTileset extends Tileset {
 
         Frame deathBeamEndFrameUpper = new FrameBuilder(getSubImage(3,7))
         .withScale(tileScale)
+        .withBounds(0, 11, 5, 2)
         .build();
 
         MapTileBuilder deathBeamEndUpper = new MapTileBuilder(deathBeamEndFrameUpper)
@@ -482,7 +484,7 @@ public class LabTileset extends Tileset {
                         .withTileType(TileType.NOT_PASSABLE);
         mapTiles.add(hoverCrateRightBottom);
 
-        
+
         return mapTiles;
     }
 }

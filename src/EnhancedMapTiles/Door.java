@@ -7,6 +7,7 @@ import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
 import Utils.AirGroundState;
+import Utils.AudioPlayer;
 import Utils.Direction;
 import Utils.Point;
 
@@ -45,9 +46,8 @@ public class Door extends EnhancedMapTile {
         int moveAmountY = 0;
         if (player.hasKey == true) {
             moveAmountY += movementSpeed;
-            moveY(moveAmountY);
+            moveY(-moveAmountY);
         }
-        //moveY(moveAmountY);
         super.update(player);
     }
 

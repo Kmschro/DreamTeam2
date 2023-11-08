@@ -63,10 +63,10 @@ public abstract class Player extends GameObject {
     protected Key SUICIDE = Key.L;
 
     protected Key FLIP_KEY = Key.W;
-    protected Key FLIP_KEY_X = Key.S;
     boolean R_Key_Pressed = false;
     public boolean hasKey = false;
-    
+
+    private AudioPlayer playerSFX = new AudioPlayer();
 
     // flags
     protected boolean isInvincible = false; // if true, player cannot be hurt by enemies (good for testing)
@@ -135,10 +135,13 @@ public abstract class Player extends GameObject {
         if (Keyboard.isKeyDown(FLIP_KEY) && !keyLocker.isKeyLocked(FLIP_KEY)) {
             flipWorld();
             keyLocker.lockKey(FLIP_KEY);
-        }
-        if (Keyboard.isKeyDown(FLIP_KEY_X) && !keyLocker.isKeyLocked(FLIP_KEY_X)) {
-            flipWorldX();
-            keyLocker.lockKey(FLIP_KEY_X);
+
+            try {
+                playerSFX.load("Resources/Music/WAV/swing4.wav");
+                playerSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -263,11 +266,6 @@ public abstract class Player extends GameObject {
         {
             keyLocker.unlockKey(FLIP_KEY);
         }
-        if (Keyboard.isKeyUp(FLIP_KEY_X))
-        {
-            keyLocker.unlockKey(FLIP_KEY_X);
-            
-        }
     }
     // anything extra the player should do based on interactions can be handled here
     protected void handlePlayerAnimation() {
@@ -299,6 +297,14 @@ public abstract class Player extends GameObject {
         }
         
         if ((Keyboard.isKeyDown(SHOOT_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && getFBPowerup() == true){
+            
+            try {
+                playerSFX.load("Resources/Music/WAV/fireball.wav");
+                playerSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
             fireballSpit(getX(), getY(), getFacingDirection());
         }
     }

@@ -15,6 +15,7 @@ import Level.MapEntityStatus;
 import Level.Player;
 import Level.Powerups;
 import Utils.Point;
+import Utils.AudioPlayer;
 import Utils.Colors;
 
 interface CoinListener {
@@ -30,6 +31,8 @@ public class Coin extends Powerups {
     //variables to be used
     protected SpriteFont coinNumber;
     public static int coinCount;
+
+    private AudioPlayer coinSFX = new AudioPlayer();
 
     public Coin(Point location, CoinListener coinListener){
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Coin.png"), 24, 24), "COIN_FRONT");
@@ -48,6 +51,14 @@ public class Coin extends Powerups {
         //logic to update coin count and make it disappear
         //logic to check for player collision
         if (this.intersects(player)) {
+
+            try {
+                coinSFX.load("Resources/Music/WAV/coinpickup.wav");
+                coinSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             coinCount += 1;
 
             // Notify the listener about the coin collected
