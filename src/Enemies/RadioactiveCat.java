@@ -19,7 +19,7 @@ import java.util.HashMap;
 
 // This class is for the green dinosaur enemy that shoots fireballs
 // It walks back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will shoot a Fireball enemy
+// Every so often (based on shootTimer) it will shoot aRadioactiveFireball enemy
 public class RadioactiveCat extends Enemy {
 
     // start and end location defines the two points that it walks between
@@ -140,8 +140,8 @@ public class RadioactiveCat extends Enemy {
             // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
             int fireballY = Math.round(getY()) + 4;
 
-            // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+            // createRadioactiveFireball enemy
+           RadioactiveFireball fireball = new RadioactiveFireball(new Point(fireballX, fireballY), movementSpeed, 60);
 
             // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);

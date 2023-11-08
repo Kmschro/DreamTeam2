@@ -3,6 +3,7 @@ package Level;
 import java.util.ArrayList;
 import java.util.List;
 
+import Enemies.Beaker;
 import Players.PlayerFireball;
 
 
@@ -56,6 +57,25 @@ public class AbilityListenerManager {
         }
     }
 
+    public static void beakerSpawned(Beaker beaker) {
+    for (AbilityListener listener : enemyListeners) {
+            listener.beakerSpawned(beaker);
+        }
+    }
+
+    // broadcasts the fireball despawning to all listeners
+    public static void beakerDespawned() {
+    for (AbilityListener listener : enemyListeners) {
+            listener.beakerDespawned();
+        }
+    }
+
+    // broadcasts the fact that the fireball killed an enemy to the fireball so that it disappears 
+    public static void beakerKilledEnemy(){
+    for (AbilityListener listener : abilityListeners){
+            listener.fireballKilledEnemy();
+        }
+    }
    
 }
     

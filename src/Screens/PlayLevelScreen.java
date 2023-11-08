@@ -298,6 +298,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             //playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             //FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
+            if (timer != null) {
+                    timer.cancel();
+            }
             if (map.getCp()) {
                 // this.player = new Greg(56, 6);
         
@@ -308,18 +311,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
                 Point point = map.getMapTile(56, 6).getLocation().subtractY(13);
                 
+                timer.cancel();
                 this.player.setLocation(point.x, point.y);
+                if (powerUpTimer != null) {
+                    powerUpTimer.cancel();
+                }
                 powerUpTimeInSeconds = 0;
                 player.setFBPowerup(false);
                 powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
+
             }
             else {
-            resetLevel();
-            System.out.print("line 211");
-            this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-            powerUpTimeInSeconds = 0;
-            player.setFBPowerup(false);
-            powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
+                resetLevel();
+                System.out.print("line 211");
+                this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+                powerUpTimeInSeconds = 0;
+                player.setFBPowerup(false);
+                powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
 
             }
 

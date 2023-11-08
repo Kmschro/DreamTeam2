@@ -91,6 +91,13 @@ public class BugEnemy extends Enemy {
                 AbilityListenerManager.fireballKilledEnemy();
             }
         }
+        if (activeBeaker != null){
+            if (intersects(activeBeaker)){
+                killEnemy(this);
+                // broadcast so the fireball disappears
+                AbilityListenerManager.beakerKilledEnemy();
+            }
+        }
     }
 
     @Override

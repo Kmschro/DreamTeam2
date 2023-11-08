@@ -7,6 +7,7 @@ import Level.AbilityListener;
 import Level.AbilityListenerManager;
 import java.util.HashMap;
 
+import Enemies.Beaker;
 import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 
@@ -15,6 +16,8 @@ public class Enemy extends MapEntity implements AbilityListener {
     public boolean hitbyFB;
     protected PlayerFireball activeFireball = null;
     
+    public boolean hitbyBeaker;
+    protected Beaker activeBeaker = null;
     // These come from the listener and let the enemy know whether or not there is a fireball active
     @Override
     public void fireballSpawned(PlayerFireball fireball){
@@ -26,6 +29,18 @@ public class Enemy extends MapEntity implements AbilityListener {
     }
     @Override
     public void fireballKilledEnemy(){}
+
+    @Override
+    public void beakerSpawned(Beaker beaker) {
+        activeBeaker = beaker;
+    }
+    @Override
+    public void beakerDespawned() {
+        activeBeaker = null;
+    }
+    @Override
+    public void beakerKilledEnemy() {
+    }
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
         super(x, y, spriteSheet, startingAnimation);
@@ -59,6 +74,11 @@ public class Enemy extends MapEntity implements AbilityListener {
         }
         if (activeFireball != null){
             if (intersects(activeFireball)){
+                killEnemy(this);
+            }
+        }
+        if (activeBeaker != null){
+            if (intersects(activeBeaker)){
                 killEnemy(this);
             }
         }
