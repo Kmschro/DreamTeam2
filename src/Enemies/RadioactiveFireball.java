@@ -23,6 +23,7 @@ public class RadioactiveFireball extends Enemy {
     private int existenceFrames;
     private float speedY;
 
+    
 
     public RadioactiveFireball(Point location, float movementSpeed, int existenceFrames) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.V3.png"), 7, 7), "DEFAULT");
