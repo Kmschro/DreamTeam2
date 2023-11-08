@@ -69,18 +69,17 @@ public class LabMap extends Map {
         enhancedMapTiles.add(endLevelBox);
 
         
-        Key key = new Key(getMapTile(23, 8).getLocation());
+        Key key = new Key(getMapTile(21, 2).getLocation());
         enhancedMapTiles.add(key);
-
 
         
         Door door1 = new Door(
         ImageLoader.load("Door.png"),
-        getMapTile(26, 6).getLocation(),
+        getMapTile(26, 7).getLocation(),
         getMapTile(26, -0).getLocation(),
         TileType.NOT_PASSABLE,
-        5,
-        new Rectangle(0, 6, 16, 16),
+        3,
+        new Rectangle(0, 6, 16, 32),
         Direction.RIGHT);
         enhancedMapTiles.add(door1);
 
