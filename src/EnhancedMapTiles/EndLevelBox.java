@@ -7,6 +7,7 @@ import GameObject.SpriteSheet;
 import Level.EnhancedMapTile;
 import Level.Player;
 import Level.TileType;
+import Utils.AudioPlayer;
 import Utils.Point;
 
 import java.util.HashMap;
@@ -14,6 +15,9 @@ import java.util.HashMap;
 // This class is for the end level gold box tile
 // when the player touches it, it will tell the player that the level has been completed
 public class EndLevelBox extends EnhancedMapTile {
+
+    private AudioPlayer portalSFX = new AudioPlayer();
+
     public EndLevelBox(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("GoldBox.png"), 16, 16), TileType.PASSABLE);
     }
@@ -22,6 +26,14 @@ public class EndLevelBox extends EnhancedMapTile {
     public void update(Player player) {
         super.update(player);
         if (intersects(player) && player.hasKey) {
+
+            try {
+                portalSFX.load("Resources/Music/WAV/portal.wav");
+                portalSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
             player.completeLevel();
         }
     }

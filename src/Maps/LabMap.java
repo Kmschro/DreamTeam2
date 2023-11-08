@@ -26,7 +26,7 @@ import java.util.ArrayList;
 // Represents a test map to be used in a level
 public class LabMap extends Map {
     public LabMap() {
-        super("TestMap2.txt", new LabTileset());
+        super("LabMap.txt", new LabTileset());
         this.playerStartPosition = getMapTile(1, 8).getLocation();
     }
 

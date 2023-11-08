@@ -27,6 +27,10 @@ public class GamePanel extends JPanel {
 	private SpriteFont pauseLabel;
 	private SpriteFont resumeGameLabel;
 	private SpriteFont mainMenuLabel;
+	private SpriteFont instructionsLabel;
+	private SpriteFont movementLabel1;
+	private SpriteFont movementLabel2;
+	private SpriteFont powerupLabel1;
 	private KeyLocker keyLocker = new KeyLocker();
 	private final Key pauseKey = Key.ESC;
 	private Thread gameLoopProcess;
@@ -61,12 +65,24 @@ public class GamePanel extends JPanel {
 		pauseLabel.setOutlineThickness(2.0f);
 
 		//code for resume game and main menu labels on pause screen
-		resumeGameLabel = new SpriteFont("RESUME GAME", 300, 150, "Comic Sans", 24, Color.white);
+		resumeGameLabel = new SpriteFont("RESUME GAME", 325, 150, "Comic Sans", 24, Color.white);
         resumeGameLabel.setOutlineColor(Color.black);
         resumeGameLabel.setOutlineThickness(3);
-        mainMenuLabel= new SpriteFont("MAIN MENU", 300, 190, "Comic Sans", 24, Color.white);
+        mainMenuLabel= new SpriteFont("MAIN MENU", 325, 190, "Comic Sans", 24, Color.white);
         mainMenuLabel.setOutlineColor(Color.black);
         mainMenuLabel.setOutlineThickness(3);
+		instructionsLabel = new SpriteFont("INSTRUCTIONS:", 425, 450, "Comic Sans", 24, Color.white);
+        instructionsLabel.setOutlineColor(Color.black);
+        instructionsLabel.setOutlineThickness(3);
+		movementLabel1 = new SpriteFont("Use A & D to Move Left & Right", 425, 475, "Comic Sans", 18, Color.white);
+		movementLabel1.setOutlineColor(Color.black);
+        movementLabel1.setOutlineThickness(3);
+		movementLabel2 = new SpriteFont("Use W to Flip the World's Gravity", 425, 495, "Comic Sans", 18, Color.white);
+        movementLabel2.setOutlineColor(Color.black);
+        movementLabel2.setOutlineThickness(3);
+		powerupLabel1 = new SpriteFont("Use F to Shoot Fireballs (POWERUP!)", 425, 515, "Comic Sans", 18, Color.white);
+        powerupLabel1.setOutlineColor(Color.black);
+        powerupLabel1.setOutlineThickness(3);
 
 		//logic for pasue menu functionailty
 		keyPressTimer = 0;
@@ -138,13 +154,13 @@ public class GamePanel extends JPanel {
 		 if (currentMenuItemHovered == 0) {
 			 resumeGameLabel.setColor(new Color(255, 215, 0));
 			 mainMenuLabel.setColor(new Color(49, 207, 240));
-			 pointerLocationX = 270;
-			 pointerLocationY = 155;
+			 pointerLocationX = 295;
+			 pointerLocationY = 158;
 		 } else if (currentMenuItemHovered == 1) {
 			 resumeGameLabel.setColor(new Color(49, 207, 240));
 			 mainMenuLabel.setColor(new Color(255, 215, 0));
-			 pointerLocationX = 270;
-			 pointerLocationY = 195;
+			 pointerLocationX = 295;
+			 pointerLocationY = 198;
 		 }
  
 		 //if space is pressed on menu item, change to appropriate screen based on which menu item was chosen
@@ -161,6 +177,7 @@ public class GamePanel extends JPanel {
 				initializeScreenCoordinator();
 				screenCoordinator.setGameState(GameState.MENU); // Switch to MenuScreen
 				keyLocker.lockKey(Key.ENTER); 
+				PlayLevelScreen.exit();
 			 }
 		 }
 		
@@ -198,6 +215,10 @@ public class GamePanel extends JPanel {
 			pauseLabel.draw(graphicsHandler);
 			resumeGameLabel.draw(graphicsHandler);
 			mainMenuLabel.draw(graphicsHandler);
+			instructionsLabel.draw(graphicsHandler);
+			movementLabel1.draw(graphicsHandler);
+			movementLabel2.draw(graphicsHandler);
+			powerupLabel1.draw(graphicsHandler);
 
 			graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
 			graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 15, 15, new Color(49, 207, 240), Color.black, 2);

@@ -10,6 +10,7 @@ import Level.Powerups;
 import SpriteFont.SpriteFont;
 import Level.MapEntityStatus;
 import Level.Player;
+import Utils.AudioPlayer;
 import Utils.Point;
 import java.util.HashMap;
 import java.util.Timer;
@@ -19,6 +20,8 @@ public class FireballPU extends Powerups {
 
     public boolean hasFireballPowerup;
     protected Timer timer;
+
+    private AudioPlayer fireballSFX = new AudioPlayer();
 
     public FireballPU(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.V2.png"), 11, 11), "DEFAULT");
@@ -32,6 +35,14 @@ public class FireballPU extends Powerups {
         if (this.intersects(player) && !hasFireballPowerup) {
             player.setFBPowerup(true);
             hasFireballPowerup = true;
+
+            try {
+                fireballSFX.load("Resources/Music/WAV/pwruppickup.wav");
+                fireballSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
