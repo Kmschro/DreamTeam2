@@ -12,6 +12,8 @@ public class EditorMaps {
             add("TestMap");
             add("TitleScreen");
             add("LabMap");
+            add("LevelTwo");
+            add("LevelThree");
         }};
     }
 
@@ -25,6 +27,10 @@ public class EditorMaps {
                 return new LabMap();
             case "LabMap":
                 return new LabMap();
+            case "LevelTwo":
+                return new LevelTwo();
+            case "LevelThree":
+                return new LevelThree();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }
