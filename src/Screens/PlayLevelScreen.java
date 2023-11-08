@@ -20,10 +20,11 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 import Powerups.Coin;
-
+import Powerups.FireballPU;
 import Utils.Point;
 import Utils.AudioPlayer;
 import Powerups.Checkpoint;
+
 
 interface CoinListener {
     void onCoinCollected(int coins);
@@ -49,9 +50,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected SpriteFont coinLabel;
     protected SpriteFont levelTimer;
     protected SpriteFont powerupTimer;
+    protected SpriteFont gameDirections;
     private int coinCount;
+    private boolean isBackToMenu = false;
 
-    private AudioPlayer menuMusic = new AudioPlayer();
+    private static AudioPlayer menuMusic = new AudioPlayer();
 
     public PlayLevelScreen(ScreenCoordinator screenCoordinator) {
         this.screenCoordinator = screenCoordinator;
@@ -73,7 +76,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         this.map = new LabMap();
         // setup player
         this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-        
+        player.setFBPowerup(false);
         /*
          * if (map.getCp()) {
          * System.out.println("TEST");
@@ -93,11 +96,16 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+        gameDirections = new SpriteFont("W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Sprint,      F : use powerup  ", 75, 50, "Comic Sans", 15,
+                Color.white);
+        gameDirections.setOutlineColor(Color.black);
+        gameDirections.setOutlineThickness(3);
 
         levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25,
                 Color.white);
         levelTimer.setOutlineColor(Color.black);
         levelTimer.setOutlineThickness(3);
+        timeInSeconds = 76;
         timer = new Timer();
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -124,6 +132,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             menuMusic.playLooped();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (backToMenu()) {
+            menuMusic.stop();
         }
 
     }
@@ -213,6 +225,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             // player back to main menu)
             case LEVEL_LOSE:
                 levelLoseScreen.update();
+                exit();
                 break;
         }
     }
@@ -226,6 +239,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 coinLabel.draw(graphicsHandler);
                 powerupTimer.draw(graphicsHandler);
                 levelTimer.draw(graphicsHandler);
+                gameDirections.draw(graphicsHandler);
                 break;
             case LEVEL_COMPLETED:
                 levelClearedScreen.draw(graphicsHandler);
@@ -287,9 +301,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     // and !Map.hasCP vvvvv
     @Override
     public void onDeath() {
+        
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             //playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
-
+            //FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
+            if (timer != null) {
+                    timer.cancel();
+            }
             if (map.getCp()) {
                 // this.player = new Greg(56, 6);
         
@@ -300,14 +318,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
                 Point point = map.getMapTile(56, 6).getLocation().subtractY(13);
                 
+                timer.cancel();
                 this.player.setLocation(point.x, point.y);
+                if (powerUpTimer != null) {
+                    powerUpTimer.cancel();
+                }
+                powerUpTimeInSeconds = 0;
+                player.setFBPowerup(false);
+                powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
+
             }
             else {
-            System.out.print("line 211");
-            this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
-            powerUpTimeInSeconds = 0;
-            player.setFBPowerup(false);
-            powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
+                resetLevel();
+                System.out.print("line 211");
+                this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+                powerUpTimeInSeconds = 0;
+                player.setFBPowerup(false);
+                powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
 
             }
 
@@ -325,7 +352,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             timeInSeconds = 76;
             
         }
-        menuMusic.stop();
+
     }
 
     public void resetLevel() {
@@ -335,6 +362,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
     public void goBackToMenu() {
         screenCoordinator.setGameState(GameState.MENU);
+        isBackToMenu = true;  
     }
 
     // This enum represents the different states this screen can be in
@@ -342,8 +370,11 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         RUNNING, LEVEL_COMPLETED, LEVEL_LOSE
     }
 
-    public void exit() {
+    public static void exit() {
         menuMusic.stop();
     }
-
+    
+    public boolean backToMenu() {
+        return isBackToMenu;
+    }
 }

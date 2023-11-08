@@ -1,59 +1,49 @@
-package Players;
-
-
-import java.util.HashMap;
+package Enemies;
 
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Level.AbilityListenerManager;
-import Level.AbilityListener;
 import Level.Enemy;
+import Level.LevelState;
 import Level.MapEntity;
 import Level.MapEntityStatus;
 import Level.Player;
 import Utils.Direction;
+import Utils.Point;
 
+import java.util.HashMap;
 
-// This is the class for the fireball that the player can shoot out
-// Future updates may require this ability to be hidden and then later on unlockable.
-// This might be possible with the locked key mechanic but it's more likely that we just add a global enum / variable 
-// This global variable can be used for determining whether or not the ability button press does anything.
-public class PlayerFireball extends Enemy {
+// This class is for the fireball enemy that the DinosaurEnemy class shoots out
+// it will travel in a straight line (x axis) for a set time before disappearing
+// it will disappear early if it collides with a solid map tile
+public class RadioactiveFireball extends Enemy {
     private float movementSpeed;
     private int existenceFrames;
+    private float speedY;
 
-    public PlayerFireball(float xPos, float yPos, float movementSpeed, int existenceFrames) {
-        // This fireball is going to be larger than the enemy fireball
-        super(xPos, yPos, new SpriteSheet(ImageLoader.load("Fireball.png"), 7, 7), "DEFAULT");
-       
-        // How fast it moves
+
+    public RadioactiveFireball(Point location, float movementSpeed, int existenceFrames) {
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Fireball.V3.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
 
         // how long the fireball will exist for before disappearing
         this.existenceFrames = existenceFrames;
 
-        initialize();
+        
     }
-
     @Override
     public void initialize() {
-       
-        AbilityListenerManager.fireballSpawned(this);
-        
-
-        AbilityListenerManager.addAbilityListener(this);
+        // Add the firewisp as an enemy to listen for elemental abilities
+        //AbilityListenerManager.addEnemyListener(this);
         super.initialize();
-        
     }
-
     @Override
     public void update(Player player) {
         // if timer is up, set map entity status to REMOVED
         // the camera class will see this next frame and remove it permanently from the map
         if (existenceFrames == 0) {
-            AbilityListenerManager.fireballDespawned();
             this.mapEntityStatus = MapEntityStatus.REMOVED;
         } else {
             // move fireball forward
@@ -61,31 +51,27 @@ public class PlayerFireball extends Enemy {
             super.update(player);
         }
         existenceFrames--;
+        
     }
 
-    // If it collides with a map tile it will dissapear
     @Override
     public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if fireball collides with anything solid on the x axis, it is removed
         if (hasCollided) {
-            AbilityListenerManager.fireballDespawned();
             this.mapEntityStatus = MapEntityStatus.REMOVED;
+                   // Check if the entity collided with is an instance of Fireball
+        if (entityCollidedWith instanceof Fireball) {
+                // Remove the collided fireball as well
+                entityCollidedWith.mapEntityStatus = MapEntityStatus.REMOVED;
+            }
         }
     }
-
-    // Touched player should not do anything
+    
+    
     @Override
-    public void touchedPlayer(Player player){}
-
-
-    // As it stands, enemyAttacked is not necessary as the enemies themselves will die if they get hit
-    @Override
-    public void killEnemy(Enemy enemy) {}
-
-    // If the fireball has killed an enemy, it will disappear
-    @Override
-    public void fireballKilledEnemy(){
-        AbilityListenerManager.fireballDespawned();
+    public void touchedPlayer(Player player) {
+        // if fireball touches player, it disappears
+        super.touchedPlayer(player);
         this.mapEntityStatus = MapEntityStatus.REMOVED;
     }
 
@@ -94,7 +80,7 @@ public class PlayerFireball extends Enemy {
         return new HashMap<String, Frame[]>() {{
             put("DEFAULT", new Frame[]{
                     new FrameBuilder(spriteSheet.getSprite(0, 0))
-                            .withScale(4) 
+                            .withScale(4)
                             .withBounds(1, 1, 5, 5)
                             .build()
             });
