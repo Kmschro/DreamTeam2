@@ -65,7 +65,7 @@ public class LabMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 6).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         
