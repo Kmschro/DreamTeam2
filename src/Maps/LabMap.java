@@ -96,9 +96,10 @@ public class LabMap extends Map {
         FlyingBug fb1 = new FlyingBug(getMapTile(31, 2).getLocation(),
                 getMapTile(38, 2).getLocation(), Direction.LEFT);
         enemies.add(fb1);
-        RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
+        /*        RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
                 getMapTile(45, 8).getLocation(), Direction.LEFT);
         enemies.add(cat);
+        */
         MadScientist2 sci2 = new MadScientist2(getMapTile(65, 5).getLocation(),
                 getMapTile(70, 5).getLocation(), Direction.LEFT);
         enemies.add(sci2);
