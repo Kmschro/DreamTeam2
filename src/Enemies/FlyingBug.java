@@ -16,9 +16,10 @@ import Utils.Direction;
 import Utils.Point;
 
 import java.util.HashMap;
+
 public class FlyingBug extends Enemy {
- 
-   // private float gravity = .5f;
+
+    // private float gravity = .5f;
     private float movementSpeed = 1.5f;
     private Direction startFacingDirection;
     private Direction facingDirection;
@@ -27,7 +28,8 @@ public class FlyingBug extends Enemy {
     private Point endLocation;
 
     public FlyingBug(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FlyingBug.png"), 24, 15), "WALK_LEFT");
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FlyingBug.png"), 24, 15),
+                "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -55,13 +57,16 @@ public class FlyingBug extends Enemy {
         float moveAmountY = 0;
 
         // add gravity (if in air, this will cause bug to fall)
-        //moveAmountY += gravity;
+        // moveAmountY += gravity;
 
         // if on ground, walk forward based on facing direction
+        
         if (airGroundState == AirGroundState.AIR) {
             if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WALK_RIGHT";
                 moveAmountX += movementSpeed;
             } else {
+                currentAnimationName = "WALK_LEFT";
                 moveAmountX -= movementSpeed;
             }
 
@@ -81,15 +86,15 @@ public class FlyingBug extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
-        if (activeFireball != null){
-            if (intersects(activeFireball)){
+        if (activeFireball != null) {
+            if (intersects(activeFireball)) {
                 killEnemy(this);
                 // broadcast so the fireball disappears
                 AbilityListenerManager.fireballKilledEnemy();
             }
         }
-        if (activeBeaker != null){
-            if (intersects(activeBeaker)){
+        if (activeBeaker != null) {
+            if (intersects(activeBeaker)) {
                 killEnemy(this);
                 // broadcast so the fireball disappears
                 AbilityListenerManager.beakerKilledEnemy();
@@ -98,7 +103,7 @@ public class FlyingBug extends Enemy {
     }
 
     @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
@@ -115,7 +120,8 @@ public class FlyingBug extends Enemy {
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if bug is colliding with the ground, change its air ground state to GROUND
-        // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
+        // if it is not colliding with the ground, it means that it's currently in the
+        // air, so its air ground state is changed to AIR
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 airGroundState = AirGroundState.GROUND;
