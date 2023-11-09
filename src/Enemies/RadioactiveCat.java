@@ -1,5 +1,6 @@
 package Enemies;
 
+
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
@@ -18,8 +19,8 @@ import java.util.HashMap;
 
 // This class is for the green dinosaur enemy that shoots fireballs
 // It walks back and forth between two set points (startLocation and endLocation)
-// Every so often (based on shootTimer) it will shoot a Fireball enemy
-public class DinosaurEnemy extends Enemy {
+// Every so often (based on shootTimer) it will shoot aRadioactiveFireball enemy
+public class RadioactiveCat extends Enemy {
 
     // start and end location defines the two points that it walks between
     // is only made to walk along the x axis and has no air ground state logic, so make sure both points have the same Y value
@@ -38,11 +39,13 @@ public class DinosaurEnemy extends Enemy {
     protected int shootTimer;
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected DinosaurState dinosaurState;
-    protected DinosaurState previousDinosaurState;
+    protected RadioactiveCatState
+    catState;
+    protected RadioactiveCatState
+    previousCatState;
 
-    public DinosaurEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("madScientist.png"), 24, 24), "WALK_RIGHT");
+    public RadioactiveCat(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("CatMonster.png"), 24, 24), "WALK_RIGHT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -53,8 +56,8 @@ public class DinosaurEnemy extends Enemy {
     public void initialize() {
         AbilityListenerManager.addEnemyListener(this);
         super.initialize();
-        dinosaurState = DinosaurState.WALK;
-        previousDinosaurState = dinosaurState;
+        catState = RadioactiveCatState.WALK;
+        previousCatState = catState;
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "WALK_RIGHT";
@@ -73,15 +76,15 @@ public class DinosaurEnemy extends Enemy {
         float endBound = endLocation.x;
         
         // if shoot timer is up and dinosaur is not currently shooting, set its state to SHOOT
-        if (shootWaitTimer == 0 && dinosaurState != DinosaurState.SHOOT_WAIT) {
-            dinosaurState = DinosaurState.SHOOT_WAIT;
+        if (shootWaitTimer == 0 && catState != RadioactiveCatState.SHOOT_WAIT) {
+            catState = RadioactiveCatState.SHOOT_WAIT;
         }
         else {
             shootWaitTimer--;
         }
 
         // if dinosaur is walking, determine which direction to walk in based on facing direction
-        if (dinosaurState == DinosaurState.WALK) {
+        if (catState == RadioactiveCatState.WALK) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
                 moveXHandleCollision(movementSpeed);
@@ -106,12 +109,14 @@ public class DinosaurEnemy extends Enemy {
 
         // if dinosaur is waiting to shoot, it first turns read for a set number of frames
         // after this waiting period is over, the fireball is actually shot out
-        if (dinosaurState == DinosaurState.SHOOT_WAIT) {
-            if (previousDinosaurState == DinosaurState.WALK) {
+        if (catState == RadioactiveCatState.SHOOT_WAIT) {
+            if (previousCatState == RadioactiveCatState
+    
+           .WALK) {
                 shootTimer = 65;
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
             } else if (shootTimer == 0) {
-                dinosaurState = DinosaurState.SHOOT;
+                catState = RadioactiveCatState.SHOOT;
             }
             else {
                 shootTimer--;
@@ -119,7 +124,7 @@ public class DinosaurEnemy extends Enemy {
         }
 
         // this is for actually having the dinosaur spit out the fireball
-        if (dinosaurState == DinosaurState.SHOOT) {
+        if (catState == RadioactiveCatState.SHOOT) {
             // define where fireball will spawn on map (x location) relative to dinosaur enemy's location
             // and define its movement speed
             int fireballX;
@@ -135,32 +140,25 @@ public class DinosaurEnemy extends Enemy {
             // define where fireball will spawn on the map (y location) relative to dinosaur enemy's location
             int fireballY = Math.round(getY()) + 4;
 
-            // create Fireball enemy
-            Fireball fireball = new Fireball(new Point(fireballX, fireballY), movementSpeed, 60);
+            // createRadioactiveFireball enemy
+           RadioactiveFireball fireball = new RadioactiveFireball(new Point(fireballX, fireballY), movementSpeed, 60);
 
             // add fireball enemy to the map for it to spawn in the level
             map.addEnemy(fireball);
 
             // change dinosaur back to its WALK state after shooting, reset shootTimer to wait a certain number of frames before shooting again
-            dinosaurState = DinosaurState.WALK;
+            catState = RadioactiveCatState.WALK;
 
             // reset shoot wait timer so the process can happen again (dino walks around, then waits, then shoots)
             shootWaitTimer = 130;    
         }
-        previousDinosaurState = dinosaurState;
+        previousCatState = catState;
         super.update(player);
         if (activeFireball != null){
             if (intersects(activeFireball)){
                 killEnemy(this);
                 // broadcast so the fireball disappears
                 AbilityListenerManager.fireballKilledEnemy();
-            }
-        }
-        if (activeBeaker != null){
-            if (intersects(activeBeaker)){
-                killEnemy(this);
-                // broadcast so the fireball disappears
-                AbilityListenerManager.beakerKilledEnemy();
             }
         }
         
@@ -225,7 +223,8 @@ public class DinosaurEnemy extends Enemy {
         }};
     }
 
-    public enum DinosaurState {
+    public enum RadioactiveCatState
+    {
         WALK, SHOOT_WAIT, SHOOT
     }
 }

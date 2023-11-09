@@ -58,8 +58,8 @@ public class TestMap extends Map {
         return enhancedMapTiles;
     }
 
-     @Override
-public ArrayList<Powerups> loadPowerups() {
+    @Override
+    public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> npcs = new ArrayList<>();
 
         FireballPU fireballPU = new FireballPU(getMapTile(30, 10).getLocation().subtractY(13));

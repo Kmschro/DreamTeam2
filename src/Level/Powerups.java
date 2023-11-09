@@ -10,7 +10,7 @@ import SpriteFont.SpriteFont;
 import java.util.HashMap;
 
 // This class is a base class for all npcs in the game -- all npcs should extend from it
-public class Powerups extends MapEntity {
+public class Powerups extends MapEntity implements PlayerListener {
     protected int talkedToTime; // how long after talking to NPC will textbox stay open -- use negative number
                                 // to have it be infinite time
     protected int timer;
@@ -50,16 +50,25 @@ public class Powerups extends MapEntity {
         super.update();
         if (intersects(player)) {
             this.mapEntityStatus = MapEntityStatus.REMOVED;
-            if (levelState == LevelState.PLAYER_DEAD)
-        {
-            this.mapEntityStatus = MapEntityStatus.ACTIVE;
+        
         }
-        }
+        
 
     }
 
     @Override
     public void draw(GraphicsHandler graphicsHandler) {
         super.draw(graphicsHandler);
+    }
+
+    @Override
+    public void onLevelCompleted() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'onLevelCompleted'");
+    }
+
+    @Override
+    public void onDeath() {
+        this.mapEntityStatus = MapEntityStatus.ACTIVE;
     }
 }

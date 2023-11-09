@@ -4,19 +4,42 @@ import GameObject.Frame;
 import GameObject.SpriteSheet;
 import Players.PlayerFireball;
 import Level.AbilityListener;
+import Level.AbilityListenerManager;
 import java.util.HashMap;
 
+import Enemies.Beaker;
 import Enemies.DinosaurEnemy;
 import Enemies.Fireball;
 
 // This class is a base class for all enemies in the game -- all enemies should extend from it
-public class Enemy extends MapEntity {
+public class Enemy extends MapEntity implements AbilityListener {
     public boolean hitbyFB;
     protected PlayerFireball activeFireball = null;
-
     
-    public void fireballKilledEnemy(){
+    public boolean hitbyBeaker;
+    protected Beaker activeBeaker = null;
+    // These come from the listener and let the enemy know whether or not there is a fireball active
+    @Override
+    public void fireballSpawned(PlayerFireball fireball){
+        activeFireball = fireball;
+    }
+    @Override
+    public void fireballDespawned(){
+        activeFireball = null;
+    }
+    @Override
+    public void fireballKilledEnemy(){}
 
+    @Override
+    public void beakerSpawned(Beaker beaker) {
+        activeBeaker = beaker;
+    }
+    @Override
+    public void beakerDespawned() {
+        activeBeaker = null;
+    }
+    @Override
+    public void beakerKilledEnemy() {
     }
 
     public Enemy(float x, float y, SpriteSheet spriteSheet, String startingAnimation) {
@@ -51,7 +74,12 @@ public class Enemy extends MapEntity {
         }
         if (activeFireball != null){
             if (intersects(activeFireball)){
-                hitByFireball(this);
+                killEnemy(this);
+            }
+        }
+        if (activeBeaker != null){
+            if (intersects(activeBeaker)){
+                killEnemy(this);
             }
         }
         /*if (intersects(this))
@@ -60,7 +88,8 @@ public class Enemy extends MapEntity {
         }*/
     }
 
-    public void hitByFireball(Enemy enemy){
+    public void killEnemy(Enemy enemy){
+    
         // This makes the enemy dissapear
         enemy.mapEntityStatus = MapEntityStatus.REMOVED;
     }
