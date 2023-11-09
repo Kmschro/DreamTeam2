@@ -93,8 +93,8 @@ public class LabMap extends Map {
         DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(13, 8).getLocation(),
                 getMapTile(18, 8).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
-        FlyingBug fb1 = new FlyingBug(getMapTile(31, 1).getLocation(),
-                getMapTile(38, 1).getLocation(), Direction.LEFT);
+        FlyingBug fb1 = new FlyingBug(getMapTile(31, 2).getLocation(),
+                getMapTile(38, 2).getLocation(), Direction.LEFT);
         enemies.add(fb1);
         RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
                 getMapTile(45, 8).getLocation(), Direction.LEFT);
