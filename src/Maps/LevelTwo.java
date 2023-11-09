@@ -57,10 +57,10 @@ public class LevelTwo extends Map {
         enemies.add(dinosaurEnemy1);
 
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(119, 7).getLocation(), getMapTile(124, 7).getLocation(), Direction.LEFT);
-        enemies.add(dinosaurEnemy1);
+        enemies.add(dinosaurEnemy2);
 
         DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(125, 7).getLocation(), getMapTile(130, 7).getLocation(), Direction.LEFT);
-        enemies.add(dinosaurEnemy1);
+        enemies.add(dinosaurEnemy3);
 
         return enemies;
     }
