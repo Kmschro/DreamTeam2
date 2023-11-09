@@ -39,7 +39,7 @@ public class LevelTwo extends Map {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 8).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 6).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         Key key = new Key(getMapTile(86, 6).getLocation());
