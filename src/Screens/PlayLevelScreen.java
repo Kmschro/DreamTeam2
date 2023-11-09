@@ -305,9 +305,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             //playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             //FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
-            if (timer != null) {
-                    timer.cancel();
-            }
+            
             if (map.getCp()) {
                 // this.player = new Greg(56, 6);
         
