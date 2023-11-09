@@ -303,6 +303,12 @@ public abstract class Player extends GameObject {
         
         if ((Keyboard.isKeyDown(SHOOT_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && getFBPowerup() == true){
             createFireball(getX(), getY(), getFacingDirection());
+            try {
+                playerSFX.load("Resources/Music/WAV/fireball.wav");
+                playerSFX.play();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 

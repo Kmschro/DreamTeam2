@@ -328,7 +328,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             if (timer != null) {
                     timer.cancel();
             }
-            if (map.getCp()) {
+            if (map.getCp() && counter == 2) {
                 // this.player = new Greg(56, 6);
         
                 // this.player.setMap(map);
@@ -355,7 +355,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 powerUpTimeInSeconds = 0;
                 player.setFBPowerup(false);
                 powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
-
+                exit();
             }
 
             this.player.setLevelState(LevelState.RUNNING);
