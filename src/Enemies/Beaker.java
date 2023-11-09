@@ -28,7 +28,7 @@ public class Beaker extends Enemy {
     private float momentumY;
 
     public Beaker(Point location, float movementSpeed, float momentumY) {
-        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Beaker.png"), 40, 40), "DEFAULT");
+        super(location.x, location.y, new SpriteSheet(ImageLoader.load("Beaker.png"), 7, 7), "DEFAULT");
         this.movementSpeed = movementSpeed;
         isUpdateOffScreen = true;
         this.momentumY = momentumY;

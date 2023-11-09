@@ -63,8 +63,10 @@ public class BugEnemy extends Enemy {
         // if on ground, walk forward based on facing direction
         if (airGroundState == AirGroundState.GROUND) {
             if (facingDirection == Direction.RIGHT) {
+                currentAnimationName = "WALK_RIGHT";
                 moveAmountX += movementSpeed;
             } else {
+                currentAnimationName = "WALK_LEFT";
                 moveAmountX -= movementSpeed;
             }
 

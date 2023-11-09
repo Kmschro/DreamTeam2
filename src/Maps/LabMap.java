@@ -43,8 +43,8 @@ public class LabMap extends Map {
         Coin coin3 = new Coin(getMapTile(23,8).getLocation(), null);
         coins.add(coin3);
 
-        Coin coin4 = new Coin(getMapTile(42, 8).getLocation(), null);
-        coins.add(coin4);
+        //Coin coin4 = new Coin(getMapTile(42, 8).getLocation(), null);
+        //coins.add(coin4);
 
         Coin coin5 = new Coin(getMapTile(32, 2).getLocation(), null);
         coins.add(coin5);
@@ -99,9 +99,9 @@ public class LabMap extends Map {
         RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
                 getMapTile(45, 8).getLocation(), Direction.LEFT);
         enemies.add(cat);
-        //MadScientist2 sci2 = new MadScientist2(getMapTile(65, 5).getLocation(),
-              //  getMapTile(70, 5).getLocation(), Direction.LEFT);
-        //enemies.add(sci2);
+        MadScientist2 sci2 = new MadScientist2(getMapTile(65, 5).getLocation(),
+                getMapTile(70, 5).getLocation(), Direction.LEFT);
+        enemies.add(sci2);
         return enemies;
     }
 

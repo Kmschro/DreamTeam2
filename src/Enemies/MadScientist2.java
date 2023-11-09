@@ -40,8 +40,8 @@ public class MadScientist2 extends Enemy {
     protected int shootTimer;
 
     // can be either WALK or SHOOT based on what the enemy is currently set to do
-    protected DinosaurState dinosaurState;
-    protected DinosaurState previousDinosaurState;
+    protected Scientist2State scientistState;
+    protected Scientist2State previousScientistState;
 
     public MadScientist2(Point startLocation, Point endLocation, Direction facingDirection) {
         super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("madScientistWithBeaker.png"), 24, 24),
@@ -56,8 +56,8 @@ public class MadScientist2 extends Enemy {
     public void initialize() {
         AbilityListenerManager.addEnemyListener(this);
         super.initialize();
-        dinosaurState = DinosaurState.WALK;
-        previousDinosaurState = dinosaurState;
+        scientistState = Scientist2State.WALK;
+        previousScientistState = scientistState;
         facingDirection = startFacingDirection;
         if (facingDirection == Direction.RIGHT) {
             currentAnimationName = "WALK_RIGHT";
@@ -77,15 +77,15 @@ public class MadScientist2 extends Enemy {
 
         // if shoot timer is up and dinosaur is not currently shooting, set its state to
         // SHOOT
-        if (shootWaitTimer == 0 && dinosaurState != DinosaurState.SHOOT_WAIT) {
-            dinosaurState = DinosaurState.SHOOT_WAIT;
+        if (shootWaitTimer == 0 && scientistState != Scientist2State.SHOOT_WAIT) {
+            scientistState = Scientist2State.SHOOT_WAIT;
         } else {
             shootWaitTimer--;
         }
 
         // if dinosaur is walking, determine which direction to walk in based on facing
         // direction
-        if (dinosaurState == DinosaurState.WALK) {
+        if (scientistState == Scientist2State.WALK) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
                 moveXHandleCollision(movementSpeed);
@@ -113,51 +113,48 @@ public class MadScientist2 extends Enemy {
         // if dinosaur is waiting to shoot, it first turns read for a set number of
         // frames
         // after this waiting period is over, the beaker is actually shot out
-        if (dinosaurState == DinosaurState.SHOOT_WAIT) {
-            if (previousDinosaurState == DinosaurState.WALK) {
+        if (scientistState == Scientist2State.SHOOT_WAIT) {
+            if (previousScientistState == Scientist2State.WALK) {
                 shootTimer = 65;
                 currentAnimationName = facingDirection == Direction.RIGHT ? "SHOOT_RIGHT" : "SHOOT_LEFT";
             } else if (shootTimer == 0) {
-                dinosaurState = DinosaurState.SHOOT;
+                scientistState = Scientist2State.SHOOT;
             } else {
                 shootTimer--;
             }
         }
 
         // this is for actually having the dinosaur spit out the beaker
-        if (dinosaurState == DinosaurState.SHOOT) {
+        if (scientistState == Scientist2State.SHOOT) {
             // define where beaker will spawn on map (x location) relative to dinosaur
             // enemy's location
             // and define its movement speed
-            int fireballX;
+            int beakerX;
             float movementSpeed;
-            if (facingDirection == Direction.RIGHT) {
-                fireballX = Math.round(getX()) + getWidth();
-                movementSpeed = 1.5f;
+            if (currentAnimationName == "SHOOT_RIGHT") {
+                beakerX = Math.round(getX()) + getWidth() - 30;
+                movementSpeed = 2f;
             } else {
-                fireballX = Math.round(getX() - 21);
-                movementSpeed = -1.5f;
+                beakerX = Math.round(getX() - 35);
+                movementSpeed = -2f;
             }
 
-            // define where beaker will spawn on the map (y location) relative to dinosaur
-            // enemy's location
-            int fireballY = Math.round(getY()) + 4;
 
-            // create Beaker enemy
-            Beaker beaker = new Beaker(new Point(fireballX, fireballY), movementSpeed, 60);
+            int beakerY = Math.round(getY()) - 20;
 
-            // add beaker enemy to the map for it to spawn in the level
+            float heightY = -2f;
+
+            Beaker beaker = new Beaker(new Point(beakerX, beakerY), movementSpeed, heightY);
+
+
+
             map.addEnemy(beaker);
 
-            // change dinosaur back to its WALK state after shooting, reset shootTimer to
-            // wait a certain number of frames before shooting again
-            dinosaurState = DinosaurState.WALK;
+            scientistState = Scientist2State.WALK;
 
-            // reset shoot wait timer so the process can happen again (dino walks around,
-            // then waits, then shoots)
             shootWaitTimer = 130;
         }
-        previousDinosaurState = dinosaurState;
+        previousScientistState = scientistState;
         super.update(player);
         if (activeFireball != null) {
             if (intersects(activeFireball)) {
@@ -237,7 +234,7 @@ public class MadScientist2 extends Enemy {
         };
     }
 
-    public enum DinosaurState {
+    public enum Scientist2State {
         WALK, SHOOT_WAIT, SHOOT
     }
 }
