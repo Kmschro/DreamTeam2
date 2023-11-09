@@ -1,6 +1,7 @@
 package Level;
 
 
+import Enemies.Beaker;
 import Players.PlayerFireball;
 
 
@@ -11,7 +12,11 @@ public interface AbilityListener {
     // wasn't sure what to name this - this should be broadcasted by an enemy if they get killed by the fireball
     // this will trigger the fireball to delete itself
     void fireballKilledEnemy();
-
+    
+    void beakerSpawned(Beaker beaker);
+    void beakerDespawned();
+    
+    void beakerKilledEnemy();
 
 }
 

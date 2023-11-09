@@ -42,6 +42,9 @@ public class LevelTwo extends Map {
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 8).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
+        Key key = new Key(getMapTile(86, 6).getLocation());
+        enhancedMapTiles.add(key);
+
 
         return enhancedMapTiles;
     }

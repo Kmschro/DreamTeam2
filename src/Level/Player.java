@@ -61,6 +61,7 @@ public abstract class Player extends GameObject {
     protected Key SPEED_UP_KEY = Key.SHIFT;
     protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
+    protected Key INVINCIBLE_KEY = Key.I;
 
     protected Key FLIP_KEY = Key.W;
     boolean R_Key_Pressed = false;
@@ -249,6 +250,10 @@ public abstract class Player extends GameObject {
         } else {
             walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
+
+        if (Keyboard.isKeyDown(INVINCIBLE_KEY)) {
+            isInvincible = true;
+        }
     }
    
     // while player is in air, this is called, and will increase momentumY by a set
@@ -297,15 +302,7 @@ public abstract class Player extends GameObject {
         }
         
         if ((Keyboard.isKeyDown(SHOOT_KEY)) && (fireballOnCooldown == false) && (isInvincible == false) && getFBPowerup() == true){
-            
-            try {
-                playerSFX.load("Resources/Music/WAV/fireball.wav");
-                playerSFX.play();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            
-            fireballSpit(getX(), getY(), getFacingDirection());
+            createFireball(getX(), getY(), getFacingDirection());
         }
     }
 
@@ -445,7 +442,7 @@ public abstract class Player extends GameObject {
     public void setFBPowerup(boolean haveFBPowerup) {
         this.haveFBPowerup = haveFBPowerup;
     }
-     public void fireballSpit(float x, float y, Direction direction){
+     public void createFireball(float x, float y, Direction direction){
         float movementSpeed;
         float spawnX =x;
         float spawnY = y;
@@ -463,7 +460,7 @@ public abstract class Player extends GameObject {
         map.addEnemy(fireball);
 
         // Set the cooldown here (cooldown is in frames, remember 60 fps so 60 = 1 second)
-        cooldownCounter = 200;
+        cooldownCounter = 250;
         fireballOnCooldown = true;
     }
     public boolean getFBPowerup() {
@@ -473,6 +470,8 @@ public abstract class Player extends GameObject {
         return levelState;
     }
     public void levelTwo() {
+    }
+    public void levelThree(){
     }
     public void collectKey(EnhancedMapTiles.Key key) {
         hasKey = true;

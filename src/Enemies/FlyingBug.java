@@ -1,11 +1,12 @@
 package Enemies;
 
+import Level.AbilityListenerManager;
+import Level.Enemy;
 import Builders.FrameBuilder;
 import Engine.ImageLoader;
 import GameObject.Frame;
 import GameObject.ImageEffect;
 import GameObject.SpriteSheet;
-import Level.AbilityListenerManager;
 import Level.Enemy;
 import Level.MapEntity;
 import Level.MapEntityStatus;
@@ -16,21 +17,19 @@ import Utils.Point;
 
 import java.util.HashMap;
 
-// This class is for the black bug enemy
-// enemy behaves like a Mario goomba -- walks forward until it hits a solid map tile, and then turns around
-// if it ends up in the air from walking off a cliff, it will fall down until it hits the ground again, and then will continue walking
-public class BugEnemy extends Enemy {
+public class FlyingBug extends Enemy {
 
-    private float gravity = .5f;
-    private float movementSpeed = .5f;
+    // private float gravity = .5f;
+    private float movementSpeed = 1.5f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
     private Point startLocation;
     private Point endLocation;
 
-    public BugEnemy(Point startLocation, Point endLocation, Direction facingDirection) {
-        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("BugEnemy.png"), 24, 15), "WALK_LEFT");
+    public FlyingBug(Point startLocation, Point endLocation, Direction facingDirection) {
+        super(startLocation.x, startLocation.y, new SpriteSheet(ImageLoader.load("FlyingBug.png"), 24, 15),
+                "WALK_LEFT");
         this.startLocation = startLocation;
         this.endLocation = endLocation;
         this.startFacingDirection = facingDirection;
@@ -47,7 +46,7 @@ public class BugEnemy extends Enemy {
         } else if (facingDirection == Direction.LEFT) {
             currentAnimationName = "WALK_LEFT";
         }
-        airGroundState = AirGroundState.GROUND;
+        airGroundState = AirGroundState.AIR;
     }
 
     @Override
@@ -58,10 +57,11 @@ public class BugEnemy extends Enemy {
         float moveAmountY = 0;
 
         // add gravity (if in air, this will cause bug to fall)
-        moveAmountY += gravity;
+        // moveAmountY += gravity;
 
         // if on ground, walk forward based on facing direction
-        if (airGroundState == AirGroundState.GROUND) {
+        
+        if (airGroundState == AirGroundState.AIR) {
             if (facingDirection == Direction.RIGHT) {
                 currentAnimationName = "WALK_RIGHT";
                 moveAmountX += movementSpeed;
@@ -86,15 +86,15 @@ public class BugEnemy extends Enemy {
         moveXHandleCollision(moveAmountX);
 
         super.update(player);
-        if (activeFireball != null){
-            if (intersects(activeFireball)){
+        if (activeFireball != null) {
+            if (intersects(activeFireball)) {
                 killEnemy(this);
                 // broadcast so the fireball disappears
                 AbilityListenerManager.fireballKilledEnemy();
             }
         }
-        if (activeBeaker != null){
-            if (intersects(activeBeaker)){
+        if (activeBeaker != null) {
+            if (intersects(activeBeaker)) {
                 killEnemy(this);
                 // broadcast so the fireball disappears
                 AbilityListenerManager.beakerKilledEnemy();
@@ -103,7 +103,7 @@ public class BugEnemy extends Enemy {
     }
 
     @Override
-    public void onEndCollisionCheckX(boolean hasCollided, Direction direction,  MapEntity entityCollidedWith) {
+    public void onEndCollisionCheckX(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if bug has collided into something while walking forward,
         // it turns around (changes facing direction)
         if (hasCollided) {
@@ -120,7 +120,8 @@ public class BugEnemy extends Enemy {
     @Override
     public void onEndCollisionCheckY(boolean hasCollided, Direction direction, MapEntity entityCollidedWith) {
         // if bug is colliding with the ground, change its air ground state to GROUND
-        // if it is not colliding with the ground, it means that it's currently in the air, so its air ground state is changed to AIR
+        // if it is not colliding with the ground, it means that it's currently in the
+        // air, so its air ground state is changed to AIR
         if (direction == Direction.DOWN) {
             if (hasCollided) {
                 airGroundState = AirGroundState.GROUND;
@@ -133,23 +134,30 @@ public class BugEnemy extends Enemy {
     @Override
     public HashMap<String, Frame[]> loadAnimations(SpriteSheet spriteSheet) {
         return new HashMap<String, Frame[]>() {{
-            put("WALK_LEFT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
-                            .withScale(2)
-                            .withBounds(6, 6, 12, 7)
+            put("WALK_LEFT", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
+                            .withScale(2 )
+                            .withBounds(2, 1, 5, 13)
                             .build(),
-
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                            .withScale(2)
+                            .withBounds(4, 2, 5, 13)
+                            .build()
             });
 
-            put("WALK_RIGHT", new Frame[] {
-                    new FrameBuilder(spriteSheet.getSprite(0, 0), 8)
+            put("WALK_RIGHT", new Frame[]{
+                    new FrameBuilder(spriteSheet.getSprite(0, 0), 14)
                             .withScale(2)
                             .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                            .withBounds(6, 6, 12, 7)
+                            .withBounds(4, 2, 5, 13)
                             .build(),
- 
+                    new FrameBuilder(spriteSheet.getSprite(0, 1), 14)
+                            .withScale(2)
+                            .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
+                            .withBounds(4, 2, 5, 13)
+                            .build()
             });
         }};
-        
     }
+
 }
