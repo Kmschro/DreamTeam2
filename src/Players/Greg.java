@@ -291,23 +291,6 @@ public class Greg extends Player {
                                                                 .withBounds(8, 9, 8, 9)
                                                                 .build()
                                 });
-                                /* 
-                                put("PLAYER_FLIPPED_FALL_RIGHT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(3, 0))
-                                                                .withScale(3)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(8, 9, 8, 9)
-                                                                .build()
-                                });
-
-                                put("PLAYER_FLIPPED_FALL_LEFT", new Frame[] {
-                                                new FrameBuilder(spriteSheet.getSprite(3, 0))
-                                                                .withScale(3)
-                                                                .withImageEffect(ImageEffect.FLIP_HORIZONTAL)
-                                                                .withBounds(8, 9, 8, 9)
-                                                                .build()
-                                });
-                                */
                         }
                 };
         }

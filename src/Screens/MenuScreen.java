@@ -108,13 +108,13 @@ public class MenuScreen extends Screen {
             playGame.setColor(new Color(49, 207, 240));
             credits.setColor(new Color(255, 215, 0));
             quit.setColor(new Color(49, 207, 240));
-            pointerLocationX = 170;
+            pointerLocationX = TextXAlign - 40;
             pointerLocationY = 230;
         } else if (currentMenuItemHovered == 2) {
             playGame.setColor(new Color(49, 207, 240));
             credits.setColor(new Color(49, 207, 240));
             quit.setColor(new Color(255, 215, 0));
-            pointerLocationX = 170;
+            pointerLocationX = TextXAlign - 40;
             pointerLocationY = 330;
         }
 

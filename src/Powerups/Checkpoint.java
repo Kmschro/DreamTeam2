@@ -19,13 +19,13 @@ import java.util.TimerTask;
 
 public class Checkpoint extends Powerups{
     
-    public boolean hasCP;
+    public boolean hasCheckPoint;
 
     private AudioPlayer checkpointSFX = new AudioPlayer();
 
     public Checkpoint(Point location) {
         super(location.x, location.y, new SpriteSheet(ImageLoader.load("Checkpointv2.png"), 24, 24), "DEFAULT");
-        hasCP = false;
+        hasCheckPoint = false;
     }
 
     @Override
@@ -46,7 +46,7 @@ public class Checkpoint extends Powerups{
             }
 
             // tells player it reached checkpoint
-            hasCP = true;
+            hasCheckPoint = true;
             map.setCp(true);
             
             System.out.print("true1");
@@ -74,7 +74,7 @@ public class Checkpoint extends Powerups{
     }
 
     public boolean getCP() {
-        return hasCP;
+        return hasCheckPoint;
     }
 
     public Point getLoc() {
