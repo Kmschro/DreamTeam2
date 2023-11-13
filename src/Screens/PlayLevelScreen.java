@@ -276,7 +276,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
      */
 
     // counter for all levels
-    protected int counter = 2;
+    public static int counter = 2;
 
     // change here for level two
     @Override
@@ -328,7 +328,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             if (timer != null) {
                     timer.cancel();
             }
-            if (map.getCp() && counter == 2) {
+            if (map.getCp()) {
                 // this.player = new Greg(56, 6);
         
                 // this.player.setMap(map);

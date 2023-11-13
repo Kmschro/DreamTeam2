@@ -19,6 +19,7 @@ import Utils.Point;
 import Utils.Direction;
 import Powerups.Coin;
 import Powerups.FireballPU;
+import Screens.PlayLevelScreen;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -54,12 +55,13 @@ public class LabMap extends Map {
 
         FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
         coins.add(fbPU);
-
+        if(PlayLevelScreen.counter == 1) {
         // Checkpoint checkpoint = this.setCP(new Point(56, 6));
         Checkpoint checkpoint = new Checkpoint(getMapTile(56, 6).getLocation().subtractY(13));
         coins.add(checkpoint);
-
+        }
         return coins;
+        
     }
 
     @Override
