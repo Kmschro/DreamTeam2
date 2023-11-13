@@ -16,6 +16,9 @@ import Utils.Direction;
 import Powerups.Coin;
 import Powerups.FireballPU;
 import Utils.Direction;
+import Players.*;
+
+
 
 import java.util.ArrayList;
 
@@ -28,10 +31,12 @@ public class LevelTwo extends Map {
 
     @Override
     public ArrayList<Powerups> loadPowerups() {
-        ArrayList<Powerups> powers = new ArrayList<>();
 
-
-        return powers;
+        ArrayList<Powerups> powerups = new ArrayList<>();
+    
+        Checkpoint checkpoint2 = new Checkpoint(getMapTile(3, 4).getLocation());
+        powerups.add(checkpoint2);
+        return powerups;
     }
 
     @Override
