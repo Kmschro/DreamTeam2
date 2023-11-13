@@ -10,7 +10,7 @@ import Level.MapEntityStatus;
 import Level.Player;
 import Level.PlayerListener;
 import Level.Powerups;
-import Maps.TestMap;
+import Maps.FinalLevel;
 import Maps.LabMap;
 import Maps.LevelThree;
 import Maps.LevelTwo;
