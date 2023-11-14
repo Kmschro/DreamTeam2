@@ -65,7 +65,7 @@ public class LabMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 5).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 6).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
         
@@ -96,9 +96,12 @@ public class LabMap extends Map {
         FlyingBug fb1 = new FlyingBug(getMapTile(31, 2).getLocation(),
                 getMapTile(38, 2).getLocation(), Direction.LEFT);
         enemies.add(fb1);
-        RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
-                getMapTile(48, 8).getLocation(), Direction.LEFT);
+
+        /*        RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
+                getMapTile(45, 8).getLocation(), Direction.LEFT);
+>>>>>>> 20a7c260ab60776591d9ed0c36f161641715e41d
         enemies.add(cat);
+        */
         MadScientist2 sci2 = new MadScientist2(getMapTile(65, 5).getLocation(),
                 getMapTile(70, 5).getLocation(), Direction.LEFT);
         enemies.add(sci2);

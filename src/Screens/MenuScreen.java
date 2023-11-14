@@ -19,6 +19,7 @@ public class MenuScreen extends Screen {
     protected SpriteFont playGame;
     protected SpriteFont credits;
     protected SpriteFont quit;
+    protected SpriteFont confirmExit;
     protected Map background;
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
@@ -42,6 +43,9 @@ public class MenuScreen extends Screen {
         quit = new SpriteFont("EXIT", 200, 319, "Comic Sans", 30, new Color(49, 207, 240));
         quit.setOutlineColor(Color.black);
         quit.setOutlineThickness(3);
+        confirmExit = new SpriteFont("Press Enter to Confirm", 300, 319, "Comic Sans", 30, new Color(49, 207, 240));
+        confirmExit.setOutlineColor(Color.black);
+        confirmExit.setOutlineThickness(3);
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         keyPressTimer = 0;
@@ -137,6 +141,12 @@ public class MenuScreen extends Screen {
         credits.draw(graphicsHandler);
         quit.draw(graphicsHandler);
         graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 20, 20, new Color(49, 207, 240), Color.black, 2);
+ 
+        if(menuItemSelected == 2) {
+            graphicsHandler.drawFilledRectangle(0, 0, ScreenManager.getScreenWidth(), ScreenManager.getScreenHeight(), new Color(0, 0, 0, 100));
+			graphicsHandler.drawFilledRectangleWithBorder(pointerLocationX, pointerLocationY, 15, 15, new Color(49, 207, 240), Color.black, 2);
+            confirmExit.draw(graphicsHandler);
+        }
     }
 
     public void exit() {

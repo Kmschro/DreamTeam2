@@ -3,6 +3,7 @@ package Maps;
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
+import EnhancedMapTiles.Door;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
@@ -20,16 +21,18 @@ import Utils.Direction;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
-public class LevelTwo extends Map {
-    public LevelTwo() {
-        super("LevelTwo.txt", new LabTileset());
-        this.playerStartPosition = getMapTile(4, 4).getLocation();
+public class LevelFour extends Map {
+    public LevelFour() {
+        super("LevelFour.txt", new LabTileset());
+        this.playerStartPosition = getMapTile(1, 3).getLocation();
     }
 
     @Override
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> powers = new ArrayList<>();
 
+        FireballPU fbPU = new FireballPU(getMapTile(101, 3).getLocation());
+        powers.add(fbPU);
 
         return powers;
     }
@@ -38,33 +41,29 @@ public class LevelTwo extends Map {
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
         
-
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 6).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 4).getLocation());
         enhancedMapTiles.add(endLevelBox);
 
-        Key key = new Key(getMapTile(86, 6).getLocation());
+        Key key = new Key(getMapTile(55, 8).getLocation());
         enhancedMapTiles.add(key);
-
 
         return enhancedMapTiles;
     }
+
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
-
-        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(35, 5).getLocation(), getMapTile(40, 5).getLocation(), Direction.LEFT);
+        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(40, 6).getLocation(), getMapTile(45, 6).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
 
-        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(119, 7).getLocation(), getMapTile(124, 7).getLocation(), Direction.LEFT);
+        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(66, 9).getLocation(), getMapTile(70, 9).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy2);
 
-        DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(125, 7).getLocation(), getMapTile(130, 7).getLocation(), Direction.LEFT);
+        DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(65, 5).getLocation(), getMapTile(70, 5).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy3);
 
         return enemies;
     }
-    
-    
 }
-
+    

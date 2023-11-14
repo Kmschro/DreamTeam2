@@ -12,6 +12,8 @@ import Level.PlayerListener;
 import Level.Powerups;
 import Maps.TestMap;
 import Maps.LabMap;
+import Maps.LevelThree;
+import Maps.LevelTwo;
 import Maps.LabMap;
 import Players.Greg;
 import SpriteFont.SpriteFont;
@@ -279,9 +281,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     // change here for level two
     @Override
     public void onLevelCompleted() {
-        if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter >= 2) {
+        if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 2) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
-            this.map = new LabMap();
+            this.map = new LevelTwo();
             this.player.levelTwo();
             this.player = new Greg(4, 4);
 
@@ -292,6 +294,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
             // player.update(); //causes error for some reason
             // map.update(player);
+
+            counter = counter + 1;
+            System.out.print(counter);
+        } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 3) {
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+            this.map = new LevelThree();
+            this.player.levelThree();
+            this.player = new Greg(4, 4);
+
+            this.player.setMap(map);
+            this.player.addListener(this);
+
+            Point playerStartPosition = map.getPlayerStartPosition();
+            this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+            // player.update(); //causes error for some reason
+            // map.update(player);
+
+            counter = counter + 1;
         } else if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter < 2) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
@@ -305,7 +325,9 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
             //playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             //FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
-            
+            if (timer != null) {
+                    timer.cancel();
+            }
             if (map.getCp()) {
                 // this.player = new Greg(56, 6);
         
@@ -333,7 +355,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 powerUpTimeInSeconds = 0;
                 player.setFBPowerup(false);
                 powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
-
+                exit();
             }
 
             this.player.setLevelState(LevelState.RUNNING);
