@@ -56,8 +56,9 @@ public class LabMap extends Map {
         coins.add(fbPU);
 
         // Checkpoint checkpoint = this.setCP(new Point(56, 6));
-        Checkpoint checkpoint = new Checkpoint(getMapTile(56, 6).getLocation().subtractY(13));
-        coins.add(checkpoint);
+        ArrayList<Powerups> checkpoints = new ArrayList<>();
+        Checkpoint checkpoint = new Checkpoint(getMapTile(56, 6).getLocation());
+        checkpoints.add(checkpoint);
 
         return coins;
     }

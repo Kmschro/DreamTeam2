@@ -9,19 +9,20 @@ import java.util.ArrayList;
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
         return new ArrayList<String>() {{
-            add("TestMap");
+            add("FinalLevel");
             add("TitleScreen");
             add("LabMap");
             add("LevelTwo");
             add("LevelThree");
             add("LevelFour");
+            add("LevelFive");
         }};
     }
 
     public static Map getMapByName(String mapName) {
         switch(mapName) {
-            case "TestMap":
-                return new TestMap();
+            case "FinalLevel":
+                return new FinalLevel();
             case "TitleScreen":
                 return new TitleScreenMap();
             case "TestMap2":
@@ -34,6 +35,8 @@ public class EditorMaps {
                 return new LevelThree();
             case "LevelFour":
                 return new LevelFour();
+            case "LevelFive":
+                return new LevelFive();
             default:
                 throw new RuntimeException("Unrecognized map name");
         }

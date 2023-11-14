@@ -65,14 +65,14 @@ public abstract class Map {
     protected boolean adjustCamera = true;
 
     protected Checkpoint CP;
-    protected boolean hasCp = false;
+    protected boolean hasCheckPoint = false;
 
     public boolean getCp() {
-        return hasCp;
+        return hasCheckPoint;
     }
 
     public void setCp(boolean check) {
-        hasCp = check;
+        hasCheckPoint = check;
     }
 
     // map tiles in map that are animated
@@ -99,8 +99,8 @@ public abstract class Map {
         return CP;
     }
 
-    public void hasCP() {
-         if(CP.hasCP) {
+    public void hasCheckPoint() {
+         if(CP.hasCheckPoint) {
             playerStartPosition = CP.getLoc();
          }
     }
