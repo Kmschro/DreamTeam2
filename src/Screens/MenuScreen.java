@@ -24,7 +24,7 @@ public class MenuScreen extends Screen {
     protected int keyPressTimer;
     protected int pointerLocationX, pointerLocationY;
     protected KeyLocker keyLocker = new KeyLocker();
-
+    private int TextXAlign = 450;
     private AudioPlayer menuMusic = new AudioPlayer();
     private AudioPlayer menuSFX = new AudioPlayer();
 
@@ -34,16 +34,16 @@ public class MenuScreen extends Screen {
 
     @Override
     public void initialize() {
-        playGame = new SpriteFont("PLAY GAME", 200, 119, "Comic Sans", 30, new Color(49, 207, 240));
+        playGame = new SpriteFont("PLAY GAME", TextXAlign, 119, "Comic Sans", 30, new Color(49, 207, 240));
         playGame.setOutlineColor(Color.black);
         playGame.setOutlineThickness(3);
-        credits = new SpriteFont("CREDITS", 200, 219, "Comic Sans", 30, new Color(49, 207, 240));
+        credits = new SpriteFont("CREDITS", TextXAlign, 219, "Comic Sans", 30, new Color(49, 207, 240));
         credits.setOutlineColor(Color.black);
         credits.setOutlineThickness(3);
-        quit = new SpriteFont("EXIT", 200, 319, "Comic Sans", 30, new Color(49, 207, 240));
+        quit = new SpriteFont("EXIT", TextXAlign, 319, "Comic Sans", 30, new Color(49, 207, 240));
         quit.setOutlineColor(Color.black);
         quit.setOutlineThickness(3);
-        confirmExit = new SpriteFont("Press Enter to Confirm", 300, 319, "Comic Sans", 30, new Color(49, 207, 240));
+        confirmExit = new SpriteFont("Press Enter to Confirm", TextXAlign, 319, "Comic Sans", 30, new Color(49, 207, 240));
         confirmExit.setOutlineColor(Color.black);
         confirmExit.setOutlineThickness(3);
         background = new TitleScreenMap();
@@ -102,19 +102,19 @@ public class MenuScreen extends Screen {
             playGame.setColor(new Color(255, 215, 0));
             credits.setColor(new Color(49, 207, 240));
             quit.setColor(new Color(49, 217, 240));
-            pointerLocationX = 170;
+            pointerLocationX = TextXAlign - 40;
             pointerLocationY = 130;
         } else if (currentMenuItemHovered == 1) {
             playGame.setColor(new Color(49, 207, 240));
             credits.setColor(new Color(255, 215, 0));
             quit.setColor(new Color(49, 207, 240));
-            pointerLocationX = 170;
+            pointerLocationX = TextXAlign - 40;
             pointerLocationY = 230;
         } else if (currentMenuItemHovered == 2) {
             playGame.setColor(new Color(49, 207, 240));
             credits.setColor(new Color(49, 207, 240));
             quit.setColor(new Color(255, 215, 0));
-            pointerLocationX = 170;
+            pointerLocationX = TextXAlign - 40;
             pointerLocationY = 330;
         }
 

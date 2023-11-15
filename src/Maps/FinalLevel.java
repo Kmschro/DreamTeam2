@@ -14,10 +14,10 @@ import Utils.Direction;
 import java.util.ArrayList;
 
 // Represents a test map to be used in a level
-public class TestMap extends Map {
+public class FinalLevel extends Map {
 
-    public TestMap() {
-        super("test_map.txt", new CommonTileset());
+    public FinalLevel() {
+        super("FinalLevel.txt", new CommonTileset());
         this.playerStartPosition = getMapTile(2, 11).getLocation();
     }
 

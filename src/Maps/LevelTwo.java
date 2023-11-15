@@ -18,6 +18,9 @@ import Powerups.FireballPU;
 import Screens.PlayLevelScreen;
 import Powerups.Checkpoint;
 import Utils.Direction;
+import Players.*;
+
+
 
 import java.util.ArrayList;
 
@@ -30,12 +33,12 @@ public class LevelTwo extends Map {
 
     @Override
     public ArrayList<Powerups> loadPowerups() {
-        ArrayList<Powerups> powers = new ArrayList<>();
-        if(PlayLevelScreen.counter == 2) {
-        Checkpoint checkpoint = new Checkpoint(getMapTile(7, 3).getLocation());
-        powers.add(checkpoint);
-        }
-        return powers;
+
+        ArrayList<Powerups> powerups = new ArrayList<>();
+    
+        Checkpoint checkpoint2 = new Checkpoint(getMapTile(7, 3).getLocation());
+        powerups.add(checkpoint2);
+        return powerups;
     }
 
     @Override

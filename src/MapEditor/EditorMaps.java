@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class EditorMaps {
     public static ArrayList<String> getMapNames() {
         return new ArrayList<String>() {{
-            add("TestMap");
+            add("FinalLevel");
             add("TitleScreen");
             add("LabMap");
             add("LevelTwo");
@@ -20,8 +20,8 @@ public class EditorMaps {
 
     public static Map getMapByName(String mapName) {
         switch(mapName) {
-            case "TestMap":
-                return new TestMap();
+            case "FinalLevel":
+                return new FinalLevel();
             case "TitleScreen":
                 return new TitleScreenMap();
             case "TestMap2":

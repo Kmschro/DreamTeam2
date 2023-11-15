@@ -4,7 +4,9 @@ import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import Powerups.Checkpoint;
+import Screens.PlayLevelScreen;
 import Utils.Point;
+import Maps.LabMap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -65,14 +67,14 @@ public abstract class Map {
     protected boolean adjustCamera = true;
 
     protected Checkpoint CP;
-    protected boolean hasCp = false;
+    protected boolean hasCheckPoint = false;
 
     public boolean getCp() {
-        return hasCp;
+        return hasCheckPoint;
     }
 
     public void setCp(boolean check) {
-        hasCp = check;
+        hasCheckPoint = check;
     }
 
     // map tiles in map that are animated
@@ -99,9 +101,9 @@ public abstract class Map {
         return CP;
     }
 
-    public void hasCP() {
-         if(CP.hasCP) {
-            playerStartPosition = CP.getLoc();
+    public void hasCheckPoint() {
+         if(CP.hasCheckPoint) {
+            playerStartPosition = CP.getLoc();  
          }
     }
 
