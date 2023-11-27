@@ -20,6 +20,7 @@ import Utils.Point;
 import Utils.Direction;
 import Powerups.Coin;
 import Powerups.FireballPU;
+import Screens.PlayLevelScreen;
 import Utils.Direction;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class LabMap extends Map {
         checkpoints.add(checkpoint);
 
         return coins;
+        
     }
 
     @Override

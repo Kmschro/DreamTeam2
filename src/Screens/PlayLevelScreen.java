@@ -48,6 +48,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected Timer timer;
     private int powerUpTimeInSeconds; // Set the initial time for the power-up to 30 seconds
     private Timer powerUpTimer;
+    protected Point point2;
+    protected Point point3;
+    protected Point point4;
+
 
     protected SpriteFont coinLabel;
     protected SpriteFont levelTimer;
@@ -128,7 +132,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         powerupTimer.setOutlineColor(Color.black);
         powerupTimer.setOutlineThickness(3);
         powerUpTimer = new Timer();
-
+        
         try {
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
             menuMusic.playLooped();
@@ -276,7 +280,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
      */
 
     // counter for all levels
-    protected int counter = 2;
+    public static int counter = 2;
 
     // change here for level two
     @Override
@@ -292,8 +296,8 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
 
             Point playerStartPosition = map.getPlayerStartPosition();
             this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
-            // player.update(); //causes error for some reason
-            // map.update(player);
+            //player.update(); //causes error for some reason
+            //map.update(player);
 
             counter = counter + 1;
             System.out.print(counter);
@@ -335,21 +339,30 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 // this.player.addListener(this);
 
                 System.out.print("line 207");
-
-                Point point = map.getMapTile(56, 6).getLocation().subtractY(13);
-                
+                Point point = map.getMapTile(4,3).getLocation();
+                if(counter == 1){
+                    Point point2 = map.getMapTile(56, 6).getLocation();
+                } else if(counter == 2){
+                    Point point3 = map.getMapTile(1, 3).getLocation();
+                }
                 timer.cancel();
-                this.player.setLocation(point.x, point.y);
+                if(counter == 1) {
+                    this.player.setLocation(point2.x, point2.y);
+                } else if(counter == 2) {
+                    this.player.setLocation(point.x, point.y);
+                } 
+
                 if (powerUpTimer != null) {
                     powerUpTimer.cancel();
                 }
+
                 powerUpTimeInSeconds = 0;
                 player.setFBPowerup(false);
                 powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
 
             }
             else {
-                resetLevel();
+                //resetLevel();
                 System.out.print("line 211");
                 this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
                 powerUpTimeInSeconds = 0;

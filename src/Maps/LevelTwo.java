@@ -15,6 +15,8 @@ import Utils.Point;
 import Utils.Direction;
 import Powerups.Coin;
 import Powerups.FireballPU;
+import Screens.PlayLevelScreen;
+import Powerups.Checkpoint;
 import Utils.Direction;
 import Players.*;
 
@@ -49,6 +51,8 @@ public class LevelTwo extends Map {
 
         Key key = new Key(getMapTile(86, 6).getLocation());
         enhancedMapTiles.add(key);
+
+
 
 
         return enhancedMapTiles;

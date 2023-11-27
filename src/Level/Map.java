@@ -4,7 +4,9 @@ import Engine.Config;
 import Engine.GraphicsHandler;
 import Engine.ScreenManager;
 import Powerups.Checkpoint;
+import Screens.PlayLevelScreen;
 import Utils.Point;
+import Maps.LabMap;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -101,7 +103,7 @@ public abstract class Map {
 
     public void hasCheckPoint() {
          if(CP.hasCheckPoint) {
-            playerStartPosition = CP.getLoc();
+            playerStartPosition = CP.getLoc();  
          }
     }
 
