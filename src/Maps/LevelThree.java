@@ -57,8 +57,8 @@ public class LevelThree extends Map {
         DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(81, 9).getLocation(), getMapTile(87, 9).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
 
-        DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(13, 6).getLocation(), getMapTile(20, 6).getLocation(), Direction.LEFT);
-        enemies.add(dinosaurEnemy2);
+        // DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(13, 6).getLocation(), getMapTile(20, 6).getLocation(), Direction.LEFT);
+        // enemies.add(dinosaurEnemy2);
 
         return enemies;
     }

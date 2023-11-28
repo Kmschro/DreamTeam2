@@ -7,6 +7,7 @@ import Level.Map;
 import Maps.TitleScreenMap;
 import SpriteFont.SpriteFont;
 import Utils.AudioPlayer;
+import javax.sound.sampled.FloatControl;
 
 import java.awt.*;
 import java.io.IOException;
@@ -55,6 +56,13 @@ public class MenuScreen extends Screen {
         try {
             menuMusic.load("Resources/Music/WAV/Adventure Awaits FULL.wav");
             menuMusic.playLooped();
+
+            FloatControl volumeControl = (FloatControl) menuMusic.getAudioClip().getControl(FloatControl.Type.MASTER_GAIN);
+            float maxVolume = volumeControl.getMaximum();
+            float minVolume = volumeControl.getMinimum();
+            float range = maxVolume - minVolume;
+            float volume = minVolume + (range * 0.75f); // 50% volume
+            volumeControl.setValue(volume);
         } catch (Exception e) {
             e.printStackTrace();
         }

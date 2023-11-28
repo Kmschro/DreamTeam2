@@ -21,6 +21,9 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.sound.sampled.FloatControl;
+
 import Powerups.Coin;
 import Powerups.FireballPU;
 import Utils.Point;
@@ -136,6 +139,13 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         try {
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
             menuMusic.playLooped();
+            
+            FloatControl volumeControl = (FloatControl) menuMusic.getAudioClip().getControl(FloatControl.Type.MASTER_GAIN);
+            float maxVolume = volumeControl.getMaximum();
+            float minVolume = volumeControl.getMinimum();
+            float range = maxVolume - minVolume;
+            float volume = minVolume + (range * 0.75f); // 50% volume
+            volumeControl.setValue(volume);
         } catch (Exception e) {
             e.printStackTrace();
         }
