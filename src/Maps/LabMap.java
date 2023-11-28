@@ -69,7 +69,7 @@ public class LabMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(146, 6).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(144, 6).getLocation());
         Portal portal = new Portal(getMapTile(149, 5).getLocation());
         enhancedMapTiles.add(portal);
         enhancedMapTiles.add(endLevelBox);
@@ -112,6 +112,10 @@ public class LabMap extends Map {
         MadScientist2 sci2 = new MadScientist2(getMapTile(65, 5).getLocation(),
                 getMapTile(70, 5).getLocation(), Direction.LEFT);
         enemies.add(sci2);
+
+        BugEnemy bug1 = new BugEnemy(getMapTile(86, 7).getLocation(),
+                getMapTile(89, 7).getLocation(), Direction.LEFT);
+        enemies.add(bug1);
         return enemies;
     }
 

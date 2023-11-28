@@ -2,6 +2,9 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.FlyingBug;
+import Enemies.MadScientist2;
+import Enemies.RadioactiveCat;
 import Engine.ImageLoader;
 import EnhancedMapTiles.Door;
 import EnhancedMapTiles.EndLevelBox;
@@ -44,7 +47,15 @@ public class LevelFive extends Map {
     @Override
     public ArrayList<Enemy> loadEnemies() {
         ArrayList<Enemy> enemies = new ArrayList<>();
+        
+        FlyingBug fly1 = new FlyingBug(getMapTile(63, 4).getLocation(), getMapTile(71, 4).getLocation(), Direction.LEFT);
+        enemies.add(fly1);
 
+        RadioactiveCat cat1 = new RadioactiveCat(getMapTile(77, 5).getLocation(), getMapTile(89, 5).getLocation(), Direction.LEFT);
+        enemies.add(cat1);
+
+        MadScientist2 scientist1 = new MadScientist2(getMapTile(77, 5).getLocation(), getMapTile(89, 5).getLocation(), Direction.LEFT);
+        enemies.add(scientist1);
         return enemies;
     }
 }

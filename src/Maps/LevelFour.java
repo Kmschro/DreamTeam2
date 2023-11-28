@@ -2,6 +2,8 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.InvisibleSlime;
+import Enemies.MadScientist2;
 import Engine.ImageLoader;
 import EnhancedMapTiles.Door;
 import EnhancedMapTiles.EndLevelBox;
@@ -60,9 +62,11 @@ public class LevelFour extends Map {
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(66, 9).getLocation(), getMapTile(70, 9).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy2);
 
-        DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(65, 5).getLocation(), getMapTile(70, 5).getLocation(), Direction.LEFT);
+        MadScientist2 dinosaurEnemy3 = new MadScientist2(getMapTile(65, 5).getLocation(), getMapTile(70, 5).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy3);
 
+        InvisibleSlime slime1 = new InvisibleSlime(getMapTile(129, 3).getLocation(), getMapTile(132, 3).getLocation(), Direction.LEFT);
+        enemies.add(slime1);
         return enemies;
     }
 }
