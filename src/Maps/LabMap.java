@@ -9,6 +9,7 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
+import EnhancedMapTiles.Portal;
 import EnhancedMapTiles.Door;
 import GameObject.Rectangle;
 import Level.*;
@@ -41,11 +42,11 @@ public class LabMap extends Map {
         Coin coin2 = new Coin(getMapTile(16, 4).getLocation(), null);
         coins.add(coin2);
 
-        Coin coin3 = new Coin(getMapTile(23,8).getLocation(), null);
+        Coin coin3 = new Coin(getMapTile(23, 8).getLocation(), null);
         coins.add(coin3);
 
-        //Coin coin4 = new Coin(getMapTile(42, 8).getLocation(), null);
-        //coins.add(coin4);
+        // Coin coin4 = new Coin(getMapTile(42, 8).getLocation(), null);
+        // coins.add(coin4);
 
         Coin coin5 = new Coin(getMapTile(32, 2).getLocation(), null);
         coins.add(coin5);
@@ -68,7 +69,9 @@ public class LabMap extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(147, 6).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(144, 6).getLocation());
+        Portal portal = new Portal(getMapTile(149, 5).getLocation());
+        enhancedMapTiles.add(portal);
         enhancedMapTiles.add(endLevelBox);
 
         
@@ -99,13 +102,20 @@ public class LabMap extends Map {
         FlyingBug fb1 = new FlyingBug(getMapTile(31, 2).getLocation(),
                 getMapTile(38, 2).getLocation(), Direction.LEFT);
         enemies.add(fb1);
-        /*        RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
-                getMapTile(45, 8).getLocation(), Direction.LEFT);
-        enemies.add(cat);
-        */
+
+        /*
+         * RadioactiveCat cat = new RadioactiveCat(getMapTile(42, 8).getLocation(),
+         * getMapTile(45, 8).getLocation(), Direction.LEFT);
+         * >>>>>>> 20a7c260ab60776591d9ed0c36f161641715e41d
+         * enemies.add(cat);
+         */
         MadScientist2 sci2 = new MadScientist2(getMapTile(65, 5).getLocation(),
                 getMapTile(70, 5).getLocation(), Direction.LEFT);
         enemies.add(sci2);
+
+        BugEnemy bug1 = new BugEnemy(getMapTile(86, 7).getLocation(),
+                getMapTile(89, 7).getLocation(), Direction.LEFT);
+        enemies.add(bug1);
         return enemies;
     }
 

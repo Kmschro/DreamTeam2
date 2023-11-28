@@ -2,6 +2,9 @@ package Maps;
 
 import Enemies.BugEnemy;
 import Enemies.DinosaurEnemy;
+import Enemies.FlyingBug;
+import Enemies.InvisibleSlime;
+import Enemies.Spider;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
@@ -62,11 +65,20 @@ public class LevelTwo extends Map {
         ArrayList<Enemy> enemies = new ArrayList<>();
 
 
-        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(35, 5).getLocation(), getMapTile(40, 5).getLocation(), Direction.LEFT);
+        DinosaurEnemy dinosaurEnemy1 = new DinosaurEnemy(getMapTile(35, 6).getLocation(), getMapTile(40, 5).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy1);
+        
+        InvisibleSlime slime1 = new InvisibleSlime(getMapTile(52, 9).getLocation(), getMapTile(59, 9).getLocation(), Direction.LEFT);
+        enemies.add(slime1);
+
+        Spider spider1 = new Spider(getMapTile(66, 9).getLocation(), getMapTile(74, 9).getLocation(), Direction.LEFT);
+        enemies.add(spider1);
 
         DinosaurEnemy dinosaurEnemy2 = new DinosaurEnemy(getMapTile(119, 7).getLocation(), getMapTile(124, 7).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy2);
+
+        FlyingBug fly1 = new FlyingBug(getMapTile(117, 4).getLocation(), getMapTile(125, 4).getLocation(), Direction.LEFT);
+        enemies.add(fly1);
 
         DinosaurEnemy dinosaurEnemy3 = new DinosaurEnemy(getMapTile(125, 7).getLocation(), getMapTile(130, 7).getLocation(), Direction.LEFT);
         enemies.add(dinosaurEnemy3);
