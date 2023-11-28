@@ -39,8 +39,8 @@ public class LevelTwo extends Map {
 
         ArrayList<Powerups> powerups = new ArrayList<>();
     
-        Checkpoint checkpoint2 = new Checkpoint(getMapTile(7, 3).getLocation());
-        powerups.add(checkpoint2);
+        //Checkpoint checkpoint2 = new Checkpoint(getMapTile(7, 3).getLocation());
+        //powerups.add(checkpoint2);
         return powerups;
     }
 
