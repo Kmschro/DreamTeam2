@@ -32,6 +32,7 @@ public class LabMap extends Map {
         this.playerStartPosition = getMapTile(1, 8).getLocation();
     }
 
+
     @Override
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> coins = new ArrayList<>();

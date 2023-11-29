@@ -12,6 +12,8 @@ import Level.PlayerListener;
 import Level.Powerups;
 import Maps.FinalLevel;
 import Maps.LabMap;
+import Maps.LevelFive;
+import Maps.LevelFour;
 import Maps.LevelThree;
 import Maps.LevelTwo;
 import Maps.LabMap;
@@ -50,7 +52,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     protected Point point2;
     protected Point point3;
     protected Point point4;
-
+    protected String currentMap;
     protected SpriteFont coinLabel;
     protected SpriteFont levelTimer;
     protected SpriteFont powerupTimer;
@@ -73,10 +75,225 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     }
 
     public void initialize() {
-
+        currentMap = "map1";
         // define/setup map
         // this.map = new LabMap();
         this.map = new LabMap();
+
+        // setup player
+        this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player.setFBPowerup(false);
+        /*
+         * if (map.getCp()) {
+         * System.out.println("TEST");
+         * this.player = new Greg(56, 6);
+         * }
+         * else {
+         * this.player = new Greg(map.getPlayerStartPosition().x,
+         * map.getPlayerStartPosition().y);
+         * }
+         */
+        this.player.setMap(map);
+        initializeTimer();
+        this.player.addListener(this);
+        Point playerStartPosition = map.getPlayerStartPosition();
+        this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+
+        levelClearedScreen = new LevelClearedScreen();
+        levelLoseScreen = new LevelLoseScreen(this);
+
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+        gameDirections = new SpriteFont(
+                "W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Sprint,      F : use powerup  ",
+                75, 50, "Comic Sans", 15,
+                Color.white);
+        gameDirections.setOutlineColor(Color.black);
+        gameDirections.setOutlineThickness(3);
+
+        powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+        powerupTimer.setOutlineColor(Color.black);
+        powerupTimer.setOutlineThickness(3);
+        powerUpTimer = new Timer();
+
+        try {
+            menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
+            menuMusic.playLooped();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (backToMenu()) {
+            menuMusic.stop();
+        }
+
+    }
+
+        public void initializelevelTwo() {
+
+        // define/setup map
+        // this.map = new LabMap();
+        this.map = new LevelTwo();
+
+        // setup player
+        this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player.setFBPowerup(false);
+        /*
+         * if (map.getCp()) {
+         * System.out.println("TEST");
+         * this.player = new Greg(56, 6);
+         * }
+         * else {
+         * this.player = new Greg(map.getPlayerStartPosition().x,
+         * map.getPlayerStartPosition().y);
+         * }
+         */
+        this.player.setMap(map);
+        initializeTimer();
+        this.player.addListener(this);
+        Point playerStartPosition = map.getPlayerStartPosition();
+        this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+
+        levelClearedScreen = new LevelClearedScreen();
+        levelLoseScreen = new LevelLoseScreen(this);
+
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+        gameDirections = new SpriteFont(
+                "W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Sprint,      F : use powerup  ",
+                75, 50, "Comic Sans", 15,
+                Color.white);
+        gameDirections.setOutlineColor(Color.black);
+        gameDirections.setOutlineThickness(3);
+
+        powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+        powerupTimer.setOutlineColor(Color.black);
+        powerupTimer.setOutlineThickness(3);
+        powerUpTimer = new Timer();
+
+        try {
+            menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
+            menuMusic.playLooped();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (backToMenu()) {
+            menuMusic.stop();
+        }
+
+    }
+        public void initializelevelThree() {
+
+        // define/setup map
+        // this.map = new LabMap();
+        this.map = new LevelThree();
+
+        // setup player
+        this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player.setFBPowerup(false);
+        /*
+         * if (map.getCp()) {
+         * System.out.println("TEST");
+         * this.player = new Greg(56, 6);
+         * }
+         * else {
+         * this.player = new Greg(map.getPlayerStartPosition().x,
+         * map.getPlayerStartPosition().y);
+         * }
+         */
+        this.player.setMap(map);
+        initializeTimer();
+        this.player.addListener(this);
+        Point playerStartPosition = map.getPlayerStartPosition();
+        this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+
+        levelClearedScreen = new LevelClearedScreen();
+        levelLoseScreen = new LevelLoseScreen(this);
+
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+        gameDirections = new SpriteFont(
+                "W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Sprint,      F : use powerup  ",
+                75, 50, "Comic Sans", 15,
+                Color.white);
+        gameDirections.setOutlineColor(Color.black);
+        gameDirections.setOutlineThickness(3);
+
+        powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+        powerupTimer.setOutlineColor(Color.black);
+        powerupTimer.setOutlineThickness(3);
+        powerUpTimer = new Timer();
+
+        try {
+            menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
+            menuMusic.playLooped();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (backToMenu()) {
+            menuMusic.stop();
+        }
+
+    }
+
+    public void initializelevelFour() {
+
+        // define/setup map
+        // this.map = new LabMap();
+        this.map = new LevelFour();
+
+        // setup player
+        this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
+        player.setFBPowerup(false);
+        /*
+         * if (map.getCp()) {
+         * System.out.println("TEST");
+         * this.player = new Greg(56, 6);
+         * }
+         * else {
+         * this.player = new Greg(map.getPlayerStartPosition().x,
+         * map.getPlayerStartPosition().y);
+         * }
+         */
+        this.player.setMap(map);
+        initializeTimer();
+        this.player.addListener(this);
+        Point playerStartPosition = map.getPlayerStartPosition();
+        this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+
+        levelClearedScreen = new LevelClearedScreen();
+        levelLoseScreen = new LevelLoseScreen(this);
+
+        this.playLevelScreenState = PlayLevelScreenState.RUNNING;
+        gameDirections = new SpriteFont(
+                "W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Sprint,      F : use powerup  ",
+                75, 50, "Comic Sans", 15,
+                Color.white);
+        gameDirections.setOutlineColor(Color.black);
+        gameDirections.setOutlineThickness(3);
+
+        powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+        powerupTimer.setOutlineColor(Color.black);
+        powerupTimer.setOutlineThickness(3);
+        powerUpTimer = new Timer();
+
+        try {
+            menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
+            menuMusic.playLooped();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (backToMenu()) {
+            menuMusic.stop();
+        }
+
+    }
+
+    public void initializelevelFive() {
+
+        // define/setup map
+        // this.map = new LabMap();
+        this.map = new LevelFive();
 
         // setup player
         this.player = new Greg(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
@@ -213,6 +430,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             // if level is "running" update player and map to keep game logic for the
             // platformer level going
             case RUNNING:
+            
                 player.update();
                 map.update(player);
                 coinCount = Coin.getCoinCount();
@@ -296,6 +514,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             this.map = new LevelTwo();
             this.player.levelTwo();
+            currentMap = "map2";
             this.player = new Greg(4, 4);
 
             this.player.setMap(map);
@@ -312,6 +531,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             this.map = new LevelThree();
             this.player.levelThree();
+            currentMap = "map3";
             this.player = new Greg(4, 4);
 
             this.player.setMap(map);
@@ -336,20 +556,24 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     // and !Map.hasCP vvvvv
     @Override
     public void onDeath() {
-
+        
+        //this.map.loadEnemies();
         if (playLevelScreenState != PlayLevelScreenState.LEVEL_LOSE) {
+           
+            //map.loadPowerups();
             // playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             // FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
             if (timer != null) {
                 timer.cancel();
             }
-            if (map.getCp()) {
+            /*if (map.getCp()) {
+                */ 
                 // this.player = new Greg(56, 6);
 
                 // this.player.setMap(map);
                 // this.player.addListener(this);
 
-                System.out.print("line 207");
+                /*System.out.print("line 207");
                 Point point = map.getMapTile(4, 3).getLocation();
                 if (counter == 1) {
                     Point point2 = map.getMapTile(56, 6).getLocation();
@@ -362,24 +586,47 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 } else if (counter == 2) {
                     this.player.setLocation(point.x, point.y);
                 }
-
+                */
                 if (powerUpTimer != null) {
                     powerUpTimer.cancel();
                 }
 
-                powerUpTimeInSeconds = 0;
-                player.setFBPowerup(false);
-                powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
-
-            } else {
-                // resetLevel();
                 System.out.print("line 211");
                 this.player.setLocation(map.getPlayerStartPosition().x, map.getPlayerStartPosition().y);
                 powerUpTimeInSeconds = 0;
                 player.setFBPowerup(false);
                 powerupTimer.setText("POWERUP TIMER: " + String.valueOf(powerUpTimeInSeconds));
                 exit();
-            }
+                if (currentMap == "map1")
+                {
+                    initialize();
+                }
+                else if (currentMap == "map2")
+                {
+                    initializelevelTwo();
+                }
+                else if (currentMap == "map3")
+                {
+                    initialize();
+                }
+                else if (currentMap == "map4")
+                {
+                    initialize();
+                }
+                else if (currentMap == "map5")
+                {
+                    initialize();
+                }
+                else if (currentMap == "map6")
+                {
+                    initialize();
+                }
+            //} else {
+                // resetLevel();
+                //ArrayList<Powerups> powerups = this.map.loadPowerups();
+                //map.addPowerups(powerups);
+
+            //}
 
             this.player.setLevelState(LevelState.RUNNING);
             // playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
@@ -390,20 +637,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
              * timer.cancel();
              * }
              */
-            if (powerUpTimer != null) {
-                powerUpTimer.cancel();
-            }
+            
 
-            initializeTimer();
+            //initializeTimer();
 
-        }
-        
-        if (powerUpTimer != null) {
-            powerUpTimer.cancel();
-        }
     }
 
+    }
     public void resetLevel() {
+        map.loadPowerups();
         initialize();
 
     }
