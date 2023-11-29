@@ -29,7 +29,7 @@ import java.util.ArrayList;
 public class LabMap extends Map {
     public LabMap() {
         super("LabMap.txt", new LabTileset());
-        this.playerStartPosition = getMapTile(1, 8).getLocation();
+        this.playerStartPosition = getMapTile(2, 8).getLocation();
     }
 
     @Override
