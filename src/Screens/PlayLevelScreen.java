@@ -607,15 +607,15 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 }
                 else if (currentMap == "map3")
                 {
-                    initialize();
+                    initializelevelThree();
                 }
                 else if (currentMap == "map4")
                 {
-                    initialize();
+                    initializelevelFour();
                 }
                 else if (currentMap == "map5")
                 {
-                    initialize();
+                    initializelevelFive();
                 }
                 else if (currentMap == "map6")
                 {
