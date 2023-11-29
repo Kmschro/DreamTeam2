@@ -548,6 +548,12 @@ public abstract class Player extends GameObject {
     public void collectKey(EnhancedMapTiles.Key key) {
         hasKey = true;
     }
+
+    public void LevelFour() {
+    }
+
+    public void LevelFive() {
+    }
     
     // public void setCP(boolean hasCP) {
     //     this.hasCP = hasCP;
