@@ -31,6 +31,8 @@ public class LevelThree extends Map {
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> powers = new ArrayList<>();
 
+        FireballPU fbPU = new FireballPU(getMapTile(76, 8).getLocation());
+        powers.add(fbPU);
 
         return powers;
     }

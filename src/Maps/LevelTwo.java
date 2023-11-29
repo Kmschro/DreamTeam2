@@ -39,6 +39,9 @@ public class LevelTwo extends Map {
 
         ArrayList<Powerups> powerups = new ArrayList<>();
     
+        FireballPU fbPU = new FireballPU(getMapTile(31, 5).getLocation());
+        powerups.add(fbPU);
+
         //Checkpoint checkpoint2 = new Checkpoint(getMapTile(7, 3).getLocation());
         //powerups.add(checkpoint2);
         return powerups;
@@ -54,7 +57,6 @@ public class LevelTwo extends Map {
 
         Key key = new Key(getMapTile(86, 6).getLocation());
         enhancedMapTiles.add(key);
-
 
 
 
