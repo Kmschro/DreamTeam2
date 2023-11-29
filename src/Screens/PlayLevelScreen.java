@@ -139,6 +139,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         powerUpTimer = new Timer();
         
         try {
+            
             menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
             menuMusic.playLooped();
             
@@ -411,6 +412,23 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 exit();
             }
 
+            
+                try {
+                    
+                    menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
+                    menuMusic.playLooped();
+                    
+                    FloatControl volumeControl = (FloatControl) menuMusic.getAudioClip().getControl(FloatControl.Type.MASTER_GAIN);
+                    float maxVolume = volumeControl.getMaximum();
+                    float minVolume = volumeControl.getMinimum();
+                    float range = maxVolume - minVolume;
+                    float volume = minVolume + (range * 0.75f); // 50% volume
+                    volumeControl.setValue(volume);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            
+
             this.player.setLevelState(LevelState.RUNNING);
             // playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
             // reset the timer to the original time value
@@ -450,4 +468,4 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     public boolean backToMenu() {
         return isBackToMenu;
     }
-}
+} 
