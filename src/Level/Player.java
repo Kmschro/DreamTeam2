@@ -32,6 +32,8 @@ public abstract class Player extends GameObject {
     protected float normalWalkSpeed;
     protected float fireballSpeed;
 
+
+
     // values used to handle player movement
     protected float jumpForce = 0;
     protected float momentumY = 0;
@@ -58,7 +60,8 @@ public abstract class Player extends GameObject {
     protected Key MOVE_LEFT_KEY = Key.A;
     protected Key MOVE_RIGHT_KEY = Key.D;
 
-    protected Key SPEED_UP_KEY = Key.SHIFT;
+    //protected Key SPEED_UP_KEY = Key.SHIFT; (replaced sprinting with boost)
+    protected Key BOOST = Key.SHIFT;
     protected Key SHOOT_KEY = Key.F;
     protected Key SUICIDE = Key.L;
     protected Key INVINCIBLE_KEY = Key.I;
@@ -76,6 +79,9 @@ public abstract class Player extends GameObject {
     protected boolean fireballOnCooldown = false; // Whether fireball is on cooldown
     protected boolean waveOnCooldown = false; // Whether wave is on cooldown
     protected static int cooldownCounter; // Time for the fireball/wave to be on cooldown
+
+    protected boolean hasBoost;
+    protected float boostAmt;
 
     //for checkpoint
     protected boolean hasCP = false;
@@ -230,26 +236,71 @@ public abstract class Player extends GameObject {
 
     // player WALKING state logic
     protected void playerWalking() {
-        // if walk left key is pressed, move player to the left
-        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
-            moveAmountX -= walkSpeed;
-            facingDirection = Direction.LEFT;
-        }
+        // if walk left key is pressed and player sprinting
 
-        // if walk right key is pressed, move player to the right
-        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            moveAmountX += walkSpeed;
-            facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
-            playerState = PlayerState.STANDING;
+        if (Keyboard.isKeyDown(MOVE_LEFT_KEY)) {
+            if (hasBoost && Keyboard.isKeyDown(BOOST)) {
+                walkSpeed = normalWalkSpeed * 2.5f;
+                moveAmountX -= walkSpeed;
+                facingDirection = Direction.LEFT;
+            }
+            else if (hasBoost && !Keyboard.isKeyDown(BOOST)) {
+                moveAmountX -= walkSpeed;
+                facingDirection = Direction.LEFT;
+            }
+            else {
+                moveAmountX -= walkSpeed;
+                facingDirection = Direction.LEFT;
+            }
         }
+        else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
+            if (hasBoost && Keyboard.isKeyDown(BOOST)) {
+                walkSpeed = normalWalkSpeed * 2.5f;
+                moveAmountX += walkSpeed;
+                facingDirection = Direction.RIGHT;
+            }
+            else if (hasBoost && !Keyboard.isKeyDown(BOOST)) {
+                moveAmountX += walkSpeed;
+                facingDirection = Direction.RIGHT;
+            }
+            else {
+                moveAmountX += walkSpeed;
+                facingDirection = Direction.RIGHT;
+            }
+        }
+        //////////////////////////////////
+        // if(Keyboard.isKeyDown(MOVE_LEFT_KEY) && hasBoost && Keyboard.isKeyDown(BOOST)) {
+        //     walkSpeed = normalWalkSpeed * 2.5f;
+        //     moveAmountX -= walkSpeed;
+        //     facingDirection = Direction.LEFT;
+        // }
+        // //left not sprinting
+        // else if (Keyboard.isKeyDown(MOVE_LEFT_KEY) && (!hasBoost || !Keyboard.isKeyDown(BOOST))) {
+        //     moveAmountX -= walkSpeed;
+        //     facingDirection = Direction.LEFT;
+        // }
+
+        // // if walk right key is pressed and player sprinting
+        // else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && hasBoost && Keyboard.isKeyDown(BOOST)) {
+        //     walkSpeed = normalWalkSpeed * 2.5f;
+        //     moveAmountX += walkSpeed;
+        //     facingDirection = Direction.RIGHT;
+        // } 
+        // else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY) && (!hasBoost || !Keyboard.isKeyDown(BOOST))) {
+        //     moveAmountX += walkSpeed;
+        //     facingDirection = Direction.RIGHT;
+        // }
+        // else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+        //     playerState = PlayerState.STANDING;
+        // }
 
         // if the SPEED_UP_KEY is pressed, set walkSpeed to 2x value
-        if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
-            walkSpeed = normalWalkSpeed * 2.5f;
-        } else {
-            walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
-        }
+        //REPLACED WITH BOOST
+        // if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
+        //     walkSpeed = normalWalkSpeed * 2.5f;
+        // } else {
+        //     walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
+        // }
 
         if (Keyboard.isKeyDown(INVINCIBLE_KEY)) {
             isInvincible = true;
@@ -472,6 +523,21 @@ public abstract class Player extends GameObject {
     public boolean getFBPowerup() {
         return haveFBPowerup;
     }
+
+    public boolean getBoost() {
+        return hasBoost;
+    }
+
+    public void setBoost(boolean has) {
+        hasBoost = has;
+    }
+
+    public void boost() {
+        if (hasBoost && Keyboard.isKeyDown(BOOST)) {
+            walkSpeed = normalWalkSpeed * 2.5f;
+        }
+    }
+
     public LevelState getLevelState() {
         return levelState;
     }

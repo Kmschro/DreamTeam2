@@ -13,6 +13,7 @@ import EnhancedMapTiles.Portal;
 import EnhancedMapTiles.Door;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Boost;
 import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
@@ -57,6 +58,9 @@ public class LabMap extends Map {
 
         FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
         coins.add(fbPU);
+
+        Boost boost = new Boost((getMapTile(11, 7).getLocation()));
+        coins.add(boost);
 
         // Checkpoint checkpoint = this.setCP(new Point(56, 6));
         ArrayList<Powerups> checkpoints = new ArrayList<>();
