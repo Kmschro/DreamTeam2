@@ -26,7 +26,7 @@ import java.util.ArrayList;
 public class LevelFour extends Map {
     public LevelFour() {
         super("LevelFour.txt", new LabTileset());
-        this.playerStartPosition = getMapTile(1, 3).getLocation();
+        this.playerStartPosition = getMapTile(2, 3).getLocation();
     }
 
     @Override
