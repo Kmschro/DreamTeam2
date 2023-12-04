@@ -357,6 +357,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
             // player.update(); //causes error for some reason
             // map.update(player);
+            counter = counter +1;
         } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 6) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             this.map = new FinalLevel();
