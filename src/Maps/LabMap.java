@@ -13,6 +13,7 @@ import EnhancedMapTiles.Portal;
 import EnhancedMapTiles.Door;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Boost;
 import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
@@ -61,6 +62,9 @@ public class LabMap extends Map {
         ArrayList<Powerups> checkpoints = new ArrayList<>();
         Checkpoint checkpoint = new Checkpoint(getMapTile(56, 6).getLocation());
         checkpoints.add(checkpoint);
+
+        Boost boost = new Boost((getMapTile(11, 7).getLocation()));
+        coins.add(boost);
 
         return coins;
         

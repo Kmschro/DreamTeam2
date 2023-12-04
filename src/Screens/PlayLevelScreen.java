@@ -107,7 +107,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
         levelLoseScreen = new LevelLoseScreen(this);
 
         this.playLevelScreenState = PlayLevelScreenState.RUNNING;
-        gameDirections = new SpriteFont("W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Sprint,      F : use powerup  ", 75, 50, "Comic Sans", 15,
+        gameDirections = new SpriteFont("W : flips gravity,      D : move right,       A : move left,      SHIFT Key : Boost PWRUP,      F : Fireball PWRUP  ", 20, 50, "Comic Sans", 15,
                 Color.white);
         gameDirections.setOutlineColor(Color.black);
         gameDirections.setOutlineThickness(3);
@@ -348,6 +348,19 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             playLevelScreenState = PlayLevelScreenState.RUNNING;
             this.map = new LevelFive();
             this.player.LevelFive();
+            this.player = new Greg(4, 4);
+
+            this.player.setMap(map);
+            this.player.addListener(this);
+
+            Point playerStartPosition = map.getPlayerStartPosition();
+            this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
+            // player.update(); //causes error for some reason
+            // map.update(player);
+        } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 6) {
+            playLevelScreenState = PlayLevelScreenState.RUNNING;
+            this.map = new FinalLevel();
+            this.player.FinalLevel();
             this.player = new Greg(4, 4);
 
             this.player.setMap(map);

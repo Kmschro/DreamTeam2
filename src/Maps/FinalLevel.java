@@ -7,6 +7,7 @@ import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Boost;
 import Powerups.FireballPU;
 import Tilesets.CommonTileset;
 import Utils.Direction;
@@ -64,6 +65,9 @@ public class FinalLevel extends Map {
 
         FireballPU fireballPU = new FireballPU(getMapTile(30, 10).getLocation().subtractY(13));
         npcs.add(fireballPU);
+
+        //Boost boost = new Boost((getMapTile(7, 4).getLocation()));
+        //powerups.add(boost);
 
         return npcs;
     }

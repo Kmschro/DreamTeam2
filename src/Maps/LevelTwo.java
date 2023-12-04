@@ -9,8 +9,10 @@ import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
+import EnhancedMapTiles.Portal;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Boost;
 import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
@@ -44,6 +46,9 @@ public class LevelTwo extends Map {
 
         //Checkpoint checkpoint2 = new Checkpoint(getMapTile(7, 3).getLocation());
         //powerups.add(checkpoint2);
+
+        Boost boost = new Boost((getMapTile(7, 4).getLocation()));
+        powerups.add(boost);
         return powerups;
     }
 
@@ -54,6 +59,9 @@ public class LevelTwo extends Map {
 
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 6).getLocation());
         enhancedMapTiles.add(endLevelBox);
+
+        Portal portal = new Portal(getMapTile(149, 7).getLocation());
+        enhancedMapTiles.add(portal);
 
         Key key = new Key(getMapTile(86, 6).getLocation());
         enhancedMapTiles.add(key);

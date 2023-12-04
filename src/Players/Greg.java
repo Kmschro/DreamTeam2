@@ -37,7 +37,7 @@ public class Greg extends Player {
                 terminalVelocityY = 20f;
                 jumpHeight = 14.5f;
                 jumpDegrade = .5f;
-                walkSpeed = 2.3f;
+                walkSpeed = 5f;
                 momentumYIncrease = 5f;
                 momentumXIncrease = 5f;
         }

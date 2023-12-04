@@ -7,8 +7,10 @@ import EnhancedMapTiles.Door;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
+import EnhancedMapTiles.Portal;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Boost;
 import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 public class LevelThree extends Map {
     public LevelThree() {
         super("LevelThree.txt", new LabTileset());
-        this.playerStartPosition = getMapTile(4, 3).getLocation();
+        this.playerStartPosition = getMapTile(4, 4).getLocation();
     }
 
     @Override
@@ -33,6 +35,9 @@ public class LevelThree extends Map {
 
         FireballPU fbPU = new FireballPU(getMapTile(76, 8).getLocation());
         powers.add(fbPU);
+
+        //Boost boost = new Boost((getMapTile(7, 4).getLocation()));
+        //powerups.add(boost);
 
         return powers;
     }
@@ -43,6 +48,9 @@ public class LevelThree extends Map {
         
         EndLevelBox endLevelBox = new EndLevelBox(getMapTile(146, 4).getLocation());
         enhancedMapTiles.add(endLevelBox);
+
+        Portal portal = new Portal(getMapTile(149, 5).getLocation());
+        enhancedMapTiles.add(portal);
 
         Key key = new Key(getMapTile(81, 4).getLocation());
         enhancedMapTiles.add(key);

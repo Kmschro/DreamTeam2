@@ -10,8 +10,10 @@ import EnhancedMapTiles.Door;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
 import EnhancedMapTiles.Key;
+import EnhancedMapTiles.Portal;
 import GameObject.Rectangle;
 import Level.*;
+import Powerups.Boost;
 import Powerups.Checkpoint;
 import Tilesets.CommonTileset;
 import Tilesets.LabTileset;
@@ -27,12 +29,15 @@ import java.util.ArrayList;
 public class LevelFive extends Map {
     public LevelFive() {
         super("LevelFive.txt", new LabTileset());
-        this.playerStartPosition = getMapTile(1, 3).getLocation();
+        this.playerStartPosition = getMapTile(2, 4).getLocation();
     }
 
     @Override
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> powers = new ArrayList<>();
+
+        //Boost boost = new Boost((getMapTile(7, 4).getLocation()));
+        //powerups.add(boost);
 
         return powers;
     }
@@ -40,6 +45,15 @@ public class LevelFive extends Map {
     @Override
     public ArrayList<EnhancedMapTile> loadEnhancedMapTiles() {
         ArrayList<EnhancedMapTile> enhancedMapTiles = new ArrayList<>();
+
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(145, 7).getLocation());
+        enhancedMapTiles.add(endLevelBox);
+
+        Portal portal = new Portal(getMapTile(149, 5).getLocation());
+        enhancedMapTiles.add(portal);
+
+        Key key = new Key(getMapTile(73, 8).getLocation());
+        enhancedMapTiles.add(key);
 
         return enhancedMapTiles;
     }
