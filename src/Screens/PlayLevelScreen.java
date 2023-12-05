@@ -371,6 +371,14 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             this.player.setLocation(playerStartPosition.x, playerStartPosition.y);
             // player.update(); //causes error for some reason
             // map.update(player);
+            counter = counter + 1;
+        } else if(counter == 7) {
+
+			initializeScreenCoordinator();
+			screenCoordinator.setGameState(GameState.CREDITS);
+			PlayLevelScreen.exit();
+            System.out.println(counter);
+
         } else if (playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter < 2) {
             playLevelScreenState = PlayLevelScreenState.LEVEL_COMPLETED;
             levelCompletedStateChangeStart = true;
@@ -481,5 +489,10 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
     
     public boolean backToMenu() {
         return isBackToMenu;
+    }
+
+    private void initializeScreenCoordinator() {
+        screenCoordinator = new ScreenCoordinator();
+        screenCoordinator.initialize();
     }
 } 

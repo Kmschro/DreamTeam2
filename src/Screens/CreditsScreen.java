@@ -28,7 +28,7 @@ public class CreditsScreen extends Screen {
         background = new TitleScreenMap();
         background.setAdjustCamera(false);
         creditsLabel = new SpriteFont("Credits", 15, 7, "Times New Roman", 30, Color.black);
-        createdByLabel = new SpriteFont("Created by DreamTeam 2.0", 130, 121, "Times New Roman", 20, Color.black);
+        createdByLabel = new SpriteFont("Created by DreamTeam 2.0", 330, 121, "Times New Roman", 20, Color.black);
         returnInstructionsLabel = new SpriteFont("Press Enter to return to the menu", 20, 532, "Times New Roman", 30, Color.black);
         keyLocker.lockKey(Key.ENTER);
     }

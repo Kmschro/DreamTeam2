@@ -180,7 +180,6 @@ public class GamePanel extends JPanel {
 				PlayLevelScreen.exit();
 			 }
 		 }
-		
 	}
 
 	private void updatePauseState() {

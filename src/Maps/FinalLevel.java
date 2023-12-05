@@ -5,6 +5,7 @@ import Enemies.DinosaurEnemy;
 import Engine.ImageLoader;
 import EnhancedMapTiles.EndLevelBox;
 import EnhancedMapTiles.HorizontalMovingPlatform;
+import EnhancedMapTiles.Key;
 import GameObject.Rectangle;
 import Level.*;
 import Powerups.Boost;
@@ -53,8 +54,11 @@ public class FinalLevel extends Map {
                 Direction.RIGHT);
         enhancedMapTiles.add(hmp);
 
-        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(146, 4).getLocation());
+        EndLevelBox endLevelBox = new EndLevelBox(getMapTile(149, 1).getLocation());
         enhancedMapTiles.add(endLevelBox);
+
+        Key key = new Key(getMapTile(21, 2).getLocation());
+        enhancedMapTiles.add(key);
 
         return enhancedMapTiles;
     }
