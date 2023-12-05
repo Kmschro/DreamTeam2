@@ -759,7 +759,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 }
             
 
-            
+            /* 
                 try {
                     
                     menuMusic.load("Resources/Music/WAV/Fresh Start FULL.wav");
@@ -774,7 +774,7 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            
+            */
 
             this.player.setLevelState(LevelState.RUNNING);
             // playLevelScreenState = PlayLevelScreenState.LEVEL_LOSE;
