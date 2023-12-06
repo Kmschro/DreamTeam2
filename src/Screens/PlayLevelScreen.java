@@ -746,6 +746,38 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             System.out.print(counter);
         } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 3) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
+            if (powerUpTimer != null) {
+                powerUpTimer.cancel();
+            }
+            if (timer != null) {
+                timer.cancel();
+            }
+            levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25,
+                    Color.white);
+            levelTimer.setOutlineColor(Color.black);
+            levelTimer.setOutlineThickness(3);
+            timeInSeconds = 76;
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    timeInSeconds--;
+                    if (timeInSeconds > 0) {
+                        levelTimer.setText("LEVEL TIMER: " + String.valueOf(timeInSeconds));
+                    } else {
+                        // levelState = LevelState.PLAYER_DEAD;
+                        timer.cancel();
+
+                        // Perform necessary actions when the timer ends
+                    }
+                }
+            }, 0, 1000); // Update the timer every 1000 milliseconds (1 second)
+
+            powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+            powerupTimer.setOutlineColor(Color.black);
+            powerupTimer.setOutlineThickness(3);
+            powerUpTimer = new Timer();
+            
             this.map = new LevelThree();
             this.player.levelThree();
             this.player = new Greg(4, 4);
@@ -761,6 +793,38 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             counter = counter + 1;
         } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 4) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
+            if (powerUpTimer != null) {
+                powerUpTimer.cancel();
+            }
+            if (timer != null) {
+                timer.cancel();
+            }
+            levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25,
+                    Color.white);
+            levelTimer.setOutlineColor(Color.black);
+            levelTimer.setOutlineThickness(3);
+            timeInSeconds = 76;
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    timeInSeconds--;
+                    if (timeInSeconds > 0) {
+                        levelTimer.setText("LEVEL TIMER: " + String.valueOf(timeInSeconds));
+                    } else {
+                        // levelState = LevelState.PLAYER_DEAD;
+                        timer.cancel();
+
+                        // Perform necessary actions when the timer ends
+                    }
+                }
+            }, 0, 1000); // Update the timer every 1000 milliseconds (1 second)
+
+            powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+            powerupTimer.setOutlineColor(Color.black);
+            powerupTimer.setOutlineThickness(3);
+            powerUpTimer = new Timer();
+
             this.map = new LevelFour();
             this.player.LevelFour();
             this.player = new Greg(4, 4);
@@ -776,6 +840,38 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             counter = counter + 1; 
         } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 5) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
+            if (powerUpTimer != null) {
+                powerUpTimer.cancel();
+            }
+            if (timer != null) {
+                timer.cancel();
+            }
+            levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25,
+                    Color.white);
+            levelTimer.setOutlineColor(Color.black);
+            levelTimer.setOutlineThickness(3);
+            timeInSeconds = 76;
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    timeInSeconds--;
+                    if (timeInSeconds > 0) {
+                        levelTimer.setText("LEVEL TIMER: " + String.valueOf(timeInSeconds));
+                    } else {
+                        // levelState = LevelState.PLAYER_DEAD;
+                        timer.cancel();
+
+                        // Perform necessary actions when the timer ends
+                    }
+                }
+            }, 0, 1000); // Update the timer every 1000 milliseconds (1 second)
+
+            powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+            powerupTimer.setOutlineColor(Color.black);
+            powerupTimer.setOutlineThickness(3);
+            powerUpTimer = new Timer();
+
             this.map = new LevelFive();
             this.player.LevelFive();
             this.player = new Greg(4, 4);
@@ -790,6 +886,39 @@ public class PlayLevelScreen extends Screen implements PlayerListener, CoinListe
             counter = counter +1;
         } else if(playLevelScreenState != PlayLevelScreenState.LEVEL_COMPLETED && counter == 6) {
             playLevelScreenState = PlayLevelScreenState.RUNNING;
+            currentMap = "map2";
+            if (powerUpTimer != null) {
+                powerUpTimer.cancel();
+            }
+            if (timer != null) {
+                timer.cancel();
+            }
+            levelTimer = new SpriteFont("LEVEL TIMER: " + String.valueOf(timeInSeconds), 200, 0, "Comic Sans", 25,
+                    Color.white);
+            levelTimer.setOutlineColor(Color.black);
+            levelTimer.setOutlineThickness(3);
+            timeInSeconds = 76;
+            timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    timeInSeconds--;
+                    if (timeInSeconds > 0) {
+                        levelTimer.setText("LEVEL TIMER: " + String.valueOf(timeInSeconds));
+                    } else {
+                        // levelState = LevelState.PLAYER_DEAD;
+                        timer.cancel();
+
+                        // Perform necessary actions when the timer ends
+                    }
+                }
+            }, 0, 1000); // Update the timer every 1000 milliseconds (1 second)
+
+            powerupTimer = new SpriteFont("POWERUP TIMER: 0", 500, 0, "Comic Sans", 25, Color.white);
+            powerupTimer.setOutlineColor(Color.black);
+            powerupTimer.setOutlineThickness(3);
+            powerUpTimer = new Timer();
+
             this.map = new FinalLevel();
             this.player.FinalLevel();
             this.player = new Greg(4, 4);
