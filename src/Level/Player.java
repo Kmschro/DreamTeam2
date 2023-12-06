@@ -256,10 +256,11 @@ public abstract class Player extends GameObject {
 
         // if walk right key is pressed, move player to the right
         else if (Keyboard.isKeyDown(MOVE_RIGHT_KEY)) {
-            /* moveAmountX += walkSpeed;
+             moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
-        } else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
-            playerState = PlayerState.STANDING; */
+        }
+        else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+            playerState = PlayerState.STANDING; 
             if (hasBoost && Keyboard.isKeyDown(BOOST)) {
                 walkSpeed = normalWalkSpeed * 3f;
                 moveAmountX += walkSpeed;
@@ -269,16 +270,14 @@ public abstract class Player extends GameObject {
                 moveAmountX += walkSpeed;
                 facingDirection = Direction.RIGHT;
             }
+            else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
+                playerState = PlayerState.STANDING; 
+                
+            }
             else {
                 moveAmountX += walkSpeed;
                 facingDirection = Direction.RIGHT;
             }
-        }
-
-        if (Keyboard.isKeyDown(SPEED_UP_KEY)) {
-            walkSpeed = normalWalkSpeed * 2.5f;
-        } else {
-            walkSpeed = normalWalkSpeed; // reset the walkSpeed to normal when SPEED_UP_KEY is not pressed
         }
 
         
