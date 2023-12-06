@@ -33,6 +33,7 @@ public class LabMap extends Map {
         this.playerStartPosition = getMapTile(2, 8).getLocation();
     }
 
+
     @Override
     public ArrayList<Powerups> loadPowerups() {
         ArrayList<Powerups> coins = new ArrayList<>();
@@ -57,6 +58,9 @@ public class LabMap extends Map {
 
         FireballPU fbPU = new FireballPU(getMapTile(7, 4).getLocation());
         coins.add(fbPU);
+
+        Boost boost = new Boost((getMapTile(11, 7).getLocation()));
+        coins.add(boost);
 
         // Checkpoint checkpoint = this.setCP(new Point(56, 6));
         ArrayList<Powerups> checkpoints = new ArrayList<>();

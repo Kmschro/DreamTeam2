@@ -22,7 +22,7 @@ import java.util.HashMap;
 public class Spider extends Enemy {
 
     private float gravity = .5f;
-    private float movementSpeed = .5f;
+    private float movementSpeed = 1f;
     private Direction startFacingDirection;
     private Direction facingDirection;
     private AirGroundState airGroundState;
