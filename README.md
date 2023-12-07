@@ -1,9 +1,9 @@
 # SER225 Platformer Game
 
 ## What is this?
-This is a game created for Quinnipiac's SER225 Agile Development class.
-Students will be paired up in teams for an entire semester, and will utilize agile development to work further on this game.
-This usually involves adding features and fixing bugs (I'm sure there are bugs...)
+This is a platformer game with the goal of traversing through each platforming to finish the game. There are various kinds of enemies and obstacles that you will need to avoid. There are six levels that you need to complete to finish the game. There are also coins on each level for you to collect.  
+
+ 
 
 ## How to run this project?
 I did not use any external libraries for this, so you can clone this repo as is and run it out of the box with Java (min version 8).
@@ -19,4 +19,8 @@ It can be accessed at [https://a-r-t.github.io/SER-225-Game-Platformer/](https:/
 Changes to content in the `docs` folder will not show up on the website unless they are pushed to the `master` branch.
 
 ## Credits
-**Alex Thimineur**: Programmed the game, made the art.
+**Klaus Schroeder**: Made the powerups for the game, made multiple new enemies, created the map timers, etc.
+**Thomas Morrissey**: Made the gravity flip mechanic, made all map obstacles, implemented more level design, created character sprites and many other sprites as well, etc. 
+**Henry Cort**: Implemented the soundtrack, implemented the sound effects, made the sprint mechanic etc.
+**Ethan Lanier**: Made multiple levels, Implemented Level Design, added the respawning system, ect.
+**Alex Thimineur**: Made the base game

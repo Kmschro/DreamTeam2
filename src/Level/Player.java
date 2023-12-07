@@ -254,7 +254,8 @@ public abstract class Player extends GameObject {
             }
         }
         else if (Keyboard.isKeyUp(MOVE_LEFT_KEY) && Keyboard.isKeyUp(MOVE_RIGHT_KEY)) {
-            playerState = PlayerState.STANDING;  moveAmountX += walkSpeed;
+            playerState = PlayerState.STANDING;  
+            moveAmountX += walkSpeed;
             facingDirection = Direction.RIGHT;
         }
         // if walk right key is pressed, move player to the right
